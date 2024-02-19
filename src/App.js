@@ -9,9 +9,17 @@ import EmailInput from "./components/EmailInput"
 export default function App() {
     return (
         <main>
-           <h1 className="title">E-shop</h1>
-           <Cart />
-           <ArticleList />
+            <div className="container mt-5">
+                <h1 className="title">E-shop</h1>
+                <div className="row align-items-center">
+                    <div className="col mt-4">
+                        <Cart />
+                    </div>
+                </div>
+            </div>
+            <div className="container mt-4">
+                <ArticleList />
+            </div>
         </main>
     )
 }

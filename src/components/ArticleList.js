@@ -5,16 +5,19 @@ import data from "../data";
 export default function ArticleList() {
     const cards = data.map(item => {
         return (
-            <Article
-                key={item.id}
-                item={item}
-            />
+            <div key={item.id} className="col-md-3">
+                <div className="mb-4">
+                    <Article item={item} />
+                </div>
+            </div>
         )
     })
 
     return (
-        <div className="article-list">
-            {cards}
+        <div className="container text-center">
+            <div className="row">
+                {cards}
+            </div>
         </div>
     )
 }
