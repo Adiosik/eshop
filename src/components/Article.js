@@ -13,6 +13,7 @@ export default function Article(props) {
             />
             <div className="card-body">
                 <h5 className="card-title">{props.item.title}</h5>
+                <p className="card-text">Price: €{props.item.price}</p>
                 <button onClick={handleAddToCart} className="btn btn-primary">Add to cart</button>
             </div>
         </div>
