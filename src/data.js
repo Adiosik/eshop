@@ -17,7 +17,7 @@ export default [
     {
         id: 4,
         title: "Stropní bambusová lampa",
-        coverImg: "stropní-bambusova-lampa.jpg",
+        coverImg: "stropni-bambusova-lampa.jpg",
     },
     {
         id: 5,
