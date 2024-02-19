@@ -10,7 +10,7 @@ export default function App() {
         <main>
            <h1 className="title">E-shop</h1>
            <Cart />
-           <Article />
+           <ArticleList />
         </main>
     )
 }
