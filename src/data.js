@@ -1,7 +1,7 @@
 export default [
     {
         id: 1,
-        title: "Wall lmap",
+        title: "Stěnová lampa",
         coverImg: "stenova-lampa.jpg",
     },
     {
