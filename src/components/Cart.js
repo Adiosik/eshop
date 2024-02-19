@@ -1,10 +1,12 @@
 import React from "react";
 
 export default function Cart({ cartItems }) {
+    // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
         return cartItems.reduce((total, item) => total + item.price, 0);
     };
     
+    // Pokud je košík prázdný, zobrazí se zpráva o prázdném košíku
     if (cartItems.length === 0) {
         return (
             <div>
@@ -14,6 +16,7 @@ export default function Cart({ cartItems }) {
         );
     }
 
+    // Pokud košík není prázdný, zobrazí se seznam položek a celková cena
     return (
         <div>
             <h2>Cart</h2>
@@ -26,5 +29,5 @@ export default function Cart({ cartItems }) {
             </ul>
             <p>Total: ${getTotalPrice()}</p>
         </div>
-    )
+    );
 }
