@@ -28,7 +28,7 @@ export default function Cart({ cartItems }) {
                 ))}
             </ul>
             <p>Total: ${getTotalPrice()}</p>
-            <button className="btn btn-primary">Checkout</button>
+            <button className="btn btn-primary btn-lg">Checkout</button>
         </div>
     );
 }
