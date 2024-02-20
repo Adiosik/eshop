@@ -10,21 +10,23 @@ export default function Article(props) {
     };
 
     return (
-        <div className="card mb-4">
-            <img 
-                src={`../images/${props.item.coverImg}`} 
-                className="card-img-top"  
-            />
-            <div className="card-body"> {/* Přidává třídu card-body */}
-                <h5 className="card-title">{props.item.title}</h5>
-                <p className="card-text">Price: €{props.item.price}</p>
-                <button 
-                    onClick={handleAddToCart} 
-                    className={`btn btn-primary ${isInCart ? "disabled" : ""}`} // Pokud je isInCart true, přidá se "disabled" pro zablokování tlačítka
-                    disabled={isInCart} // Pokud je isInCart true, tlačítko bude zakázané
-                >
-                    {isInCart ? "Added to cart" : "Add to cart"} {/* Pokud je artikl přidán, zobrazí se "Added to cart", jinak "Add to cart" */}
-                </button>
+        <div className="col mb-4">
+            <div className="card">
+                <img 
+                    src={`../images/${props.item.coverImg}`} 
+                    className="card-img-top"  
+                />
+                <div className="card-body">
+                    <h5 className="card-title">{props.item.title}</h5>
+                    <p className="card-text">Price: €{props.item.price}</p>
+                    <button 
+                        onClick={handleAddToCart} 
+                        className={`btn btn-primary ${isInCart ? "disabled" : ""}`} // Pokud je isInCart true, přidá se "disabled" pro zablokování tlačítka
+                        disabled={isInCart} // Pokud je isInCart true, tlačítko bude zakázané
+                    >
+                        {isInCart ? "Added to cart" : "Add to cart"} {/* Pokud je artikl přidán, zobrazí se "Added to cart", jinak "Add to cart" */}
+                    </button>
+                </div>
             </div>
         </div>
     );
