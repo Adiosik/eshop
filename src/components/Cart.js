@@ -6,7 +6,7 @@ export default function Cart({ cartItems }) {
     const getTotalPrice = () => {
         return cartItems.reduce((total, item) => total + item.price, 0);
     };
-    
+
     // Pokud je košík prázdný, zobrazí se zpráva o prázdném košíku
     if (cartItems.length === 0) {
         return (
@@ -21,14 +21,15 @@ export default function Cart({ cartItems }) {
     return (
         <div>
             <p className="h2">Cart</p>
-            <ul>
+            <ul className="list-group">
                 {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
                 {cartItems.map((item, index) => (
                     <CartItem key={index} item={item} />
                 ))}
+                <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
             </ul>
-            <p>Total: ${getTotalPrice()}</p>
             <button className="btn btn-primary btn-lg">Checkout</button>
         </div>
     );
+
 }
