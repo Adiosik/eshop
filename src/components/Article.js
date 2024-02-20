@@ -6,7 +6,7 @@ export default function Article(props) {
     };
 
     return (
-        <div className="card h-150" style={{ width: "12rem", height: "100%"}}>
+        <div className="card mb-4">
             <img 
                 src={`../images/${props.item.coverImg}`} 
                 className="card-img-top"  
