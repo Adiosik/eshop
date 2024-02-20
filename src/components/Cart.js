@@ -1,4 +1,5 @@
 import React from "react";
+import CartItem from "./CartItem"; // Import nové komponenty CartItem
 
 export default function Cart({ cartItems }) {
     // Funkce pro výpočet celkové ceny v košíku
@@ -10,7 +11,7 @@ export default function Cart({ cartItems }) {
     if (cartItems.length === 0) {
         return (
             <div>
-                <h2 className="h2">Cart</h2>
+                <h2>Cart</h2>
                 <p>Add something to your cart, make it from your heart.</p>
             </div>
         );
@@ -19,12 +20,11 @@ export default function Cart({ cartItems }) {
     // Pokud košík není prázdný, zobrazí se seznam položek a celková cena
     return (
         <div>
-            <h2 className="h2">Cart</h2>
+            <h2>Cart</h2>
             <ul>
+                {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
                 {cartItems.map((item, index) => (
-                    <li 
-                        key={index}>{item.title} - €{item.price}
-                    </li>
+                    <CartItem key={index} item={item} />
                 ))}
             </ul>
             <p>Total: ${getTotalPrice()}</p>
