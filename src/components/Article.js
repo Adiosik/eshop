@@ -7,7 +7,7 @@ export default function Article(props) {
     const handleAddToCart = () => {
         props.onAddToCart(props.item);
         setIsInCart(true); // Nastaví isInCart na true po přidání artiklu do košíku
-    };
+    }
 
     return (
         <div className="card h-100">
@@ -27,5 +27,5 @@ export default function Article(props) {
                 </button>
             </div>
         </div>
-    );
+    )
 }

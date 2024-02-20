@@ -8,5 +8,5 @@ export default function CartItem({ item }) {
                 <button className="btn btn-outline-primary btn-sm">Remove</button>
             </li>
         </ul>
-    );
+    )
 }

@@ -11,7 +11,7 @@ export default function App() {
 
     const handleAddToCart = (item) => {
         setCartItems(cartItems.concat(item)); // Přidá konkrétní do košíku
-    };
+    }
 
     return (
         <main>
