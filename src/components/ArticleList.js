@@ -6,16 +6,14 @@ export default function ArticleList({onAddToCart}) {
     const cards = data.map(item => {
         return (
             <div key={item.id} className="col-md-3">
-                <div className="mb-4">
-                    <Article item={item} onAddToCart={onAddToCart} /> {/* Předá funkci pro přidání do košíku */}
-                </div>
+                <Article item={item} onAddToCart={onAddToCart} /> {/* Předá funkci pro přidání do košíku */}
             </div>
         )
     })
 
     return (
         <div className="container text-center">
-            <div className="row">
+            <div className="row row-gap-4 align-content-stretch">
                 {cards}
             </div>
         </div>
