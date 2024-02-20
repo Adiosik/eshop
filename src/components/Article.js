@@ -15,7 +15,7 @@ export default function Article(props) {
                 src={`../images/${props.item.coverImg}`} 
                 className="card-img-top"  
             />
-            <div className="card-body">
+            <div className="card-body"> {/* Přidává třídu card-body */}
                 <h5 className="card-title">{props.item.title}</h5>
                 <p className="card-text">Price: €{props.item.price}</p>
                 <button 
