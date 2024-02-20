@@ -28,6 +28,7 @@ export default function Cart({ cartItems }) {
                 ))}
             </ul>
             <p>Total: ${getTotalPrice()}</p>
+            <button className="btn btn-primary">Checkout</button>
         </div>
     );
 }
