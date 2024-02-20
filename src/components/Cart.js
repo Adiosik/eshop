@@ -5,7 +5,7 @@ export default function Cart({ cartItems }) {
     // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
         return cartItems.reduce((total, item) => total + item.price, 0);
-    };
+    }
 
     // Pokud je košík prázdný, zobrazí se zpráva o prázdném košíku
     if (cartItems.length === 0) {
@@ -14,7 +14,7 @@ export default function Cart({ cartItems }) {
                 <p className="h2">Cart</p>
                 <p>Add something to your cart, make it from your heart.</p>
             </div>
-        );
+        )
     }
 
     // Pokud košík není prázdný, zobrazí se seznam položek a celková cena
@@ -30,6 +30,5 @@ export default function Cart({ cartItems }) {
             </ul>
             <button className="btn btn-primary btn-lg">Checkout</button>
         </div>
-    );
-
+    )
 }
