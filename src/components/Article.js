@@ -16,7 +16,7 @@ export default function Article(props) {
                 className="card-img-top"  
             />
             <div className="card-body">
-                <h5 className="card-title">{props.item.title}</h5>
+                <h3 className="card-title h3">{props.item.title}</h3>
                 <p className="card-text">Price: €{props.item.price}</p>
                 <button 
                     onClick={handleAddToCart} 
