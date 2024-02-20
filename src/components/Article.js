@@ -20,7 +20,7 @@ export default function Article(props) {
                 <p className="card-text">Price: €{props.item.price}</p>
                 <button 
                     onClick={handleAddToCart} 
-                    className={`btn btn-primary ${isInCart ? "disabled" : ""}`} // Pokud je isInCart true, přidá se "disabled" pro zablokování tlačítka
+                    className={`btn btn-outline-primary ${isInCart ? "disabled" : ""}`} // Pokud je isInCart true, přidá se "disabled" pro zablokování tlačítka
                     disabled={isInCart} // Pokud je isInCart true, tlačítko bude zakázané
                 >
                     {isInCart ? "Added to cart" : "Add to cart"} {/* Pokud je artikl přidán, zobrazí se "Added to cart", jinak "Add to cart" */}
