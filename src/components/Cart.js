@@ -4,7 +4,7 @@ import CartItem from "./CartItem";
 export default function Cart({ cartItems }) {
     // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
-        return cartItems.reduce((total, item) => total + item.price, 0);
+        return cartItems.reduce((total, item) => total + item.price, 0)
     }
 
     // Pokud je košík prázdný, zobrazí se zpráva o prázdném košíku
