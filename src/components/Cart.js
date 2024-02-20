@@ -1,5 +1,5 @@
 import React from "react";
-import CartItem from "./CartItem"; // Import nové komponenty CartItem
+import CartItem from "./CartItem";
 
 export default function Cart({ cartItems }) {
     // Funkce pro výpočet celkové ceny v košíku
