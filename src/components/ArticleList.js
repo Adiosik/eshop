@@ -1,7 +1,6 @@
 import React from "react";
 import Article from "./Article";
 import data from "../data";
-import Cart from "./Cart";
 
 export default function ArticleList({onAddToCart}) {
     const cards = data.map(item => {
