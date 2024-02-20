@@ -16,7 +16,7 @@ export default function App() {
     return (
         <main>
             <div className="container mt-5">
-                <h1 className="h1">E-shop</h1>
+                <p className="h1">E-shop</p>
                 <div className="row align-items-center">
                     <div className="col mt-4">
                         <Cart cartItems={cartItems} />

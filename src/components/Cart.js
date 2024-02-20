@@ -11,7 +11,7 @@ export default function Cart({ cartItems }) {
     if (cartItems.length === 0) {
         return (
             <div>
-                <h2>Cart</h2>
+                <p className="h2">Cart</p>
                 <p>Add something to your cart, make it from your heart.</p>
             </div>
         );
@@ -20,7 +20,7 @@ export default function Cart({ cartItems }) {
     // Pokud košík není prázdný, zobrazí se seznam položek a celková cena
     return (
         <div>
-            <h2>Cart</h2>
+            <p className="h2">Cart</p>
             <ul>
                 {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
                 {cartItems.map((item, index) => (
