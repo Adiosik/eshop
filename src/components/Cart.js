@@ -1,7 +1,7 @@
 import React from "react";
 import CartItem from "./CartItem";
 
-export default function Cart({ cartItems }) {
+export default function Cart({ cartItems, handleRemoveFromCart }) {
     // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
         return cartItems.reduce((total, item) => total + item.price, 0)
@@ -24,7 +24,11 @@ export default function Cart({ cartItems }) {
             <ul className="list-group">
                 {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
                 {cartItems.map((item, index) => (
-                    <CartItem key={index} item={item} />
+                    <CartItem 
+                        key={index} 
+                        item={item} 
+                        handleRemoveFromCart={handleRemoveFromCart}
+                    />
                 ))}
                 <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
             </ul>
