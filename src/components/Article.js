@@ -11,11 +11,11 @@ export default function Article(props) {
                 <p className="card-title h3">{props.item.title}</p>
                 <p className="card-text">Price: €{props.item.price}</p>
                 <button 
-                    onClick={() => props.handleAddToCart(props.item)}
-                    className={`btn btn-outline-primary ${props.isInCart ? "disabled" : ""}`} 
+                    onClick={() => props.handleAddToCart(props.item)} // Kliknutí na tlačítko pro přidání položky do košíku
+                    className={`btn btn-outline-primary ${props.isInCart ? "disabled" : ""}`} // Nastavuje tlačítka podle toho, zda je položka již v košíku
                     disabled={props.isInCart} 
                 >
-                    {props.isInCart ? "Added to cart" : "Add to cart"}
+                    {props.isInCart ? "Added to cart" : "Add to cart"} {/* Text tlačítka podle toho, zda je položka již v košíku */}
                 </button>
             </div>
         </div>

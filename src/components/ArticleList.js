@@ -8,7 +8,7 @@ export default function ArticleList({ data, cartItems, handleAddToCart }) {
                 <Article 
                     item={item} 
                     handleAddToCart={handleAddToCart}
-                    isInCart={cartItems.some(cartItem => cartItem.id === item.id)}
+                    isInCart={cartItems.some(cartItem => cartItem.id === item.id)} // Kontrola, zda je položka již v košíku
                 />
             </div>
         )
@@ -17,7 +17,7 @@ export default function ArticleList({ data, cartItems, handleAddToCart }) {
     return (
         <div className="container text-center">
             <div className="row row-gap-4 align-content-stretch">
-                {cards}
+                {cards} {/* Zobrazení karet s položkami */}
             </div>
         </div>
     )

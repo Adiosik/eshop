@@ -8,7 +8,7 @@ export default function App() {
     const [cartItems, setCartItems] = React.useState([]);
 
     const handleAddToCart = (item) => {
-        setCartItems(cartItems.concat(item)); // Přidá konkrétní do košíku
+        setCartItems(cartItems.concat(item)); // Přidá konkrétní položky do košíku
     }
 
     return (
@@ -17,7 +17,7 @@ export default function App() {
                 <p className="h1">E-shop</p>
                 <div className="row align-items-center">
                     <div className="col mt-4">
-                        <Cart cartItems={cartItems} />
+                        <Cart cartItems={cartItems} /> {/* Zobrazení košíku */}
                     </div>
                 </div>
             </div>
