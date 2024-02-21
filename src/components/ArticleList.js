@@ -1,12 +1,15 @@
 import React from "react";
 import Article from "./Article";
-import data from "../data";
 
-export default function ArticleList({onAddToCart}) {
+export default function ArticleList({ data, cartItems, handleAddToCart }) {
     const cards = data.map(item => {
         return (
             <div key={item.id} className="col-md-3">
-                <Article item={item} onAddToCart={onAddToCart} /> {/* Předá funkci pro přidání do košíku */}
+                <Article 
+                    item={item} 
+                    handleAddToCart={handleAddToCart}
+                    isInCart={cartItems.some(cartItem => cartItem.id === item.id)}
+                />
             </div>
         )
     })

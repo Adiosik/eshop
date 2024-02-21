@@ -1,14 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function Article(props) {
-    const [isInCart, setIsInCart] = useState(false);
-
-    // Funkce pro přidání artiklu do košíku a změnu stavu na true
-    const handleAddToCart = () => {
-        props.onAddToCart(props.item);
-        setIsInCart(true); // Nastaví isInCart na true po přidání artiklu do košíku
-    }
-
     return (
         <div className="card h-100">
             <img 
@@ -19,13 +11,13 @@ export default function Article(props) {
                 <p className="card-title h3">{props.item.title}</p>
                 <p className="card-text">Price: €{props.item.price}</p>
                 <button 
-                    onClick={handleAddToCart} 
-                    className={`btn btn-outline-primary ${isInCart ? "disabled" : ""}`} // Pokud je isInCart true, přidá se "disabled" pro zablokování tlačítka
-                    disabled={isInCart} // Pokud je isInCart true, tlačítko bude zakázané
+                    onClick={() => props.handleAddToCart(props.item)}
+                    className={`btn btn-outline-primary ${props.isInCart ? "disabled" : ""}`} 
+                    disabled={props.isInCart} 
                 >
-                    {isInCart ? "Added to cart" : "Add to cart"} {/* Pokud je artikl přidán, zobrazí se "Added to cart", jinak "Add to cart" */}
+                    {props.isInCart ? "Added to cart" : "Add to cart"}
                 </button>
             </div>
         </div>
-    )
+    );
 }

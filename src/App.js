@@ -22,7 +22,11 @@ export default function App() {
                 </div>
             </div>
             <div className="container mt-4">
-                <ArticleList onAddToCart={handleAddToCart}/>
+                <ArticleList 
+                    data={data} 
+                    cartItems={cartItems}
+                    handleAddToCart={handleAddToCart}
+                />
             </div>
         </main>
     )
