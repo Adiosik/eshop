@@ -1,6 +1,8 @@
 import React from "react"
 
 export default function EmailInput() {
+    
+
     return (
         <form>
             <div class="mb-3">

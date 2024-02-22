@@ -2,11 +2,9 @@ import React from "react"
 import data from "./data"
 import Cart from "./components/Cart"
 import ArticleList from "./components/ArticleList"
-import EmailInput from "./components/EmailInput"
 
 export default function App() {
     const [cartItems, setCartItems] = React.useState([])
-    const [showEmailInput, setShowEmailInput] = React.useState(false)
 
     // Přidá konkrétní položky do košíku
     const handleAddToCart = (item) => {
@@ -19,11 +17,6 @@ export default function App() {
         setCartItems(updatedCart) // Aktualizuje stav košíku
     }
 
-    // Zobrazí formulář pro e-mail
-    const handleCheckout = () => {
-        setShowEmailInput(true)
-    }
-
     return (
         <main>
             <div className="container mt-5">
@@ -33,15 +26,7 @@ export default function App() {
                         <Cart 
                             cartItems={cartItems} // Zobrazení košíku
                             handleRemoveFromCart={handleRemoveFromCart} // Odstraní položku z košíku
-                            handleCheckout={handleCheckout} // Přejít do Pokladny
                         />
-                        {showEmailInput && 
-                            // Zobrazí se pouze tehdy, když je showEmailInput true
-                            <EmailInput 
-                                showEmailInput={showEmailInput} // Předává prop showEmailInput komponentě EmailInput
-                                setShowEmailInput={setShowEmailInput} // Aktualizuje email
-                            />
-                        }
                     </div>
                 </div>
             </div>
