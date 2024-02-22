@@ -1,7 +1,7 @@
-import React from "react"
-import data from "./data"
-import Cart from "./components/Cart"
-import ArticleList from "./components/ArticleList"
+import React from "react";
+import data from "./data";
+import Cart from "./components/Cart";
+import ArticleList from "./components/ArticleList";
 
 export default function App() {
     const [cartItems, setCartItems] = React.useState([])
