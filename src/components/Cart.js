@@ -40,11 +40,12 @@ export default function Cart({ cartItems, handleRemoveFromCart }) {
                 ))}
                 <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
             </ul>
-            {/* Tlačítko "Checkout" zobrazí formulář pro e-mail pouze tehdy, když je showEmailInput true */}
-            {showEmailInput && (
+            {/* Tlačítko "Checkout" zobrazí formulář pro e-mail a Place order */}
+            {showEmailInput ? (
                 <Checkout />
+            ) : (
+                <button onClick={() => setShowEmailInput(true)} className="btn btn-primary btn-lg mt-3">Checkout</button>
             )}    
-            <button onClick={handleCheckout} className="btn btn-primary btn-lg">Checkout</button>
         </div>
     )
 }
