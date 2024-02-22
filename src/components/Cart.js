@@ -1,6 +1,5 @@
 import React from "react";
 import CartItem from "./CartItem";
-import EmailInput from "./Checkout";
 import Checkout from "./Checkout";
 
 export default function Cart({ cartItems, handleRemoveFromCart }) {
