@@ -5,11 +5,6 @@ import Checkout from "./Checkout";
 export default function Cart({ cartItems, handleRemoveFromCart }) {
     const [showEmailInput, setShowEmailInput] = React.useState(false)
 
-    // Zobrazí formulář pro e-mail
-    const handleCheckout = () => {
-        setShowEmailInput(true)
-    }
-
     // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
         return cartItems.reduce((total, item) => total + item.price, 0)
