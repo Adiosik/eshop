@@ -1,6 +1,7 @@
 import React from "react";
 import CartItem from "./CartItem";
-import EmailInput from "./EmailInput";
+import EmailInput from "./Checkout";
+import Checkout from "./Checkout";
 
 export default function Cart({ cartItems, handleRemoveFromCart }) {
     const [showEmailInput, setShowEmailInput] = React.useState(false)
@@ -42,7 +43,7 @@ export default function Cart({ cartItems, handleRemoveFromCart }) {
             </ul>
             {/* Tlačítko "Checkout" zobrazí formulář pro e-mail pouze tehdy, když je showEmailInput true */}
             {showEmailInput && (
-                <EmailInput />
+                <Checkout />
             )}    
             <button onClick={handleCheckout} className="btn btn-primary btn-lg">Checkout</button>
         </div>

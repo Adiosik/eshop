@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function EmailInput() {
+export default function Checkout() {
     
 
     return (
