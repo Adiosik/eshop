@@ -26,22 +26,25 @@ export default function Checkout({ onSubmit }) {
     }
 
     return (
-        <form onSubmit={onSubmitHandler} noValidate> {/* noValidate = Zabraňuje výchozímu chování prohlížeče */}
-            <div className="my-4">
-                <label className="form-label">Email address</label>
-                <input 
-                    type="email" 
-                    className={`form-control ${isValidationShown && !isValid ? 'is-invalid' : isValid && isValidationShown ? 'is-valid' : ''}`} // Přidá is-invalid/invalid, podle validace e-mail
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} //
-                />
-                {/* Zpráva, když není nic zadáno */}
-                {!email && <div className="form-text">Please enter your email address.</div>}
-                {/* Zobrazení zprávy na základě stavu isValid */}
-                {isValidationShown && !isValid && <div className="invalid-feedback">Please enter a valid email address.</div>}
-                {isValidationShown && isValid && <div className="valid-feedback">Email address looks good.</div>}
-            </div>
-            <button type="submit" id="submitBtn" className="btn btn-primary btn-lg">Place order</button>
-        </form>
+        <section className="my-4">
+            <form onSubmit={onSubmitHandler} noValidate> {/* noValidate = Zabraňuje výchozímu chování prohlížeče */}
+                <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email address</label>
+                    <input 
+                        type="email" 
+                        id="email"
+                        className={`form-control ${isValidationShown && !isValid ? 'is-invalid' : isValid && isValidationShown ? 'is-valid' : ''}`} // Přidá is-invalid/invalid, podle validace e-mail
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    {/* Zpráva, když není nic zadáno */}
+                    {!email && <div className="form-text">Please enter your email address.</div>}
+                    {/* Zobrazení zprávy na základě stavu isValid */}
+                    {isValidationShown && !isValid && <div className="invalid-feedback">Please enter a valid email address.</div>}
+                    {isValidationShown && isValid && <div className="valid-feedback">Email address looks good.</div>}
+                </div>
+                <button type="submit" id="submitBtn" className="btn btn-primary btn-lg">Place order</button>
+            </form>
+        </section>
     )
 }

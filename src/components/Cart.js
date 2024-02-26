@@ -17,22 +17,22 @@ export default function Cart({ cartItems, handleRemoveFromCart }) {
     }
 
     return (
-        <div>
+        <section>
             {cartItems.length === 0 && !orderSent && (
-                <div>
+                <section>
                     <p className="h2">Cart</p>
                     <p>Add something to your cart, make it from your heart.</p>
-                </div>
+                </section>
             )}
             {orderSent && (
-                <div>
+                <section>
                     <p className="alert alert-success">Your order was sent. Thank you. You can buy more if you want now.</p>
                     <p className="h2">Cart</p>
                     <p>Add something to your cart, make it from your heart.</p>
-                </div>
+                </section>
             )}
             {!orderSent && cartItems.length > 0 && (
-                <div>
+                <section>
                     <p className="h2">Cart</p>
                     <ul className="list-group">
                         {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
@@ -51,8 +51,8 @@ export default function Cart({ cartItems, handleRemoveFromCart }) {
                     ) : (
                         <button onClick={() => setShowEmailInput(true)} className="btn btn-primary btn-lg mt-3">Checkout</button>
                     )}    
-                </div>
+                </section>
             )}
-        </div>
+        </section>
     )
 }
