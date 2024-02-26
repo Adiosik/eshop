@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Checkout() {
-    const [isValidationShown, setIsValidationShown] = React.useState(false);
-    const [email, setEmail] = React.useState("");
-    
+export default function Checkout({ onSubmit }) {
+    const [isValidationShown, setIsValidationShown] = React.useState(false)
+    const [email, setEmail] = React.useState("")
+
     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email); // Regulární výraz pro platnost e-mailu (@, ., .cz)
 
     // Zavolá setIsValidationShown(true), pokud je email platný
@@ -13,21 +13,20 @@ export default function Checkout() {
         }
     }, [isValid]);
 
-    // Funkce pro odeslání formuláře
-    const onSubmit = (e) => {
-        e.preventDefault() // Zabrání výchozímu chování formuláře
-        setIsValidationShown(true)
+    // Funkce pro ověření platnosti e-mailu
+    const onSubmitHandler = (e) => {
+        e.preventDefault(); // Zabrání výchozímu chování formuláře
 
         if (isValid) {
+            onSubmit(); // Zavolá funkci pro odeslání objednávky
             console.log("Sending email:", email);
-            setEmail("") // Vyprázdnění pole pro e-mail
         } else {
             console.log("Please enter a valid email address!");
         }
     }
 
     return (
-        <form onSubmit={onSubmit} noValidate> {/* noValidate = Zabraňuje výchozímu chování prohlížeče */}
+        <form onSubmit={onSubmitHandler} noValidate> {/* noValidate = Zabraňuje výchozímu chování prohlížeče */}
             <div className="my-4">
                 <label className="form-label">Email address</label>
                 <input 
@@ -42,7 +41,7 @@ export default function Checkout() {
                 {isValidationShown && !isValid && <div className="invalid-feedback">Please enter a valid email address.</div>}
                 {isValidationShown && isValid && <div className="valid-feedback">Email address looks good.</div>}
             </div>
-            <button type="submit" id="submitBtn" className="btn btn-primary btn-lg" >Place order</button>
+            <button type="submit" id="submitBtn" className="btn btn-primary btn-lg">Place order</button>
         </form>
     )
 }

@@ -4,6 +4,7 @@ import Checkout from "./Checkout";
 
 export default function Cart({ cartItems, handleRemoveFromCart }) {
     const [showEmailInput, setShowEmailInput] = React.useState(false)
+    const [orderSent, setOrderSent] = React.useState(false);
 
     // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
@@ -20,7 +21,23 @@ export default function Cart({ cartItems, handleRemoveFromCart }) {
         )
     }
 
-    // Pokud košík není prázdný, zobrazí se seznam položek a celková cena
+    // Funkce pro odeslání objednávky
+    const onSubmit = () => {
+        setOrderSent(true);
+    }
+
+    // Pokud byla objednávka odeslána, zobrazí se zpráva a prázdný košík
+    if (orderSent) {
+        return (
+            <div>
+                <p className="alert alert-success">Your order was sent. Thank you. You can buy more if you want now.</p>
+                <p className="h2">Cart</p>
+                <p>Add something to your cart, make it from your heart.</p>
+            </div>
+        )
+    }
+
+    // Pokud košík není prázdný a objednávka nebyla odeslána, zobrazí se seznam položek a formulář pro email
     return (
         <div>
             <p className="h2">Cart</p>
@@ -37,7 +54,7 @@ export default function Cart({ cartItems, handleRemoveFromCart }) {
             </ul>
             {/* Tlačítko "Checkout" zobrazí formulář pro e-mail a Place order */}
             {showEmailInput ? (
-                <Checkout />
+                <Checkout onSubmit={onSubmit} />
             ) : (
                 <button onClick={() => setShowEmailInput(true)} className="btn btn-primary btn-lg mt-3">Checkout</button>
             )}    
