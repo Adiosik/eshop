@@ -11,53 +11,52 @@ export default function Cart({ cartItems, handleRemoveFromCart }) {
         return cartItems.reduce((total, item) => total + item.price, 0)
     }
 
-    // Pokud je košík prázdný, zobrazí se zpráva o prázdném košíku
-    if (cartItems.length === 0) {
-        return (
-            <div>
-                <p className="h2">Cart</p>
-                <p>Add something to your cart, make it from your heart.</p>
-            </div>
-        )
-    }
-
     // Funkce pro odeslání objednávky
     const onSubmit = () => {
         setOrderSent(true);
     }
 
-    // Pokud byla objednávka odeslána, zobrazí se zpráva a prázdný košík
-    if (orderSent) {
-        return (
-            <div>
-                <p className="alert alert-success">Your order was sent. Thank you. You can buy more if you want now.</p>
-                <p className="h2">Cart</p>
-                <p>Add something to your cart, make it from your heart.</p>
-            </div>
-        )
-    }
-
-    // Pokud košík není prázdný a objednávka nebyla odeslána, zobrazí se seznam položek a formulář pro email
+    // Podmíněné vykreslení zprávy o odeslání objednávky nebo seznamu položek v košíku a formuláře pro e-mail
     return (
         <div>
-            <p className="h2">Cart</p>
-            <ul className="list-group">
-                {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
-                {cartItems.map((item, index) => (
-                    <CartItem 
-                        key={index} 
-                        item={item} 
-                        handleRemoveFromCart={handleRemoveFromCart}
-                    />
-                ))}
-                <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
-            </ul>
-            {/* Tlačítko "Checkout" zobrazí formulář pro e-mail a Place order */}
-            {showEmailInput ? (
-                <Checkout onSubmit={onSubmit} />
-            ) : (
-                <button onClick={() => setShowEmailInput(true)} className="btn btn-primary btn-lg mt-3">Checkout</button>
-            )}    
+            {/* Podmínka pro zobrazení objednávky odeslané */}
+            {orderSent && (
+                <div>
+                    <p className="alert alert-success">Your order was sent. Thank you. You can buy more if you want now.</p>
+                    <p className="h2">Cart</p>
+                    <p>Add something to your cart, make it from your heart.</p>
+                </div>
+            )}
+
+            {/* Podmínka pro zobrazení košíku */}
+            {!orderSent && (
+                <div>
+                    <p className="h2">Cart</p>
+                    {/* Podmínka pro prázdný košík */}
+                    {cartItems.length === 0 ? (
+                        <p>Add something to your cart, make it from your heart.</p>
+                    ) : (
+                        <ul className="list-group">
+                            {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
+                            {cartItems.map((item, index) => (
+                                <CartItem 
+                                    key={index} 
+                                    item={item} 
+                                    handleRemoveFromCart={handleRemoveFromCart}
+                                />
+                            ))}
+                            <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
+                        </ul>
+                    )}
+
+                    {/* Podmínka pro zobrazení formuláře pro e-mail a tlačítka Checkout */}
+                    {!showEmailInput ? (
+                        <button onClick={() => setShowEmailInput(true)} className="btn btn-primary btn-lg mt-3">Checkout</button>
+                    ) : (
+                        <Checkout onSubmit={onSubmit} />
+                    )}    
+                </div>
+            )}
         </div>
     )
 }
