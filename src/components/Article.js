@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Article(props) {
     return (
-        <section className="card h-100">
+        <article className="card h-100">
             <img
                 src={`../images/${props.item.coverImg}`}
                 className="card-img-top d-block"
@@ -22,6 +22,6 @@ export default function Article(props) {
                     {props.isInCart || props.orderSent ? "Added to cart" : "Add to cart"} {/* Text tlačítka podle toho, zda je položka již v košíku a obj.byla odeslána */}
                 </button>
             </div>
-        </section>
+        </article>
     );
 }

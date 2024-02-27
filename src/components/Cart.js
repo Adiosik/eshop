@@ -33,7 +33,7 @@ export default function Cart({ cartItems, handleRemoveFromCart }) {
             )}
             {!orderSent && cartItems.length > 0 && (
                 <section>
-                    <p className="h2">Cart</p>
+                    <h2>Cart</h2>
                     <ul className="list-group">
                         {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
                         {cartItems.map((item, index) => (

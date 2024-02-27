@@ -34,6 +34,7 @@ export default function Checkout({ onSubmit }) {
                         type="email" 
                         id="email"
                         className={`form-control ${isValidationShown && !isValid ? 'is-invalid' : isValid && isValidationShown ? 'is-valid' : ''}`} // Přidá is-invalid/invalid, podle validace e-mail
+                        placeholder="example@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />

@@ -4,7 +4,7 @@ import Article from "./Article";
 export default function ArticleList({ data, cartItems, handleAddToCart, orderSent }) {
     const cards = data.map(item => {
         return (
-            <div key={item.id} className="col-lg-3 col-md-4 col-sm-6">
+            <div key={item.id} className="col-6 col-md-4 col-lg-3">
                 <Article 
                     item={item} 
                     handleAddToCart={handleAddToCart}
@@ -16,7 +16,8 @@ export default function ArticleList({ data, cartItems, handleAddToCart, orderSen
     })
 
     return (
-        <section className="container text-center mb-5">
+        <section className="container mb-5 text-center">
+            <h2 className="visually-hidden">Lamps</h2>
             <div className="row row-gap-4 align-content-stretch">
                 {cards} {/* Zobrazení karet s položkami */}
             </div>
