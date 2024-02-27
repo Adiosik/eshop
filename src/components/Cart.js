@@ -26,7 +26,7 @@ export default function Cart({ cartItems, handleRemoveFromCart }) {
             )}
             {orderSent && (
                 <section>
-                    <p className="alert alert-success">Your order was sent. Thank you. You can buy more if you want now.</p>
+                    <p className="alert alert-success">Your order was sent. Thank you.<br />You can buy more if you want now.</p>
                     <p className="h2">Cart</p>
                     <p>Add something to your cart, make it from your heart.</p>
                 </section>
