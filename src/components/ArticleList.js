@@ -16,7 +16,7 @@ export default function ArticleList({ data, cartItems, handleAddToCart, orderSen
     })
 
     return (
-        <section className="container text-center">
+        <section className="container text-center mb-5">
             <div className="row row-gap-4 align-content-stretch">
                 {cards} {/* Zobrazení karet s položkami */}
             </div>
