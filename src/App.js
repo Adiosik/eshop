@@ -19,7 +19,7 @@ export default function App() {
 
     return (
         <main>
-            <div className="container mt-5">
+            <section className="container mt-5">
                 <p className="h1">Homemade lighting</p>
                 <div className="row align-items-center">
                     <div className="col mt-4">
@@ -29,14 +29,14 @@ export default function App() {
                         />
                     </div>
                 </div>
-            </div>
-            <div className="container mt-4">
+            </section>
+            <section className="container mt-4">
                 <ArticleList 
                     data={data} 
                     cartItems={cartItems}
                     handleAddToCart={handleAddToCart}
                 />
-            </div>
+            </section>
         </main>
     )
 }
