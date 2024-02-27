@@ -20,7 +20,7 @@ export default function App() {
     return (
         <main>
             <div className="container mt-5">
-                <p className="h1">E-shop</p>
+                <p className="h1">Homemade lighting</p>
                 <div className="row align-items-center">
                     <div className="col mt-4">
                         <Cart 
