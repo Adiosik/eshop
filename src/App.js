@@ -26,6 +26,7 @@ export default function App() {
                         <Cart 
                             cartItems={cartItems} // Zobrazení košíku
                             handleRemoveFromCart={handleRemoveFromCart} // Odstraní položku z košíku
+                            setCartItems={setCartItems}
                         />
                     </div>
                 </div>
