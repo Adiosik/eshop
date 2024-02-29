@@ -3,9 +3,7 @@ import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 
 export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) {
-    const [showEmailInput, setShowEmailInput] = React.useState(false)
-    const [orderSent, setOrderSent] = React.useState(false)
-    // checkoutForm, orderSent, undifinde
+    const [cartState, setCartState] = React.useState(undefined)
 
     // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
@@ -14,28 +12,26 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) 
 
     // Funkce pro odeslání objednávky
     const onSubmit = () => {
-        setOrderSent(true) // Objednávka byla odeslána
-        setShowEmailInput(false) // Skryje zprávu pro dokončení objednávky
-        setCartItems([])
+        setCartState("orderSent") // Objednávka byla odeslána
+        setCartItems([]); // Vyprázdní košík
     }
 
     // Efekt pro zobrazení košíku
     React.useEffect(() => {
-        if (cartItems.length === 0) {
-            setShowEmailInput(false) // Košík je prázdný, skryje zprávu pro dokončení objednávky
-            setOrderSent(false) // Košík je prázdný, skryje zelenou zprávu o odeslání objednávky
+        if (cartItems.length > 0) {
+            setCartState(undefined) // Košík není prázdný
         }
     }, [cartItems])
 
     return (
         <section>
-            {orderSent && (
+            {cartState === "orderSent" && (
                 // Zobrazení zelené hlášky po odeslání objednávky
                 <section>
                     <p className="alert alert-success">Your order was sent. Thank you.<br />You can buy more if you want now.</p>
                 </section>
             )}
-            {cartItems.length === 0 && (
+            {cartState === undefined && cartItems.length === 0 && (
                 <section>
                     <p className="h2">Cart</p>
                     <p>Add something to your cart, make it from your heart.</p>
@@ -56,10 +52,10 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) 
                         <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
                     </ul>
                     {/* Tlačítko "Checkout" zobrazí formulář pro e-mail a Place order */}
-                    {showEmailInput ? (
+                    {cartState ? (
                         <Checkout onSubmit={onSubmit} />
                     ) : (
-                        <button onClick={() => setShowEmailInput(true)} className="btn btn-primary btn-lg mt-3">Checkout</button>
+                        <button onClick={() => setCartState("checkoutForm")} className="btn btn-primary btn-lg mt-3">Checkout</button>
                     )}
                 </section>
             )}
