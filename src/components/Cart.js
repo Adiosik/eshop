@@ -31,9 +31,9 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) 
                     <p className="alert alert-success">Your order was sent. Thank you.<br />You can buy more if you want now.</p>
                 </section>
             )}
-            {cartState === undefined && cartItems.length === 0 && (
+            {cartItems.length === 0 && (
                 <section>
-                    <p className="h2">Cart</p>
+                    <h2>Cart</h2>
                     <p>Add something to your cart, make it from your heart.</p>
                 </section>
             )}
@@ -52,7 +52,7 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) 
                         <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
                     </ul>
                     {/* Tlačítko "Checkout" zobrazí formulář pro e-mail a Place order */}
-                    {cartState ? (
+                    {cartState === "checkoutForm" ? (
                         <Checkout onSubmit={onSubmit} />
                     ) : (
                         <button onClick={() => setCartState("checkoutForm")} className="btn btn-primary btn-lg mt-3">Checkout</button>
