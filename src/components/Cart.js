@@ -2,9 +2,8 @@ import React from "react";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 
-export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) {
-    const [cartState, setCartState] = React.useState(undefined)
-    const [error, setError] = React.useState("")
+export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, cartState, setCartState }) {
+    const [error, setError] = React.useState(undefined)
 
     // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
@@ -13,6 +12,7 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) 
 
     // Funkce pro odeslání objednávky
     const onSubmit = (email) => {
+        setError(undefined)
         fetch("https://submit-form.com/Tupxo7vzc", {
             method: "POST",
             headers: {
@@ -34,7 +34,6 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) 
                     setCartState("orderSent");
                     setCartItems([]);
                     console.log("Order sent successfully!");
-                    setError("")
                 } else {
                     // Pokud je odpověď od serveru neúspěšná, nastaví se chybová zpráva
                     setError("Failed to send order: " + response.status);

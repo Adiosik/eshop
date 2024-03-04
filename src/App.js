@@ -5,6 +5,7 @@ import ArticleList from "./components/ArticleList";
 
 export default function App() {
     const [cartItems, setCartItems] = React.useState([])
+    const [cartState, setCartState] = React.useState(undefined)
 
     // Přidá konkrétní položky do košíku
     const handleAddToCart = (item) => {
@@ -27,6 +28,8 @@ export default function App() {
                             cartItems={cartItems} // Zobrazení košíku
                             handleRemoveFromCart={handleRemoveFromCart} // Odstraní položku z košíku
                             setCartItems={setCartItems}
+                            cartState={cartState}
+                            setCartState={setCartState}
                         />
                     </div>
                 </div>
@@ -36,6 +39,7 @@ export default function App() {
                     data={data} 
                     cartItems={cartItems}
                     handleAddToCart={handleAddToCart}
+                    
                 />
             </section>
         </main>
