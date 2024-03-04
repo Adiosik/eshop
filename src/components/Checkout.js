@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Checkout({ onSubmit }) {
+export default function Checkout({ onSubmit, orderSent }) {
     const [isValidationShown, setIsValidationShown] = React.useState(false)
     const [email, setEmail] = React.useState("")
 
@@ -44,7 +44,14 @@ export default function Checkout({ onSubmit }) {
                     {isValidationShown && !isValid && <div className="invalid-feedback">Please enter a valid email address.</div>}
                     {isValidationShown && isValid && <div className="valid-feedback">Email address looks good.</div>}
                 </div>
-                <button type="submit" id="submitBtn" className="btn btn-primary btn-lg">Place order</button>
+                <button 
+                    type="submit"  
+                    id="submitBtn" 
+                    className="btn btn-primary btn-lg"
+                    disabled={orderSent}
+                >
+                    Place order
+                </button>
             </form>
         </section>
     )
