@@ -4,6 +4,7 @@ import Checkout from "./Checkout";
 
 export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) {
     const [cartState, setCartState] = React.useState(undefined)
+    const [error, setError] = React.useState("")
 
     // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
@@ -27,21 +28,24 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) 
                 total: getTotalPrice()
             }),
         })
-        .then(function (response) {
-            if (response.ok) {
-                // Pokud je odpověď od serveru úspěšná, vyprázdní se košík a změníme stav na "orderSent"
-                setCartState("orderSent");
-                setCartItems([]);
-                console.log("Order sent successfully!");
-            } else {
-                // Pokud je odpověď od serveru neúspěšná, vypíšeme chybu do konzole
-                console.error("Failed to send order:", response.status);
-            }
-        })
-        .catch(function (error) {
-            // Pokud dojde k chybě při odesílání, vypíšeme chybu do konzole
-            console.error("Error while sending order:", error);
-        });        
+            .then(function (response) {
+                if (response.ok) {
+                    // Pokud je odpověď od serveru úspěšná, vyprázdní se košík a změníme stav na "orderSent"
+                    setCartState("orderSent");
+                    setCartItems([]);
+                    console.log("Order sent successfully!");
+                    setError("")
+                } else {
+                    // Pokud je odpověď od serveru neúspěšná, nastaví se chybová zpráva
+                    setError("Failed to send order: " + response.status);
+                    console.error("Failed to send order:", response.status);
+                }
+            })
+            .catch(function (error) {
+                // Pokud dojde k chybě při odesílání, nastaví se chybová zpráva
+                setError("Error while sending order: " + error);
+                console.error("Error while sending order:", error);
+            });
     }
 
     // Efekt pro zobrazení košíku
@@ -53,6 +57,12 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) 
 
     return (
         <section>
+            {error && (
+                // Zobrazení červené chybové hlášky
+                <section className="alert alert-danger" role="alert">
+                    {error}
+                </section>
+            )}
             {cartState === "orderSent" && (
                 // Zobrazení zelené hlášky po odeslání objednávky
                 <section>
