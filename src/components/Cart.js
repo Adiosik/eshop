@@ -11,9 +11,37 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems }) 
     }
 
     // Funkce pro odeslání objednávky
-    const onSubmit = () => {
-        setCartState("orderSent") // Objednávka byla odeslána
-        setCartItems([]); // Vyprázdní košík
+    const onSubmit = (email) => {
+        fetch("https://submit-form.com/Tupxo7vzc", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                items: cartItems.map(item => ({
+                    title: item.title,
+                    price: item.price,
+                })),
+                total: getTotalPrice()
+            }),
+        })
+        .then(function (response) {
+            if (response.ok) {
+                // Pokud je odpověď od serveru úspěšná, vyprázdní se košík a změníme stav na "orderSent"
+                setCartState("orderSent");
+                setCartItems([]);
+                console.log("Order sent successfully!");
+            } else {
+                // Pokud je odpověď od serveru neúspěšná, vypíšeme chybu do konzole
+                console.error("Failed to send order:", response.status);
+            }
+        })
+        .catch(function (error) {
+            // Pokud dojde k chybě při odesílání, vypíšeme chybu do konzole
+            console.error("Error while sending order:", error);
+        });        
     }
 
     // Efekt pro zobrazení košíku

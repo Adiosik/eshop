@@ -18,7 +18,7 @@ export default function Checkout({ onSubmit }) {
         e.preventDefault(); // Zabrání výchozímu chování formuláře
 
         if (isValid) {
-            onSubmit(); // Zavolá funkci pro odeslání objednávky
+            onSubmit(email); // Zavolá funkci pro odeslání objednávky
             console.log("Sending email:", email);
         } else {
             console.log("Please enter a valid email address!");
