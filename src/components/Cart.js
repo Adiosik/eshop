@@ -36,13 +36,13 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
                     console.log("Order sent successfully!");
                 } else {
                     // Pokud je odpověď od serveru neúspěšná, nastaví se chybová zpráva
-                    setError("Failed to send order: " + response.status);
+                    setError("Order submission failed: There might be a connectivity issue or an internal server error. Please try again later. " + response.status);
                     console.error("Failed to send order:", response.status);
                 }
             })
             .catch(function (error) {
                 // Pokud dojde k chybě při odesílání, nastaví se chybová zpráva
-                setError("Error while sending order: " + error);
+                setError("Error while sending order: There might be a connectivity issue or an internal server error. Please try again later. " + error);
                 console.error("Error while sending order:", error);
             });
     }
