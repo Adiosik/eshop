@@ -17,7 +17,7 @@ export default function ArticleList({ data, cartItems, handleAddToCart, handleLo
                     </div>
                 ))}
             </div>
-            <button className="btn btn-primary mt-5" onClick={handleLoadMore}>Load more</button>
+            <button className="btn btn-primary btn-lg mt-5" onClick={handleLoadMore}>Load more</button>
         </section>
     );
 }
