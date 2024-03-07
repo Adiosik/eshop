@@ -6,6 +6,7 @@ export default function App() {
     const [cartItems, setCartItems] = React.useState([])
     const [cartState, setCartState] = React.useState(undefined)
     const [data, setData] = React.useState(undefined)
+    const [isLoadingData, setIsLoadingData] = React.useState(true)
 
     // Přidá konkrétní položky do košíku
     const handleAddToCart = (item) => {
@@ -22,7 +23,11 @@ export default function App() {
     React.useEffect(() => {
         fetch("https://dummyjson.com/products?limit=8")
             .then((res) => res.json())
-            .then((fetchedData) => setData(fetchedData));
+            .then((fetchedData) => {
+                setData(fetchedData);
+                setIsLoadingData(false); // Při dokončení načítání dat změníme stav na false
+            })
+            .catch(() => setIsLoadingData(false)); // V případě chyby také změníme stav na false
     }, [])
 
     // Funkce pro načtení dalších dat
@@ -53,13 +58,17 @@ export default function App() {
                 </div>
             </section>
             <section className="container mt-4">
-                <ArticleList 
-                    data={data} 
-                    cartItems={cartItems}
-                    handleAddToCart={handleAddToCart}
-                    isCheckoutLoading={cartState === "isLoading"}
-                    handleLoadMore={handleLoadMore}
-                />
+                {isLoadingData ? ( // Zobrazení načítací hlášky, pokud se data načítají
+                    <div className="alert alert-info">Please wait while we load articles.</div>
+                ) : (
+                    <ArticleList 
+                        data={data} 
+                        cartItems={cartItems}
+                        handleAddToCart={handleAddToCart}
+                        isCheckoutLoading={cartState === "isLoading"}
+                        handleLoadMore={handleLoadMore}
+                    />
+                )}
             </section>
         </main>
     )
