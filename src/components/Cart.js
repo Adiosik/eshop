@@ -13,6 +13,7 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
     // Funkce pro odeslání objednávky
     const onSubmit = (email) => {
         setError(undefined)
+        setCartState("isLoading")
         fetch("https://submit-form.com/Tupxo7vzc", {
             method: "POST",
             headers: {
@@ -31,9 +32,11 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
             .then(function (response) {
                 if (response.ok) {
                     // Pokud je odpověď od serveru úspěšná, vyprázdní se košík a změníme stav na "orderSent"
-                    setCartState("orderSent");
-                    setCartItems([]);
-                    console.log("Order sent successfully!");
+                    setTimeout(() => {
+                        setCartState("orderSent");
+                        setCartItems([]);
+                        console.log("Order sent successfully!");
+                    }, 5000);
                 } else {
                     // Pokud je odpověď od serveru neúspěšná, nastaví se chybová zpráva
                     setError("Order submission failed: There might be a connectivity issue or an internal server error. Please try again later. " + response.status);
@@ -52,7 +55,7 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
         if (cartItems.length > 0) {
             setCartState(undefined) // Košík není prázdný
         }
-    }, [cartItems])
+    }, [cartItems, setCartState])
 
     return (
         <section>
@@ -82,13 +85,17 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
                                 key={index}
                                 item={item}
                                 handleRemoveFromCart={handleRemoveFromCart}
+                                disabled={cartState === "orderSent"}
                             />
                         ))}
                         <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
                     </ul>
                     {/* Tlačítko "Checkout" zobrazí formulář pro e-mail a Place order */}
-                    {cartState === "checkoutForm" ? (
-                        <Checkout onSubmit={onSubmit} />
+                    {cartState === "checkoutForm" || cartState === "isLoading" ? (
+                        <Checkout 
+                            onSubmit={onSubmit}
+                            disabled={cartState === "isLoading"}
+                        />
                     ) : (
                         <button onClick={() => setCartState("checkoutForm")} className="btn btn-primary btn-lg mt-3">Checkout</button>
                     )}

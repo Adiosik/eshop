@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Checkout({ onSubmit, orderSent }) {
+export default function Checkout({ onSubmit, cartState, disabled }) {
     const [isValidationShown, setIsValidationShown] = React.useState(false)
     const [email, setEmail] = React.useState("")
 
@@ -37,6 +37,7 @@ export default function Checkout({ onSubmit, orderSent }) {
                         placeholder="example@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        disabled={disabled}
                     />
                     {/* Zpráva, když není nic zadáno */}
                     {!email && <div className="form-text">Please enter your email address.</div>}
@@ -48,7 +49,7 @@ export default function Checkout({ onSubmit, orderSent }) {
                     type="submit"  
                     id="submitBtn" 
                     className="btn btn-primary btn-lg"
-                    disabled={orderSent}
+                    disabled={disabled}
                 >
                     Place order
                 </button>

@@ -1,7 +1,7 @@
 import React from "react";
 import Article from "./Article";
 
-export default function ArticleList({ data, cartItems, handleAddToCart, orderSent }) {
+export default function ArticleList({ data, cartItems, handleAddToCart, isCheckoutLoading }) {
     const cards = data.map(item => {
         return (
             <div key={item.id} className="col-6 col-md-4 col-lg-3">
@@ -9,7 +9,7 @@ export default function ArticleList({ data, cartItems, handleAddToCart, orderSen
                     item={item} 
                     handleAddToCart={handleAddToCart}
                     isInCart={cartItems.some(cartItem => cartItem.id === item.id)} // Kontrola, zda je položka již v košíku
-                    orderSent={orderSent}
+                    isCheckoutLoading={isCheckoutLoading}
                 />
             </div>
         )

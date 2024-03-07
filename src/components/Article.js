@@ -1,27 +1,27 @@
 import React from "react";
 
-export default function Article(props) {
+export default function Article({ item, handleAddToCart, isInCart, isCheckoutLoading }) {
     return (
         <article className="card h-100">
             <img
-                src={`../images/${props.item.coverImg}`}
+                src={`../images/${item.coverImg}`}
                 className="card-img-top d-block"
                 style={{ height: "100%" }}
                 alt=""
             />
             <div className="card-body">
                 <header>
-                    <h3 className="card-title">{props.item.title}</h3>
+                    <h3 className="card-title">{item.title}</h3>
                 </header>
-                <p className="card-text">Price: €{props.item.price}</p>
+                <p className="card-text">Price: €{item.price}</p>
                 <button
-                    onClick={() => props.handleAddToCart(props.item)} // Kliknutí na tlačítko pro přidání položky do košíku
-                    className={`btn btn-outline-primary ${props.isInCart ? "disabled" : ""}`} // Nastavuje tlačítka podle toho, zda je položka již v košíku
-                    disabled={props.isInCart || props.orderSent} // Zakáže tlačítko, pokud je položka v košíku nebo je objednávka odeslána
+                    onClick={() => handleAddToCart(item)}
+                    className={`btn btn-outline-primary`}
+                    disabled={isInCart || isCheckoutLoading}
                 >
-                    {props.isInCart || props.orderSent ? "Added to cart" : "Add to cart"} {/* Text tlačítka podle toho, zda je položka již v košíku a obj.byla odeslána */}
+                    {isInCart ? "Added to cart" : "Add to cart"}
                 </button>
             </div>
         </article>
-    );
+    )
 }

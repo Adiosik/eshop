@@ -39,7 +39,7 @@ export default function App() {
                     data={data} 
                     cartItems={cartItems}
                     handleAddToCart={handleAddToCart}
-                    
+                    isCheckoutLoading={cartState === "isLoading"}
                 />
             </section>
         </main>
