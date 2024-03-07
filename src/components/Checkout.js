@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Checkout({ onSubmit, cartState, disabled }) {
+export default function Checkout({ onSubmit, disabled }) {
     const [isValidationShown, setIsValidationShown] = React.useState(false)
     const [email, setEmail] = React.useState("")
 

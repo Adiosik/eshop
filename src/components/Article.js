@@ -4,7 +4,7 @@ export default function Article({ item, handleAddToCart, isInCart, isCheckoutLoa
     return (
         <article className="card h-100">
             <img
-                src={`../images/${item.coverImg}`}
+                src={item.thumbnail}
                 className="card-img-top d-block"
                 style={{ height: "100%" }}
                 alt=""

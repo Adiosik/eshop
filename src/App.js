@@ -1,11 +1,11 @@
 import React from "react";
-import data from "./data";
 import Cart from "./components/Cart";
 import ArticleList from "./components/ArticleList";
 
 export default function App() {
     const [cartItems, setCartItems] = React.useState([])
     const [cartState, setCartState] = React.useState(undefined)
+    const [data, setData] = React.useState(undefined)
 
     // Přidá konkrétní položky do košíku
     const handleAddToCart = (item) => {
@@ -17,6 +17,13 @@ export default function App() {
         const updatedCart = cartItems.filter(item => item !== itemToRemove) // Vytvoří se nové pole bez odstraněné položky
         setCartItems(updatedCart) // Aktualizuje stav košíku
     }
+
+    // Načtení dat z DummyJSON
+    React.useEffect(() => {
+        fetch("https://dummyjson.com/products?limit=3&skip=10")
+            .then((res) => res.json())
+            .then((fetchedData) => setData(fetchedData));
+    }, [])
 
     return (
         <main>
