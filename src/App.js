@@ -44,7 +44,7 @@ export default function App() {
     return (
         <main>
             <section className="container mt-5">
-                <h1>Homemade lighting</h1>
+                <h1>E-shop</h1>
                 <div className="row align-items-center">
                     <div className="col mt-4">
                         <Cart 
