@@ -58,7 +58,7 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
     }, [cartItems, setCartState])
 
     return (
-        <section>
+        <article>
             {error && (
                 // Zobrazení červené chybové hlášky
                 <section className="alert alert-danger" role="alert">
@@ -101,6 +101,6 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
                     )}
                 </section>
             )}
-        </section>
+        </article>
     )
 }

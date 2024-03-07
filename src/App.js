@@ -44,8 +44,10 @@ export default function App() {
     return (
         <main>
             <section className="container mt-5">
-                <h1>E-shop</h1>
-                <div className="row align-items-center">
+                <header>
+                    <h1>E-shop</h1>
+                </header>
+                <article className="row align-items-center">
                     <div className="col mt-4">
                         <Cart 
                             cartItems={cartItems} // Zobrazení košíku
@@ -55,7 +57,7 @@ export default function App() {
                             setCartState={setCartState}
                         />
                     </div>
-                </div>
+                </article>
             </section>
             <section className="container mt-4">
                 {isLoadingData ? ( // Zobrazení načítací hlášky, pokud se data načítají
