@@ -49,28 +49,30 @@ export default function App() {
                 </header>
                 <article className="row align-items-center">
                     <div className="col mt-4">
-                        <Cart 
-                            cartItems={cartItems} // Zobrazení košíku
-                            handleRemoveFromCart={handleRemoveFromCart} // Odstraní položku z košíku
-                            setCartItems={setCartItems}
-                            cartState={cartState}
-                            setCartState={setCartState}
-                        />
+                        {isLoadingData ? (
+                            <div className="alert alert-info">Please wait while we load data...</div>
+                        ) : (
+                            <Cart 
+                                cartItems={cartItems} // Zobrazení košíku
+                                handleRemoveFromCart={handleRemoveFromCart} // Odstraní položku z košíku
+                                setCartItems={setCartItems}
+                                cartState={cartState}
+                                setCartState={setCartState}
+                            />
+                        )}
                     </div>
                 </article>
-            </section>
-            <section className="container mt-4">
-                {isLoadingData ? ( // Zobrazení načítací hlášky, pokud se data načítají
-                    <div className="alert alert-info">Please wait while we load articles.</div>
-                ) : (
-                    <ArticleList 
-                        data={data} 
-                        cartItems={cartItems}
-                        handleAddToCart={handleAddToCart}
-                        isCheckoutLoading={cartState === "isLoading"}
-                        handleLoadMore={handleLoadMore}
-                    />
-                )}
+                <section className="container mt-4">
+                    {isLoadingData ? null : (
+                        <ArticleList 
+                            data={data} 
+                            cartItems={cartItems}
+                            handleAddToCart={handleAddToCart}
+                            isCheckoutLoading={cartState === "isLoading"}
+                            handleLoadMore={handleLoadMore}
+                        />
+                    )}
+                </section>
             </section>
         </main>
     )

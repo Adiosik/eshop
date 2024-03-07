@@ -3,12 +3,13 @@ import React from "react";
 export default function Article({ item, handleAddToCart, isInCart, isCheckoutLoading }) {
     return (
         <article className="card h-100">
-            <img
-                src={item.thumbnail}
-                className="card-img-top d-block"
-                style={{ height: "100%" }}
-                alt=""
-            />
+            <div className="ratio ratio-4x3">
+                <img
+                    src={item.thumbnail}
+                    className="card-img-top d-block object-fit-cover"
+                    alt=""
+                />
+            </div>
             <div className="card-body">
                 <header>
                     <h3 className="card-title">{item.title}</h3>
