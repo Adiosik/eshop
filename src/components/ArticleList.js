@@ -1,7 +1,7 @@
 import React from "react";
 import Article from "./Article";
 
-export default function ArticleList({ data, cartItems, handleAddToCart, isCheckoutLoading }) {
+export default function ArticleList({ data, cartItems, handleAddToCart, handleLoadMore, isCheckoutLoading }) {
     return (
         <section className="container mb-5 text-center">
             <h2 className="visually-hidden">Lamps</h2>
@@ -17,6 +17,7 @@ export default function ArticleList({ data, cartItems, handleAddToCart, isChecko
                     </div>
                 ))}
             </div>
+            <button className="btn btn-primary mt-5" onClick={handleLoadMore}>Load more</button>
         </section>
     );
 }

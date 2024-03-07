@@ -20,10 +20,21 @@ export default function App() {
 
     // Načtení dat z DummyJSON
     React.useEffect(() => {
-        fetch("https://dummyjson.com/products?limit=3&skip=10")
+        fetch("https://dummyjson.com/products?limit=8")
             .then((res) => res.json())
             .then((fetchedData) => setData(fetchedData));
     }, [])
+
+    // Funkce pro načtení dalších dat
+    const handleLoadMore = () => {
+        const nextSkip = data.products.length
+
+        fetch(`https://dummyjson.com/products?limit=8&skip=${nextSkip}`)
+            .then((res) => res.json())
+            .then((fetchedData) => {
+                setData(prevData => ({ ...prevData, products: [...prevData.products, ...fetchedData.products] }));
+            });
+    }
 
     return (
         <main>
@@ -47,6 +58,7 @@ export default function App() {
                     cartItems={cartItems}
                     handleAddToCart={handleAddToCart}
                     isCheckoutLoading={cartState === "isLoading"}
+                    handleLoadMore={handleLoadMore}
                 />
             </section>
         </main>
