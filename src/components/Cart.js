@@ -50,7 +50,6 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
             });
     }
 
-    // Efekt pro zobrazení košíku
     React.useEffect(() => {
         if (cartItems.length > 0) {
             setCartState(undefined) // Košík není prázdný
@@ -60,7 +59,7 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
     return (
         <article>
             {error && (
-                // Zobrazení červené chybové hlášky
+                // Zobrazení chybové hlášky
                 <section className="alert alert-danger" role="alert">
                     {error}
                 </section>

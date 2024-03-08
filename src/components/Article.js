@@ -11,10 +11,11 @@ export default function Article({ item, handleAddToCart, isInCart, isCheckoutLoa
                 />
             </div>
             <div className="card-body">
-                <header>
-                    <h3 className="card-title">{item.title}</h3>
-                </header>
-                <p className="card-text">Price: €{item.price}</p>
+                <h3 className="card-title">{item.title}</h3>
+                <p className="card-text">{item.description}</p>
+            </div>
+            <div className="card-footer d-flex justify-content-between align-items-center">
+                <p className="mb-0">€{item.price}</p>
                 <button
                     onClick={() => handleAddToCart(item)}
                     className={`btn btn-outline-primary`}

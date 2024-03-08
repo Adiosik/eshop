@@ -62,7 +62,6 @@ export default function App() {
                         )}
                     </div>
                 </article>
-                <section className="container mt-4">
                     {isLoadingData ? null : (
                         <ArticleList 
                             data={data} 
@@ -72,7 +71,6 @@ export default function App() {
                             handleLoadMore={handleLoadMore}
                         />
                     )}
-                </section>
             </section>
         </main>
     )

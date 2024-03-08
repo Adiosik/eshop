@@ -3,7 +3,7 @@ import Article from "./Article";
 
 export default function ArticleList({ data, cartItems, handleAddToCart, handleLoadMore, isCheckoutLoading }) {
     return (
-        <section className="container mb-5 text-center">
+        <section>
             <h2 className="visually-hidden">Lamps</h2>
             <div className="row row-gap-4 align-content-stretch">
                 {data?.products.map((item) => (
