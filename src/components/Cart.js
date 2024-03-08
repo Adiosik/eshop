@@ -51,8 +51,9 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
     }
 
     React.useEffect(() => {
-        if (cartItems.length > 0) {
-            setCartState(undefined) // Košík není prázdný
+        const cartNotEmpty = !cartItems.length
+        if (cartNotEmpty) {
+            setCartState(undefined)
         }
     }, [cartItems, setCartState])
 
