@@ -58,49 +58,51 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
     }, [cartItems, setCartState])
 
     return (
-        <article>
-            {error && (
-                // Zobrazení chybové hlášky
-                <section className="alert alert-danger" role="alert">
-                    {error}
-                </section>
-            )}
-            {cartState === "orderSent" && (
-                // Zobrazení hlášky po odeslání objednávky
-                <section>
-                    <p className="alert alert-success">Your order was sent. Thank you.<br />You can buy more if you want now.</p>
-                </section>
-            )}
-            <h2>Cart</h2>
-            {cartItems.length === 0 ? (
-                <section>
-                    <p>Add something to your cart, make it from your heart.</p>
-                </section>
-            ) : (
-                <section>
-                    <ul className="list-group">
-                        {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
-                        {cartItems.map((item, index) => (
-                            <CartItem
-                                key={index}
-                                item={item}
-                                handleRemoveFromCart={handleRemoveFromCart}
-                                disabled={cartState === "orderSent"}
+        <article className="row align-items-center">
+            <div className="col mt-4">
+                {error && (
+                    // Zobrazení chybové hlášky
+                    <section className="alert alert-danger" role="alert">
+                        {error}
+                    </section>
+                )}
+                {cartState === "orderSent" && (
+                    // Zobrazení hlášky po odeslání objednávky
+                    <section>
+                        <p className="alert alert-success">Your order was sent. Thank you.<br />You can buy more if you want now.</p>
+                    </section>
+                )}
+                <h2>Cart</h2>
+                {cartItems.length === 0 ? (
+                    <section>
+                        <p>Add something to your cart, make it from your heart.</p>
+                    </section>
+                ) : (
+                    <section>
+                        <ul className="list-group">
+                            {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
+                            {cartItems.map((item, index) => (
+                                <CartItem
+                                    key={index}
+                                    item={item}
+                                    handleRemoveFromCart={handleRemoveFromCart}
+                                    disabled={cartState === "orderSent"}
+                                />
+                            ))}
+                            <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
+                        </ul>
+                        {/* Tlačítko "Checkout" zobrazí formulář pro e-mail a Place order */}
+                        {cartState === "checkoutForm" || cartState === "isLoading" ? (
+                            <Checkout
+                                onSubmit={onSubmit}
+                                disabled={cartState === "isLoading"}
                             />
-                        ))}
-                        <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
-                    </ul>
-                    {/* Tlačítko "Checkout" zobrazí formulář pro e-mail a Place order */}
-                    {cartState === "checkoutForm" || cartState === "isLoading" ? (
-                        <Checkout 
-                            onSubmit={onSubmit}
-                            disabled={cartState === "isLoading"}
-                        />
-                    ) : (
-                        <button onClick={() => setCartState("checkoutForm")} className="btn btn-primary btn-lg mt-3">Checkout</button>
-                    )}
-                </section>
-            )}
+                        ) : (
+                            <button onClick={() => setCartState("checkoutForm")} className="btn btn-primary btn-lg mt-3">Checkout</button>
+                        )}
+                    </section>
+                )}
+            </div>
         </article>
     )
 }
