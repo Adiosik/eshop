@@ -43,12 +43,12 @@ export default function App() {
 
     return (
         <main>
-            <section className="container mt-5">
+            <section className="container mt-4">
                 <header>
                     <h1>E-shop</h1>
                 </header>
                 {isLoadingData ? (
-                    <div className="alert alert-info">Please wait while we load data...</div>
+                    <div className="alert alert-info mt-4">Please wait while we load data...</div>
                 ) : (
                     <Cart
                         cartItems={cartItems} // Zobrazení košíku
