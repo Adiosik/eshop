@@ -51,7 +51,7 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
     }
 
     React.useEffect(() => {
-        const cartNotEmpty = !cartItems.length
+        const cartNotEmpty = cartItems.length > 0
         if (cartNotEmpty) {
             setCartState(undefined)
         }
@@ -66,7 +66,7 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
                 </section>
             )}
             {cartState === "orderSent" && (
-                // Zobrazení zelené hlášky po odeslání objednávky
+                // Zobrazení hlášky po odeslání objednávky
                 <section>
                     <p className="alert alert-success">Your order was sent. Thank you.<br />You can buy more if you want now.</p>
                 </section>
