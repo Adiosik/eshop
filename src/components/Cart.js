@@ -51,11 +51,11 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
     }
 
     React.useEffect(() => {
-        const cartNotEmpty = cartItems.length > 0
+        const cartNotEmpty = cartItems.length
         if (cartNotEmpty) {
-            setCartState(undefined)
+            setCartState(undefined);
         }
-    }, [cartItems, setCartState])
+    }, [cartItems, setCartState]);
 
     return (
         <article className="row align-items-center">
