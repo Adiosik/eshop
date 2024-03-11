@@ -3,43 +3,48 @@ import Cart from "./components/Cart";
 import ArticleList from "./components/ArticleList";
 
 export default function App() {
-    const [cartItems, setCartItems] = React.useState([])
-    const [cartState, setCartState] = React.useState(undefined)
-    const [data, setData] = React.useState(undefined)
-    const [isLoadingData, setIsLoadingData] = React.useState(true)
+    const [cartItems, setCartItems] = React.useState([]);
+    const [cartState, setCartState] = React.useState(undefined);
+    const [products, setProducts] = React.useState(undefined);
+    const [isLoadingData, setIsLoadingData] = React.useState(true);
 
     // Přidá konkrétní položky do košíku
     const handleAddToCart = (item) => {
-        setCartItems(cartItems.concat(item))
-    }
+        setCartItems(cartItems.concat(item));
+    };
 
     // Odstraní položku z košíku
     const handleRemoveFromCart = (itemToRemove) => {
-        const updatedCart = cartItems.filter(item => item !== itemToRemove) // Vytvoří se nové pole bez odstraněné položky
-        setCartItems(updatedCart) // Aktualizuje stav košíku
-    }
+        const updatedCart = cartItems.filter(item => item !== itemToRemove);
+        setCartItems(updatedCart);
+    };
 
     // Načtení dat z DummyJSON
     React.useEffect(() => {
-        fetch("https://dummyjson.com/products?limit=8")
+        fetch("https://dummyjson.com/products?limit=4")
             .then((res) => res.json())
             .then((fetchedData) => {
-                setData(fetchedData);
-                setIsLoadingData(false); // Při dokončení načítání dat změníme stav na false
+                setTimeout(() => {
+                    setProducts(fetchedData.products);
+                    setIsLoadingData(false);
+                }, 5000);
             })
-            .catch(() => setIsLoadingData(false)); // V případě chyby také změníme stav na false
-    }, [])
+            .catch(() => setIsLoadingData(false));
+    }, []);
 
     // Funkce pro načtení dalších dat
     const handleLoadMore = () => {
-        const nextSkip = data.products.length
+        setIsLoadingData(true);
+        const nextSkip = products.length;
 
-        fetch(`https://dummyjson.com/products?limit=8&skip=${nextSkip}`)
+        fetch(`https://dummyjson.com/products?limit=4&skip=${nextSkip}`)
             .then((res) => res.json())
             .then((fetchedData) => {
-                setData(prevData => ({ ...prevData, products: [...prevData.products, ...fetchedData.products] }));
-            });
-    }
+                setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
+                setIsLoadingData(false); // Nastavíme isLoadingData na false, protože načítání dat skončilo
+            })
+            .catch(() => setIsLoadingData(false));
+    };
 
     return (
         <main>
@@ -47,27 +52,28 @@ export default function App() {
                 <header>
                     <h1>E-shop</h1>
                 </header>
-                {isLoadingData ? (
+                {products === undefined ? (
                     <div className="alert alert-info mt-4">Please wait while we load data...</div>
                 ) : (
-                    <Cart
-                        cartItems={cartItems} // Zobrazení košíku
-                        handleRemoveFromCart={handleRemoveFromCart} // Odstraní položku z košíku
-                        setCartItems={setCartItems}
-                        cartState={cartState}
-                        setCartState={setCartState}
-                    />
-                )}
-                {isLoadingData ? null : (
-                    <ArticleList
-                        data={data}
-                        cartItems={cartItems}
-                        handleAddToCart={handleAddToCart}
-                        isCheckoutLoading={cartState === "isLoading"}
-                        handleLoadMore={handleLoadMore}
-                    />
+                    <>
+                        <Cart
+                            cartItems={cartItems}
+                            handleRemoveFromCart={handleRemoveFromCart}
+                            setCartItems={setCartItems}
+                            cartState={cartState}
+                            setCartState={setCartState}
+                        />
+                        <ArticleList
+                            products={products}
+                            cartItems={cartItems}
+                            handleAddToCart={handleAddToCart}
+                            isCheckoutLoading={cartState === "isLoading"}
+                            handleLoadMore={handleLoadMore}
+                            isLoadingData={isLoadingData}
+                        />
+                    </>
                 )}
             </section>
         </main>
-    )
+    );
 }
