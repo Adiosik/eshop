@@ -24,10 +24,8 @@ export default function App() {
         fetch("https://dummyjson.com/products?limit=4")
             .then((res) => res.json())
             .then((fetchedData) => {
-                setTimeout(() => {
                     setProducts(fetchedData.products);
                     setIsLoadingData(false);
-                }, 5000);
             })
             .catch(() => setIsLoadingData(false));
     }, []);
