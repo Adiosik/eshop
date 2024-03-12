@@ -7,6 +7,7 @@ export default function App() {
     const [cartState, setCartState] = React.useState(undefined);
     const [products, setProducts] = React.useState([]);
     const [isLoadingData, setIsLoadingData] = React.useState(true);
+    const [isMaxProductsLoaded, setIsMaxProductsLoaded] = React.useState(false);
 
     // Přidá konkrétní položky do košíku
     const handleAddToCart = (item) => {
@@ -26,11 +27,17 @@ export default function App() {
         fetch(`https://dummyjson.com/products?limit=60&skip=${nextSkip}`)
             .then((res) => res.json())
             .then((fetchedData) => {
-                setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
+                if (!isMaxProductsLoaded) {
+                    setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
+                }
                 setIsLoadingData(false);
+                // Pokud bylo načteno maximum produktů, nastavíme isMaxProductsLoaded na true
+                if (fetchedData.total <= products.length + fetchedData.products.length) {
+                    setIsMaxProductsLoaded(true);
+                }
             })
             .catch(() => setIsLoadingData(false));
-    };
+    };    
 
     // Načtení dat z DummyJSON při prvním zobrazení
     React.useEffect(() => {
@@ -39,7 +46,9 @@ export default function App() {
 
     // Funkce pro načtení dalších dat
     const handleLoadMore = () => {
-        fetchData()
+        if (!isMaxProductsLoaded) {
+            fetchData()
+        }
     };
 
     return (
@@ -66,6 +75,7 @@ export default function App() {
                             isCheckoutLoading={cartState === "isLoading"}
                             handleLoadMore={handleLoadMore}
                             isLoadingData={isLoadingData}
+                            isMaxProductsLoaded={isMaxProductsLoaded}
                         />
                     </>
                 )}

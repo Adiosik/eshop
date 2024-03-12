@@ -1,9 +1,9 @@
 import React from "react";
 import Article from "./Article";
 
-export default function ArticleList({ products, cartItems, handleAddToCart, handleLoadMore, isCheckoutLoading, isLoadingData }) {
+export default function ArticleList({ products, cartItems, handleAddToCart, handleLoadMore, isCheckoutLoading, isLoadingData, isMaxProductsLoaded }) {
     return (
-        <section className="mt-4">
+        <section className="mt-4 mb-5">
             <h2 className="visually-hidden">Lamps</h2>
             <div className="row row-gap-4 align-content-stretch">
                 {products.map((item) => (
@@ -17,14 +17,16 @@ export default function ArticleList({ products, cartItems, handleAddToCart, hand
                     </div>
                 ))}
             </div>
-            <div className="text-center mb-5">
-                <button className="btn btn-outline-primary btn-lg mt-5"
-                    onClick={handleLoadMore}
-                    disabled={isLoadingData}
-                >
-                    {isLoadingData ? 'Loading...' : 'Load more'}
-                </button>
-            </div>
+            {!isMaxProductsLoaded && (
+                <div className="text-center">
+                    <button className="btn btn-outline-primary btn-lg mt-5"
+                        onClick={handleLoadMore}
+                        disabled={isLoadingData}
+                    >
+                        {isLoadingData ? 'Loading...' : 'Load more'}
+                    </button>
+                </div>
+            )}
         </section>
     );
 }
