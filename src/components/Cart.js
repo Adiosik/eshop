@@ -10,6 +10,18 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
         return cartItems.reduce((total, item) => total + item.price, 0)
     }
 
+    // Fetch API pro získání dat košíku
+    React.useEffect(() => {
+        fetch('https://dummyjson.com/carts/1')
+            .then(res => res.json())
+            .then(cartData => {
+                setCartItems(cartData.products); // Uložení dat v CartItems
+            })
+            .catch(error => {
+                setError('Failed to fetch cart data: ' + error);
+            });
+    }, []);
+
     // Funkce pro odeslání objednávky
     const onSubmit = (email) => {
         setError(undefined)

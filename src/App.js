@@ -8,49 +8,66 @@ export default function App() {
     const [products, setProducts] = React.useState([]);
     const [isLoadingData, setIsLoadingData] = React.useState(true);
     const [isMaxProductsLoaded, setIsMaxProductsLoaded] = React.useState(false);
-
-    // Přidá konkrétní položky do košíku
-    const handleAddToCart = (item) => {
-        setCartItems(cartItems.concat(item));
-    };
-
-    // Odstraní položku z košíku
-    const handleRemoveFromCart = (itemToRemove) => {
-        const updatedCart = cartItems.filter(item => item !== itemToRemove);
-        setCartItems(updatedCart);
-    };
-
+    
     // Funkce pro načtení dat z URL
     const fetchData = () => {
         const nextSkip = products.length;
         setIsLoadingData(true);
         fetch(`https://dummyjson.com/products?limit=60&skip=${nextSkip}`)
-            .then((res) => res.json())
-            .then((fetchedData) => {
-                if (!isMaxProductsLoaded) {
-                    setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
-                }
-                setIsLoadingData(false);
-                // Pokud bylo načteno maximum produktů, nastavíme isMaxProductsLoaded na true
-                if (fetchedData.total <= products.length + fetchedData.products.length) {
-                    setIsMaxProductsLoaded(true);
-                }
-            })
-            .catch(() => setIsLoadingData(false));
-    };    
-
+        .then((res) => res.json())
+        .then((fetchedData) => {
+            if (!isMaxProductsLoaded) {
+                setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
+            }
+            setIsLoadingData(false);
+            // Pokud bylo načteno maximum produktů, nastavíme isMaxProductsLoaded na true
+            if (fetchedData.total <= products.length + fetchedData.products.length) {
+                setIsMaxProductsLoaded(true);
+            }
+        })
+        .catch(() => setIsLoadingData(false));
+    };
+    
     // Načtení dat z DummyJSON při prvním zobrazení
     React.useEffect(() => {
         fetchData()
     }, []);
-
+    
     // Funkce pro načtení dalších dat
     const handleLoadMore = () => {
-        if (!isMaxProductsLoaded) {
-            fetchData()
-        }
+        fetchData()
+    };
+    
+    // Funkce pro aktualizaci košíku
+    const updateCart = (item, quantity) => {
+        fetch('https://dummyjson.com/carts/1', {
+            method: 'PUT', // nebo 'PATCH' podle vaší potřeby
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                merge: true, // this will include existing products in the cart
+                products: [
+                    {
+                    id: item.id,
+                    quantity: quantity,
+                    },
+                ],
+            }),
+        })
+    };
+    
+    // Přidá konkrétní položky do košíku
+    const handleAddToCart = (item) => {
+        setCartItems(cartItems.concat(item));
+        updateCart(item, 1);
     };
 
+    // Odstraní položku z košíku
+    const handleRemoveFromCart = (item) => {
+        const updatedCart = cartItems.filter(i => i !== item);
+        setCartItems(updatedCart);
+        updateCart(item, 0);
+    };
+    
     return (
         <main>
             <section className="container mt-4">
