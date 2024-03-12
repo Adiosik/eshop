@@ -5,7 +5,7 @@ import ArticleList from "./components/ArticleList";
 export default function App() {
     const [cartItems, setCartItems] = React.useState([]);
     const [cartState, setCartState] = React.useState(undefined);
-    const [products, setProducts] = React.useState(undefined);
+    const [products, setProducts] = React.useState([]);
     const [isLoadingData, setIsLoadingData] = React.useState(true);
 
     // Přidá konkrétní položky do košíku
@@ -19,29 +19,27 @@ export default function App() {
         setCartItems(updatedCart);
     };
 
-    // Načtení dat z DummyJSON
-    React.useEffect(() => {
-        fetch("https://dummyjson.com/products?limit=4")
+    // Funkce pro načtení dat z URL
+    const fetchData = () => {
+        const nextSkip = products.length;
+        setIsLoadingData(true);
+        fetch(`https://dummyjson.com/products?limit=60&skip=${nextSkip}`)
             .then((res) => res.json())
             .then((fetchedData) => {
-                    setProducts(fetchedData.products);
-                    setIsLoadingData(false);
+                setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
+                setIsLoadingData(false);
             })
             .catch(() => setIsLoadingData(false));
+    };
+
+    // Načtení dat z DummyJSON při prvním zobrazení
+    React.useEffect(() => {
+        fetchData()
     }, []);
 
     // Funkce pro načtení dalších dat
     const handleLoadMore = () => {
-        setIsLoadingData(true);
-        const nextSkip = products.length;
-
-        fetch(`https://dummyjson.com/products?limit=4&skip=${nextSkip}`)
-            .then((res) => res.json())
-            .then((fetchedData) => {
-                setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
-                setIsLoadingData(false); // Nastavíme isLoadingData na false, protože načítání dat skončilo
-            })
-            .catch(() => setIsLoadingData(false));
+        fetchData()
     };
 
     return (
