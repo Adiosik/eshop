@@ -44,11 +44,9 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
             .then(function (response) {
                 if (response.ok) {
                     // Pokud je odpověď od serveru úspěšná, vyprázdní se košík a změníme stav na "orderSent"
-                    setTimeout(() => {
                         setCartState("orderSent");
                         setCartItems([]);
                         console.log("Order sent successfully!");
-                    }, 5000);
                 } else {
                     // Pokud je odpověď od serveru neúspěšná, nastaví se chybová zpráva
                     setError("Order submission failed: There might be a connectivity issue or an internal server error. Please try again later. " + response.status);
