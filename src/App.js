@@ -1,6 +1,7 @@
 import React from "react";
 import Cart from "./components/Cart";
 import ArticleList from "./components/ArticleList";
+import Categories from "./components/Categories";
 
 export default function App() {
     const [cartItems, setCartItems] = React.useState([]);
@@ -8,17 +9,17 @@ export default function App() {
     const [products, setProducts] = React.useState([]);
     const [isLoadingData, setIsLoadingData] = React.useState(true);
     const [isMaxProductsLoaded, setIsMaxProductsLoaded] = React.useState(false);
+    const [selectedCategory, setSelectedCategory] = React.useState(null);
 
     // Funkce pro načtení dat z URL
     const fetchData = () => {
         const nextSkip = products.length;
         setIsLoadingData(true);
-        fetch(`https://dummyjson.com/products?limit=60&skip=${nextSkip}`)
+        const url = `https://dummyjson.com/products${selectedCategory ? `/category/${selectedCategory}` : ""}?limit=4&skip=${nextSkip}`
+        fetch(url)
             .then((res) => res.json())
             .then((fetchedData) => {
-                if (!isMaxProductsLoaded) {
-                    setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
-                }
+                setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
                 setIsLoadingData(false);
                 // Pokud bylo načteno maximum produktů, nastavíme isMaxProductsLoaded na true
                 if (fetchedData.total <= products.length + fetchedData.products.length) {
@@ -26,16 +27,6 @@ export default function App() {
                 }
             })
             .catch(() => setIsLoadingData(false));
-    };
-
-    // Načtení dat z DummyJSON při prvním zobrazení
-    React.useEffect(() => {
-        fetchData()
-    }, []);
-
-    // Funkce pro načtení dalších dat
-    const handleLoadMore = () => {
-        fetchData()
     };
 
     // Funkce pro aktualizaci košíku
@@ -68,6 +59,22 @@ export default function App() {
         updateCart(item, 0);
     };
 
+    // Funkce pro načtení dalších dat
+    const handleLoadMore = () => {
+        fetchData()
+    };
+
+    // Funkce pro výběr kategorie
+    const handleCategorySelect = (category) => {
+        setSelectedCategory(category);
+        setProducts([])
+        setIsMaxProductsLoaded(false)
+    };
+
+    React.useEffect(() => {
+        fetchData();
+    }, [selectedCategory])
+
     return (
         <main>
             <section className="container mt-4">
@@ -85,6 +92,7 @@ export default function App() {
                             cartState={cartState}
                             setCartState={setCartState}
                         />
+                        <Categories handleCategorySelect={handleCategorySelect} />
                         <ArticleList
                             products={products}
                             cartItems={cartItems}
