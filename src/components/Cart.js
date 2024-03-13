@@ -4,6 +4,7 @@ import Checkout from "./Checkout";
 
 export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, cartState, setCartState }) {
     const [error, setError] = React.useState(undefined)
+    const [isLoadingCartData, setIsLoadingCartData] = React.useState(true)
 
     // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
@@ -15,10 +16,12 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
         fetch('https://dummyjson.com/carts/1')
             .then(res => res.json())
             .then(cartData => {
-                setCartItems(cartData.products); // Uložení dat v CartItems
+                setCartItems(cartData.products);
+                setIsLoadingCartData(false);
             })
             .catch(error => {
                 setError('Failed to fetch cart data: ' + error);
+                setIsLoadingCartData(false);
             });
     }, []);
 
@@ -44,9 +47,9 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
             .then(function (response) {
                 if (response.ok) {
                     // Pokud je odpověď od serveru úspěšná, vyprázdní se košík a změníme stav na "orderSent"
-                        setCartState("orderSent");
-                        setCartItems([]);
-                        console.log("Order sent successfully!");
+                    setCartState("orderSent");
+                    setCartItems([]);
+                    console.log("Order sent successfully!");
                 } else {
                     // Pokud je odpověď od serveru neúspěšná, nastaví se chybová zpráva
                     setError("Order submission failed: There might be a connectivity issue or an internal server error. Please try again later. " + response.status);
@@ -75,6 +78,9 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
                     <section className="alert alert-danger" role="alert">
                         {error}
                     </section>
+                )}
+                {isLoadingCartData && (
+                    <div className="alert alert-info mt-4">Loading cart data...</div>
                 )}
                 {cartState === "orderSent" && (
                     // Zobrazení hlášky po odeslání objednávky
