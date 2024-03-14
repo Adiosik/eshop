@@ -2,6 +2,7 @@ import React from "react";
 import Cart from "./components/Cart";
 import ArticleList from "./components/ArticleList";
 import Categories from "./components/Categories";
+import Search from "./components/Search";
 
 export default function App() {
     const [cartItems, setCartItems] = React.useState([]);
@@ -10,12 +11,13 @@ export default function App() {
     const [isLoadingData, setIsLoadingData] = React.useState(true);
     const [isMaxProductsLoaded, setIsMaxProductsLoaded] = React.useState(false);
     const [selectedCategory, setSelectedCategory] = React.useState(null);
+    const [searchTerm, setSearchTerm] = React.useState("");
 
     // Funkce pro načtení dat z URL
     const fetchData = () => {
         const nextSkip = products.length;
         setIsLoadingData(true);
-        const url = `https://dummyjson.com/products${selectedCategory ? `/category/${selectedCategory}` : ""}?limit=4&skip=${nextSkip}`
+        const url = `https://dummyjson.com/products${selectedCategory ? `/category/${selectedCategory}` : ""}${searchTerm ? `/search?q=${searchTerm}&` : "?"}limit=4&skip=${nextSkip}`
         fetch(url)
             .then((res) => res.json())
             .then((fetchedData) => {
@@ -67,13 +69,22 @@ export default function App() {
     // Funkce pro výběr kategorie
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
+        setSearchTerm(""); 
         setProducts([])
         setIsMaxProductsLoaded(false)
     };
 
+    // Funkce pro vyhledávání
+    const handleSearch = (term) => {
+        setSearchTerm(term);
+        setSelectedCategory(null);
+        setProducts([]);
+        setIsMaxProductsLoaded(false);
+    };
+
     React.useEffect(() => {
         fetchData();
-    }, [selectedCategory])
+    }, [selectedCategory, searchTerm])
 
     return (
         <main>
@@ -93,6 +104,10 @@ export default function App() {
                             setCartState={setCartState}
                         />
                         <Categories handleCategorySelect={handleCategorySelect} />
+                        <Search 
+                            handleSearch={handleSearch}
+                            searchTerm={searchTerm}
+                        />
                         <ArticleList
                             products={products}
                             cartItems={cartItems}
