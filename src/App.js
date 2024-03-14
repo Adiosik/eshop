@@ -15,7 +15,6 @@ export default function App() {
     const [throttledSearchTerm, setThrottledSearchTerm] = React.useState("")
     const [timeoutId, setTimeoutId] = React.useState(null)
 
-    // Funkce pro načtení dat z URL
     const fetchData = () => {
         const nextSkip = products.length;
         setIsLoadingData(true);
@@ -29,7 +28,6 @@ export default function App() {
             .then((fetchedData) => {
                 setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
                 setIsLoadingData(false);
-                // Pokud bylo načteno maximum produktů, nastavíme isMaxProductsLoaded na true
                 if (fetchedData.total <= products.length + fetchedData.products.length) {
                     setIsMaxProductsLoaded(true);
                 }
@@ -37,10 +35,9 @@ export default function App() {
             .catch(() => setIsLoadingData(false));
     };
 
-    // Funkce pro aktualizaci košíku
     const updateCart = (item, quantity) => {
         fetch('https://dummyjson.com/carts/1', {
-            method: 'PUT', // nebo 'PATCH' podle vaší potřeby
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 merge: true, // this will include existing products in the cart
@@ -54,25 +51,21 @@ export default function App() {
         })
     };
 
-    // Přidá konkrétní položky do košíku
     const handleAddToCart = (item) => {
         setCartItems(cartItems.concat(item));
         updateCart(item, 1);
     };
 
-    // Odstraní položku z košíku
     const handleRemoveFromCart = (item) => {
         const updatedCart = cartItems.filter(i => i !== item);
         setCartItems(updatedCart);
         updateCart(item, 0);
     };
 
-    // Funkce pro načtení dalších dat
     const handleLoadMore = () => {
         fetchData()
     };
 
-    // Funkce pro výběr kategorie
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
         setSearchTerm(""); 
@@ -81,7 +74,6 @@ export default function App() {
         setIsMaxProductsLoaded(false)
     };
 
-    // Funkce pro vyhledávání
     const handleSearch = (term) => {
         setSearchTerm(term);
         setSelectedCategory(null);

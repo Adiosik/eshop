@@ -6,12 +6,10 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
     const [error, setError] = React.useState(undefined)
     const [isLoadingCartData, setIsLoadingCartData] = React.useState(true)
 
-    // Funkce pro výpočet celkové ceny v košíku
     const getTotalPrice = () => {
         return cartItems.reduce((total, item) => total + item.price, 0)
     }
 
-    // Fetch API pro získání dat košíku
     React.useEffect(() => {
         fetch('https://dummyjson.com/carts/1')
             .then(res => res.json())
@@ -25,7 +23,6 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
             });
     }, []);
 
-    // Funkce pro odeslání objednávky
     const onSubmit = (email) => {
         setError(undefined)
         setCartState("isLoading")
@@ -46,18 +43,15 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
         })
             .then(function (response) {
                 if (response.ok) {
-                    // Pokud je odpověď od serveru úspěšná, vyprázdní se košík a změníme stav na "orderSent"
                     setCartState("orderSent");
                     setCartItems([]);
                     console.log("Order sent successfully!");
                 } else {
-                    // Pokud je odpověď od serveru neúspěšná, nastaví se chybová zpráva
                     setError("Order submission failed: There might be a connectivity issue or an internal server error. Please try again later. " + response.status);
                     console.error("Failed to send order:", response.status);
                 }
             })
             .catch(function (error) {
-                // Pokud dojde k chybě při odesílání, nastaví se chybová zpráva
                 setError("Error while sending order: There might be a connectivity issue or an internal server error. Please try again later. " + error);
                 console.error("Error while sending order:", error);
             });
@@ -74,7 +68,6 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
         <article className="row align-items-center">
             <div className="col mt-4">
                 {error && (
-                    // Zobrazení chybové hlášky
                     <section className="alert alert-danger" role="alert">
                         {error}
                     </section>
@@ -83,7 +76,6 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
                     <div className="alert alert-info mt-4">Loading cart data...</div>
                 )}
                 {cartState === "orderSent" && (
-                    // Zobrazení hlášky po odeslání objednávky
                     <section>
                         <p className="alert alert-success">Your order was sent. Thank you.<br />You can buy more if you want now.</p>
                     </section>
@@ -96,7 +88,6 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
                 ) : (
                     <section>
                         <ul className="list-group">
-                            {/* Vykreslení seznamu položek v košíku pomocí komponenty CartItem */}
                             {cartItems.map((item, index) => (
                                 <CartItem
                                     key={index}
@@ -107,7 +98,6 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
                             ))}
                             <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
                         </ul>
-                        {/* Tlačítko "Checkout" zobrazí formulář pro e-mail a Place order */}
                         {cartState === "checkoutForm" || cartState === "isLoading" ? (
                             <Checkout
                                 onSubmit={onSubmit}
