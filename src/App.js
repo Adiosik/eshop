@@ -17,7 +17,11 @@ export default function App() {
     const fetchData = () => {
         const nextSkip = products.length;
         setIsLoadingData(true);
-        const url = `https://dummyjson.com/products${selectedCategory ? `/category/${selectedCategory}` : ""}${searchTerm ? `/search?q=${searchTerm}&` : "?"}limit=4&skip=${nextSkip}`
+        const url = `https://dummyjson.com/products${
+            selectedCategory ? `/category/${selectedCategory}` : ""
+        }${
+            searchTerm ? `/search?q=${searchTerm}&` : "?"
+        }limit=4&skip=${nextSkip}`
         fetch(url)
             .then((res) => res.json())
             .then((fetchedData) => {
