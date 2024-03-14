@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Categories({ handleCategorySelect, searchTerm }) {
+export default function Categories({ handleCategorySelect, selectedCategory, searchTerm }) {
     const [categories, setCategories] = React.useState([]);
 
     React.useEffect(() => {
@@ -21,7 +21,7 @@ export default function Categories({ handleCategorySelect, searchTerm }) {
                     <button 
                         key={index} 
                         type="button" 
-                        className="btn btn-secondary mr-3"
+                        className={`btn ${selectedCategory === category ? 'btn-primary' : 'btn-outline-secondary'} mr-3`}
                         onClick={() => handleCategorySelect(category)}
                     >
                         {category}

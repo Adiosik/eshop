@@ -106,6 +106,7 @@ export default function App() {
                         <Categories 
                             handleCategorySelect={handleCategorySelect}
                             searchTerm={searchTerm} 
+                            selectedCategory={selectedCategory}
                         />
                         <Search 
                             handleSearch={handleSearch}
