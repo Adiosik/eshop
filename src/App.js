@@ -103,7 +103,10 @@ export default function App() {
                             cartState={cartState}
                             setCartState={setCartState}
                         />
-                        <Categories handleCategorySelect={handleCategorySelect} />
+                        <Categories 
+                            handleCategorySelect={handleCategorySelect}
+                            searchTerm={searchTerm} 
+                        />
                         <Search 
                             handleSearch={handleSearch}
                             searchTerm={searchTerm}

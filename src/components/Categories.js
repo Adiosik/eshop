@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Categories({ handleCategorySelect }) {
+export default function Categories({ handleCategorySelect, searchTerm }) {
     const [categories, setCategories] = React.useState([]);
 
     React.useEffect(() => {
@@ -14,18 +14,22 @@ export default function Categories({ handleCategorySelect }) {
             });
     }, []);
 
-    return (
-        <section className="mt-4">
-            {categories.map((category, index) => (
-                <button 
-                    key={index} 
-                    type="button" 
-                    className="btn btn-secondary mr-3"
-                    onClick={() => handleCategorySelect(category)}
-                >
-                    {category}
-                </button>
-            ))}
-        </section>
-    );
+    if(!searchTerm) {
+        return (
+            <section className="mt-4">
+                {categories.map((category, index) => (
+                    <button 
+                        key={index} 
+                        type="button" 
+                        className="btn btn-secondary mr-3"
+                        onClick={() => handleCategorySelect(category)}
+                    >
+                        {category}
+                    </button>
+                ))}
+            </section>
+        );
+    } else {
+        return null;
+    }
 }
