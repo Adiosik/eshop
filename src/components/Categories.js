@@ -21,7 +21,7 @@ export default function Categories({ handleCategorySelect, selectedCategory, sea
                     <button 
                         key={index} 
                         type="button" 
-                        className={`btn ${selectedCategory === category ? 'btn-primary' : 'btn-outline-secondary'} mr-3`}
+                        className={`btn ${selectedCategory === category ? 'btn-secondary' : 'btn-outline-secondary'} mr-3`}
                         onClick={() => handleCategorySelect(category)}
                     >
                         {category}
