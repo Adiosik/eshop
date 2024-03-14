@@ -90,7 +90,7 @@ export default function App() {
         clearTimeout(timeoutId)
         setTimeoutId(setTimeout(() => {
             setThrottledSearchTerm(term)
-        }, 4000))
+        }, 450))
     };
 
     React.useEffect(() => {
@@ -131,6 +131,8 @@ export default function App() {
                             handleLoadMore={handleLoadMore}
                             isLoadingData={isLoadingData}
                             isMaxProductsLoaded={isMaxProductsLoaded}
+                            throttledSearchTerm={throttledSearchTerm}
+                            timeoutId={timeoutId}
                         />
                     </>
                 )}

@@ -1,7 +1,7 @@
 import React from "react";
 import Article from "./Article";
 
-export default function ArticleList({ products, cartItems, handleAddToCart, handleLoadMore, isCheckoutLoading, isLoadingData, isMaxProductsLoaded }) {
+export default function ArticleList({ products, cartItems, handleAddToCart, handleLoadMore, isCheckoutLoading, isLoadingData, isMaxProductsLoaded, throttledSearchTerm, timeoutId }) {
     return (
         <section className="mt-4 mb-5">
             <h2 className="visually-hidden">Lamps</h2>
@@ -17,13 +17,13 @@ export default function ArticleList({ products, cartItems, handleAddToCart, hand
                     </div>
                 ))}
             </div>
-            {!isMaxProductsLoaded && (
+            {!isMaxProductsLoaded && !throttledSearchTerm && (
                 <div className="text-center">
                     <button className="btn btn-outline-primary btn-lg mt-5"
                         onClick={handleLoadMore}
-                        disabled={isLoadingData}
+                        disabled={isLoadingData || timeoutId !== null}
                     >
-                        {isLoadingData ? 'Loading...' : 'Load more'}
+                        {isLoadingData || timeoutId !== null ? 'Loading...' : 'Load more'}
                     </button>
                 </div>
             )}
