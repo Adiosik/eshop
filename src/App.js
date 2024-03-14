@@ -12,6 +12,8 @@ export default function App() {
     const [isMaxProductsLoaded, setIsMaxProductsLoaded] = React.useState(false);
     const [selectedCategory, setSelectedCategory] = React.useState(null);
     const [searchTerm, setSearchTerm] = React.useState("");
+    const [throttledSearchTerm, setThrottledSearchTerm] = React.useState("")
+    const [timeoutId, setTimeoutId] = React.useState(null)
 
     // Funkce pro načtení dat z URL
     const fetchData = () => {
@@ -20,7 +22,7 @@ export default function App() {
         const url = `https://dummyjson.com/products${
             selectedCategory ? `/category/${selectedCategory}` : ""
         }${
-            searchTerm ? `/search?q=${searchTerm}&` : "?"
+            throttledSearchTerm ? `/search?q=${throttledSearchTerm}&` : "?"
         }limit=4&skip=${nextSkip}`
         fetch(url)
             .then((res) => res.json())
@@ -74,6 +76,7 @@ export default function App() {
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
         setSearchTerm(""); 
+        setThrottledSearchTerm("")
         setProducts([])
         setIsMaxProductsLoaded(false)
     };
@@ -84,11 +87,15 @@ export default function App() {
         setSelectedCategory(null);
         setProducts([]);
         setIsMaxProductsLoaded(false);
+        clearTimeout(timeoutId)
+        setTimeoutId(setTimeout(() => {
+            setThrottledSearchTerm(term)
+        }, 4000))
     };
 
     React.useEffect(() => {
         fetchData();
-    }, [selectedCategory, searchTerm])
+    }, [selectedCategory, throttledSearchTerm])
 
     return (
         <main>
