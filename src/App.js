@@ -78,9 +78,9 @@ export default function App() {
                         </div>
                     </nav>
                 </header>
-                <body className="container mt-4">
+                <body className="container mt-4 mb-5">
                     {products === undefined ? (
-                        <div className="alert alert-info mt-4">Please wait while we load data...</div>
+                        <div className="alert alert-info">Please wait while we load data...</div>
                     ) : (
                         <>
                             <Cart />
