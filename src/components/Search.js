@@ -1,22 +1,41 @@
 import React from "react";
 
-export default function Search({ searchTerm, handleSearch }) {
-    const handleChange = (event) => {
-        handleSearch(event.target.value);
-    }
+const debounce = (callback, wait) => {
+  let timeoutId = null;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      callback(...args);
+    }, wait);
+  };
+};
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+export default function Search({ handleSearch }) {
+  const [inputValue, setInputValue] = React.useState("");
+  
+  const handleSearchDebounced = React.useMemo(() => debounce(handleSearch, 300), [handleSearch]);
+  
+  const handleChange = (event) => {
+    const term = event.target.value;
+    setInputValue(term);
+    if (term.length >= 3) {
+        handleSearchDebounced(term);
     }
+  };
 
-    return (
-        <form onSubmit={handleSubmit} className="mt-2">
-            <input
-                type="search"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={handleChange}
-            />
-        </form>
-    )
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-2">
+      <input
+        className="form-control me-2"
+        type="search"
+        placeholder="Search products"
+        value={inputValue}
+        onChange={handleChange}
+      />
+    </form>
+  );
 }

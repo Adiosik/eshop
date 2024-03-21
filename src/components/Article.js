@@ -1,6 +1,12 @@
 import React from "react";
+import { CartContext } from "./CartProvider";
 
-export default function Article({ item, handleAddToCart, isInCart, isCheckoutLoading }) {
+export default function Article({ item }) {
+    const {handleAddToCart, cartItems, cartState} = React.useContext(CartContext)
+
+    const isInCart= cartItems.some((cartItem) => cartItem.id === item.id)
+    const isCheckoutLoading = cartState === "isLoading"
+
     return (
         <article className="card h-100 d-flex flex-column">
             <div className="ratio ratio-4x3">

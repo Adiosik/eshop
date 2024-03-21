@@ -1,30 +1,47 @@
 import React from "react";
 import Article from "./Article";
 
-export default function ArticleList({ products, cartItems, handleAddToCart, handleLoadMore, isCheckoutLoading, isLoadingData, isMaxProductsLoaded, throttledSearchTerm, timeoutId }) {
+export default function ArticleList({ products, handleLoadMore, isLoadingData, isMaxProductsLoaded, timeoutId, isProductsFound, selectedCategory }) {
     return (
         <section className="mt-4 mb-5">
-            <h2 className="visually-hidden">Lamps</h2>
-            <div className="row row-gap-4 align-content-stretch">
-                {products.map((item) => (
-                    <div key={item.id} className="col-6 col-md-4 col-lg-3">
-                        <Article
-                            item={item}
-                            handleAddToCart={handleAddToCart}
-                            isInCart={cartItems.some((cartItem) => cartItem.id === item.id)}
-                            isCheckoutLoading={isCheckoutLoading}
-                        />
+            {selectedCategory && (
+                <div className="mb-3">
+                    <h3>{selectedCategory}</h3>
+                </div>
+            )}
+            {isProductsFound ? (
+                <>
+                    <h2 className="visually-hidden">Products</h2>
+                    <div className="row row-gap-4 align-content-stretch">
+                        {products.map((item) => (
+                            <div key={item.id} className="col-12 col-md-6 col-lg-4 col-xl-3">
+                                <Article
+                                    item={item}
+                                />
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-            {!isMaxProductsLoaded && !throttledSearchTerm && (
-                <div className="text-center">
-                    <button className="btn btn-outline-primary btn-lg mt-5"
-                        onClick={handleLoadMore}
-                        disabled={isLoadingData || timeoutId !== null}
-                    >
-                        {isLoadingData || timeoutId !== null ? 'Loading...' : 'Load more'}
-                    </button>
+                    {!isMaxProductsLoaded && (
+                        <div className="text-center mt-5">
+                            {isLoadingData ? (
+                                <div className="alert alert-info" role="alert">
+                                    Searching products
+                                </div>
+                            ) : (
+                                <button
+                                    className="btn btn-outline-primary btn-lg"
+                                    onClick={handleLoadMore}
+                                    disabled={isLoadingData || timeoutId !== null}
+                                >
+                                    Load more
+                                </button>
+                            )}
+                        </div>
+                    )}
+                </>
+            ) : (
+                <div className="alert alert-warning" role="alert">
+                    No products found.
                 </div>
             )}
         </section>

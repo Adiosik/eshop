@@ -2,7 +2,8 @@ import React from "react";
 
 export default function Categories({ handleCategorySelect, selectedCategory, searchTerm }) {
     const [categories, setCategories] = React.useState([]);
-
+    const [showAllArticlesVisible, setShowAllArticlesVisible] = React.useState(false);
+    
     React.useEffect(() => {
         fetch('https://dummyjson.com/products/categories')
             .then(res => res.json())
@@ -14,19 +15,40 @@ export default function Categories({ handleCategorySelect, selectedCategory, sea
             });
     }, []);
 
-    if(!searchTerm) {
+    React.useEffect(() => {
+        if (selectedCategory) {
+            setShowAllArticlesVisible(true);
+        } else {
+            setShowAllArticlesVisible(false);
+        }
+    }, [selectedCategory]);
+
+    if (!searchTerm) {
         return (
-            <section className="mt-4">
-                {categories.map((category, index) => (
-                    <button 
-                        key={index} 
-                        type="button" 
-                        className={`btn ${selectedCategory === category ? 'btn-secondary' : 'btn-outline-secondary'} mr-3`}
-                        onClick={() => handleCategorySelect(category)}
-                    >
-                        {category}
-                    </button>
-                ))}
+            <section className="me-5 mt-4">
+                <h2>Categories</h2>
+                <div className="list-group list-group-flush">
+                    {showAllArticlesVisible && (
+                        <button
+                            key="showAll"
+                            type="button"
+                            className={`list-group-item list-group-item-action ${!selectedCategory ? 'active' : ''}`}
+                            onClick={() => handleCategorySelect(null)}
+                        >
+                            Show all articles
+                        </button>
+                    )}
+                    {categories.map((category, index) => (
+                        <button
+                            key={index}
+                            type="button"
+                            className={`list-group-item list-group-item-action ${selectedCategory === category ? 'active' : ''}`}
+                            onClick={() => handleCategorySelect(category)}
+                        >
+                            {category}
+                        </button>
+                    ))}
+                </div>
             </section>
         );
     } else {

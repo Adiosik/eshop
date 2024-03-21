@@ -1,27 +1,11 @@
 import React from "react";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
+import { CartContext } from "./CartProvider";
 
-export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, cartState, setCartState }) {
+export default function Cart() {
     const [error, setError] = React.useState(undefined)
-    const [isLoadingCartData, setIsLoadingCartData] = React.useState(true)
-
-    const getTotalPrice = () => {
-        return cartItems.reduce((total, item) => total + item.price, 0)
-    }
-
-    React.useEffect(() => {
-        fetch('https://dummyjson.com/carts/1')
-            .then(res => res.json())
-            .then(cartData => {
-                setCartItems(cartData.products);
-                setIsLoadingCartData(false);
-            })
-            .catch(error => {
-                setError('Failed to fetch cart data: ' + error);
-                setIsLoadingCartData(false);
-            });
-    }, []);
+    const {setCartState, setCartItems, cartItems, cartState, getTotalPrice, isLoadingCartData} = React.useContext(CartContext)
 
     const onSubmit = (email) => {
         setError(undefined)
@@ -57,15 +41,8 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
             });
     }
 
-    React.useEffect(() => {
-        const cartNotEmpty = cartItems.length
-        if (cartNotEmpty) {
-            setCartState(undefined);
-        }
-    }, [cartItems, setCartState]);
-
     return (
-        <article className="row align-items-center">
+        <article className="row align-items-center mb-3">
             <div className="col mt-4">
                 {error && (
                     <section className="alert alert-danger" role="alert">
@@ -92,11 +69,10 @@ export default function Cart({ cartItems, handleRemoveFromCart, setCartItems, ca
                                 <CartItem
                                     key={index}
                                     item={item}
-                                    handleRemoveFromCart={handleRemoveFromCart}
                                     disabled={cartState === "orderSent"}
                                 />
                             ))}
-                            <li className="list-group-item d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
+                            <li className="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
                         </ul>
                         {cartState === "checkoutForm" || cartState === "isLoading" ? (
                             <Checkout

@@ -3,29 +3,32 @@ import Cart from "./components/Cart";
 import ArticleList from "./components/ArticleList";
 import Categories from "./components/Categories";
 import Search from "./components/Search";
+import { CartContextProvider } from "./components/CartProvider";
 
 export default function App() {
-    const [cartItems, setCartItems] = React.useState([]);
-    const [cartState, setCartState] = React.useState(undefined);
     const [products, setProducts] = React.useState([]);
     const [isLoadingData, setIsLoadingData] = React.useState(true);
     const [isMaxProductsLoaded, setIsMaxProductsLoaded] = React.useState(false);
     const [selectedCategory, setSelectedCategory] = React.useState(null);
     const [searchTerm, setSearchTerm] = React.useState("");
     const [throttledSearchTerm, setThrottledSearchTerm] = React.useState("")
-    const [timeoutId, setTimeoutId] = React.useState(null)
+    const [timeoutId, setTimeoutId] = React.useState(null);
+    const [isProductsFound, setIsProductsFound] = React.useState(true);
 
     const fetchData = () => {
         const nextSkip = products.length;
         setIsLoadingData(true);
-        const url = `https://dummyjson.com/products${
-            selectedCategory ? `/category/${selectedCategory}` : ""
-        }${
-            throttledSearchTerm ? `/search?q=${throttledSearchTerm}&` : "?"
-        }limit=4&skip=${nextSkip}`
+        const url = `https://dummyjson.com/products${selectedCategory ? `/category/${selectedCategory}` : ""
+            }${throttledSearchTerm ? `/search?q=${throttledSearchTerm}&` : "?"
+            }limit=4&skip=${nextSkip}`
         fetch(url)
             .then((res) => res.json())
             .then((fetchedData) => {
+                if (fetchedData.products.length === 0) {
+                    setIsProductsFound(false)
+                } else {
+                    setIsProductsFound(true)
+                }
                 setProducts(prevProducts => [...prevProducts, ...fetchedData.products]);
                 setIsLoadingData(false);
                 if (fetchedData.total <= products.length + fetchedData.products.length) {
@@ -35,40 +38,13 @@ export default function App() {
             .catch(() => setIsLoadingData(false));
     };
 
-    const updateCart = (item, quantity) => {
-        fetch('https://dummyjson.com/carts/1', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                merge: true, // this will include existing products in the cart
-                products: [
-                    {
-                        id: item.id,
-                        quantity: quantity,
-                    },
-                ],
-            }),
-        })
-    };
-
-    const handleAddToCart = (item) => {
-        setCartItems(cartItems.concat(item));
-        updateCart(item, 1);
-    };
-
-    const handleRemoveFromCart = (item) => {
-        const updatedCart = cartItems.filter(i => i !== item);
-        setCartItems(updatedCart);
-        updateCart(item, 0);
-    };
-
     const handleLoadMore = () => {
         fetchData()
     };
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
-        setSearchTerm(""); 
+        setSearchTerm("");
         setThrottledSearchTerm("")
         setProducts([])
         setIsMaxProductsLoaded(false)
@@ -80,9 +56,7 @@ export default function App() {
         setProducts([]);
         setIsMaxProductsLoaded(false);
         clearTimeout(timeoutId)
-        setTimeoutId(setTimeout(() => {
-            setThrottledSearchTerm(term)
-        }, 450))
+        setThrottledSearchTerm(term)
     };
 
     React.useEffect(() => {
@@ -90,45 +64,52 @@ export default function App() {
     }, [selectedCategory, throttledSearchTerm])
 
     return (
-        <main>
-            <section className="container mt-4">
+        <CartContextProvider>
+            <main className="container mt-4">
                 <header>
-                    <h1>E-shop</h1>
+                    <nav className="navbar bg-body-transparent">
+                        <div className="container-fluid">
+                            <h1 className="navbar-brand">E-shop</h1>
+                            <Search
+                                searchTerm={searchTerm}
+                                handleSearch={handleSearch}
+                                isLoadingData={isLoadingData}
+                            />
+                        </div>
+                    </nav>
                 </header>
-                {products === undefined ? (
-                    <div className="alert alert-info mt-4">Please wait while we load data...</div>
-                ) : (
-                    <>
-                        <Cart
-                            cartItems={cartItems}
-                            handleRemoveFromCart={handleRemoveFromCart}
-                            setCartItems={setCartItems}
-                            cartState={cartState}
-                            setCartState={setCartState}
-                        />
-                        <Categories 
-                            handleCategorySelect={handleCategorySelect}
-                            searchTerm={searchTerm} 
-                            selectedCategory={selectedCategory}
-                        />
-                        <Search 
-                            handleSearch={handleSearch}
-                            searchTerm={searchTerm}
-                        />
-                        <ArticleList
-                            products={products}
-                            cartItems={cartItems}
-                            handleAddToCart={handleAddToCart}
-                            isCheckoutLoading={cartState === "isLoading"}
-                            handleLoadMore={handleLoadMore}
-                            isLoadingData={isLoadingData}
-                            isMaxProductsLoaded={isMaxProductsLoaded}
-                            throttledSearchTerm={throttledSearchTerm}
-                            timeoutId={timeoutId}
-                        />
-                    </>
-                )}
-            </section>
-        </main>
+                <body className="container mt-4">
+                    {products === undefined ? (
+                        <div className="alert alert-info mt-4">Please wait while we load data...</div>
+                    ) : (
+                        <>
+                            <Cart />
+                            <div class="container">
+                                <div className="row">
+                                    <div className="col-auto">
+                                        <Categories
+                                            handleCategorySelect={handleCategorySelect}
+                                            selectedCategory={selectedCategory}
+                                        />
+                                    </div>
+                                    <div className="col">
+                                        <ArticleList
+                                            products={products}
+                                            handleLoadMore={handleLoadMore}
+                                            isLoadingData={isLoadingData}
+                                            isMaxProductsLoaded={isMaxProductsLoaded}
+                                            throttledSearchTerm={throttledSearchTerm}
+                                            timeoutId={timeoutId}
+                                            isProductsFound={isProductsFound}
+                                            selectedCategory={selectedCategory}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                </body>
+            </main>
+        </CartContextProvider>
     );
 }
