@@ -86,24 +86,20 @@ export default function App() {
                             <Cart />
                             <div class="container">
                                 <div className="row">
-                                    <div className="col-auto">
-                                        <Categories
-                                            handleCategorySelect={handleCategorySelect}
-                                            selectedCategory={selectedCategory}
-                                        />
-                                    </div>
-                                    <div className="col">
-                                        <ArticleList
-                                            products={products}
-                                            handleLoadMore={handleLoadMore}
-                                            isLoadingData={isLoadingData}
-                                            isMaxProductsLoaded={isMaxProductsLoaded}
-                                            throttledSearchTerm={throttledSearchTerm}
-                                            timeoutId={timeoutId}
-                                            isProductsFound={isProductsFound}
-                                            selectedCategory={selectedCategory}
-                                        />
-                                    </div>
+                                    <Categories
+                                        handleCategorySelect={handleCategorySelect}
+                                        selectedCategory={selectedCategory}
+                                    />
+                                    <ArticleList
+                                        products={products}
+                                        handleLoadMore={handleLoadMore}
+                                        isLoadingData={isLoadingData}
+                                        isMaxProductsLoaded={isMaxProductsLoaded}
+                                        throttledSearchTerm={throttledSearchTerm}
+                                        timeoutId={timeoutId}
+                                        isProductsFound={isProductsFound}
+                                        selectedCategory={selectedCategory}
+                                    />
                                 </div>
                             </div>
                         </>

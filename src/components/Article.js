@@ -23,7 +23,7 @@ export default function Article({ item }) {
             <div className="
                 card-footer 
                 d-flex justify-content-between align-items-center bg-transparent 
-                border-top-0 pb-3"
+                border-top-0 pb-3 gap-3"
             >
                 <p className="mb-0">€{item.price}</p>
                 <button

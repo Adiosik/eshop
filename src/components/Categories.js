@@ -25,14 +25,14 @@ export default function Categories({ handleCategorySelect, selectedCategory, sea
 
     if (!searchTerm) {
         return (
-            <section className="me-5 mt-4">
+            <div className="col-12 col-md-4 col-lg-3 col-xxl-2">
                 <h2>Categories</h2>
                 <div className="list-group list-group-flush">
                     {showAllArticlesVisible && (
                         <button
                             key="showAll"
                             type="button"
-                            className={`list-group-item list-group-item-action ${!selectedCategory ? 'active' : ''}`}
+                            className={`list-group-item list-group-item-action list-group-item-secondary ${!selectedCategory ? 'active' : ''}`}
                             onClick={() => handleCategorySelect(null)}
                         >
                             Show all articles
@@ -49,7 +49,7 @@ export default function Categories({ handleCategorySelect, selectedCategory, sea
                         </button>
                     ))}
                 </div>
-            </section>
+            </div>
         );
     } else {
         return null;

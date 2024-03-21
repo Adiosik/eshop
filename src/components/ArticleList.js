@@ -3,7 +3,7 @@ import Article from "./Article";
 
 export default function ArticleList({ products, handleLoadMore, isLoadingData, isMaxProductsLoaded, timeoutId, isProductsFound, selectedCategory }) {
     return (
-        <section className="mt-4 mb-5">
+        <div className="col">
             {selectedCategory && (
                 <div className="mb-3">
                     <h3>{selectedCategory}</h3>
@@ -14,7 +14,7 @@ export default function ArticleList({ products, handleLoadMore, isLoadingData, i
                     <h2 className="visually-hidden">Products</h2>
                     <div className="row row-gap-4 align-content-stretch">
                         {products.map((item) => (
-                            <div key={item.id} className="col-12 col-md-6 col-lg-4 col-xl-3">
+                            <div key={item.id} className="col-sm-6 col-lg-4 col-xl-4 col-xxl-3">
                                 <Article
                                     item={item}
                                 />
@@ -44,6 +44,6 @@ export default function ArticleList({ products, handleLoadMore, isLoadingData, i
                     No products found.
                 </div>
             )}
-        </section>
+        </div>
     );
 }
