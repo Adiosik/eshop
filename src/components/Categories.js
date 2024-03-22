@@ -1,4 +1,5 @@
 import React from "react";
+import ShowAllArticles from "./ShowAllArticles";
 
 export default function Categories({ handleCategorySelect, selectedCategory, searchTerm }) {
     const [categories, setCategories] = React.useState([]);
@@ -29,14 +30,10 @@ export default function Categories({ handleCategorySelect, selectedCategory, sea
                 <h2>Categories</h2>
                 <div className="list-group list-group-flush flex-row flex-md-column flex-wrap">
                     {showAllArticlesVisible && (
-                        <button
-                            key="showAll"
-                            type="button"
-                            className={`list-group-item list-group-item-action list-group-item-secondary w-auto ${!selectedCategory ? 'active' : ''}`}
+                        <ShowAllArticles
                             onClick={() => handleCategorySelect(null)}
-                        >
-                            Show all articles
-                        </button>
+                            selectedCategory={selectedCategory}
+                        />
                     )}
                     {categories.map((category, index) => (
                         <button
