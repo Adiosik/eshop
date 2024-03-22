@@ -3,7 +3,7 @@ import Article from "./Article";
 
 export default function ArticleList({ products, handleLoadMore, isLoadingData, isMaxProductsLoaded, timeoutId, isProductsFound, selectedCategory }) {
     return (
-        <div className="col">
+        <div className="col mb-5">
             {selectedCategory && (
                 <div className="mb-3">
                     <h3>{selectedCategory}</h3>
