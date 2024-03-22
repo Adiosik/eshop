@@ -28,9 +28,9 @@ export default function Search({ handleSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-2">
+    <form onSubmit={handleSubmit}>
       <input
-        className="form-control me-2"
+        className="form-control"
         type="search"
         placeholder="Search products"
         value={inputValue}

@@ -14,7 +14,7 @@ export default function ArticleList({ products, handleLoadMore, isLoadingData, i
                     <h2 className="visually-hidden">Products</h2>
                     <div className="row row-gap-4 align-content-stretch">
                         {products.map((item) => (
-                            <div key={item.id} className="col-sm-6 col-lg-4 col-xl-4 col-xxl-3">
+                            <div key={item.id} className="col-12 col-sm-6 col-lg-4 col-xxl-3">
                                 <Article
                                     item={item}
                                 />

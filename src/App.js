@@ -65,46 +65,42 @@ export default function App() {
 
     return (
         <CartContextProvider>
-            <main className="container mt-4">
-                <header>
-                    <nav className="navbar bg-body-transparent">
-                        <div className="container-fluid">
-                            <h1 className="navbar-brand">E-shop</h1>
-                            <Search
-                                searchTerm={searchTerm}
-                                handleSearch={handleSearch}
+            <header>
+                <nav className="navbar bg-secondary-subtle">
+                    <div className="container-md">
+                        <h1 className="navbar-brand mb-0">E-shop</h1>
+                        <Search
+                            searchTerm={searchTerm}
+                            handleSearch={handleSearch}
+                            isLoadingData={isLoadingData}
+                        />
+                    </div>
+                </nav>
+            </header>
+            <main className="container-md">
+                {products === undefined ? (
+                    <div className="alert alert-info">Please wait while we load data...</div>
+                ) : (
+                    <>
+                        <Cart />
+                        <div className="row">
+                            <Categories
+                                handleCategorySelect={handleCategorySelect}
+                                selectedCategory={selectedCategory}
+                            />
+                            <ArticleList
+                                products={products}
+                                handleLoadMore={handleLoadMore}
                                 isLoadingData={isLoadingData}
+                                isMaxProductsLoaded={isMaxProductsLoaded}
+                                throttledSearchTerm={throttledSearchTerm}
+                                timeoutId={timeoutId}
+                                isProductsFound={isProductsFound}
+                                selectedCategory={selectedCategory}
                             />
                         </div>
-                    </nav>
-                </header>
-                <body className="container mt-4 mb-5">
-                    {products === undefined ? (
-                        <div className="alert alert-info">Please wait while we load data...</div>
-                    ) : (
-                        <>
-                            <Cart />
-                            <div class="container">
-                                <div className="row">
-                                    <Categories
-                                        handleCategorySelect={handleCategorySelect}
-                                        selectedCategory={selectedCategory}
-                                    />
-                                    <ArticleList
-                                        products={products}
-                                        handleLoadMore={handleLoadMore}
-                                        isLoadingData={isLoadingData}
-                                        isMaxProductsLoaded={isMaxProductsLoaded}
-                                        throttledSearchTerm={throttledSearchTerm}
-                                        timeoutId={timeoutId}
-                                        isProductsFound={isProductsFound}
-                                        selectedCategory={selectedCategory}
-                                    />
-                                </div>
-                            </div>
-                        </>
-                    )}
-                </body>
+                    </>
+                )}
             </main>
         </CartContextProvider>
     );
