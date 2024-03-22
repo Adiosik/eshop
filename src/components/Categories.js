@@ -25,7 +25,7 @@ export default function Categories({ handleCategorySelect, selectedCategory, sea
 
     if (!searchTerm) {
         return (
-            <div className="col-12 col-md-4 col-lg-3 col-xxl-2">
+            <div className="col-12 col-md-4 col-lg-3 col-xxl-2 mb-4">
                 <h2>Categories</h2>
                 <div className="list-group list-group-flush">
                     {showAllArticlesVisible && (

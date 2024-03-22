@@ -42,7 +42,7 @@ export default function Cart() {
     }
 
     return (
-        <article className="row align-items-center mb-3">
+        <article className="row align-items-center mb-5">
             <div className="col mt-4">
                 {error && (
                     <section className="alert alert-danger" role="alert">
