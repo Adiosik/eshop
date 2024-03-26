@@ -9,7 +9,8 @@ export default function Categories({ handleCategorySelect, selectedCategory, sea
         fetch('https://dummyjson.com/products/categories')
             .then(res => res.json())
             .then(fetchedData => {
-                setCategories(fetchedData);
+                const formattedCategories = fetchedData.map(category => category.charAt(0).toUpperCase() + category.slice(1));
+                setCategories(formattedCategories);
             })
             .catch(error => {
                 console.error('Error fetching categories:', error);
