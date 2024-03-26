@@ -4,12 +4,12 @@ import ShowAllArticles from "./ShowAllArticles";
 export default function Categories({ handleCategorySelect, selectedCategory, searchTerm }) {
     const [categories, setCategories] = React.useState([]);
     const [showAllArticlesVisible, setShowAllArticlesVisible] = React.useState(false);
-    
+
     React.useEffect(() => {
         fetch('https://dummyjson.com/products/categories')
             .then(res => res.json())
             .then(fetchedData => {
-                const formattedCategories = fetchedData.map(category => category.charAt(0).toUpperCase() + category.slice(1));
+                const formattedCategories = fetchedData.map(category => (category.charAt(0).toUpperCase() + category.slice(1)).replaceAll("-", " "));
                 setCategories(formattedCategories);
             })
             .catch(error => {
