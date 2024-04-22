@@ -6,6 +6,7 @@ export default function Article({ item }) {
 
     const isInCart= cartItems.some((cartItem) => cartItem.id === item.id)
     const isCheckoutLoading = cartState === "isLoading"
+    const discountedPrice = Math.floor(item.price * (1 - item.discountPercentage / 100));
 
     return (
         <article className="card h-100 d-flex flex-column">
@@ -25,7 +26,8 @@ export default function Article({ item }) {
                 d-flex justify-content-between align-items-center bg-transparent 
                 border-top-0 pb-3 gap-3"
             >
-                <p className="mb-0">€{item.price}</p>
+                <p className="mb-0 text-primary">€{discountedPrice}</p>
+                <p className="mb-0 text-decoration-line-through">€{item.price}</p>
                 <button
                     onClick={() => handleAddToCart(item)}
                     className={`btn btn-outline-primary`}
