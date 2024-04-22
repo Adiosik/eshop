@@ -27,11 +27,13 @@ export default function Article({ item }) {
                 d-flex justify-content-between align-items-center bg-transparent 
                 border-top-0 pb-3 gap-3"
             >
-                <p className="mb-0 text-primary">€{discountedPrice}</p>
-                <p className="mb-0 text-decoration-line-through">€{item.price}</p>
+                <div className="d-flex flex-column gap-1">
+                    <p className="mb-0 text-decoration-line-through">€{item.price}</p>
+                    <p className="mb-0 text-primary fw-bold">€{discountedPrice}</p>
+                </div>
                 <button
                     onClick={() => handleAddToCart(item)}
-                    className={`btn btn-outline-primary`}
+                    className={`btn btn-outline-primary w-300`}
                     disabled={isInCart || isCheckoutLoading}
                 >
                     {isInCart ? "Added to cart" : "Add to cart"}
