@@ -5,7 +5,7 @@ import { CartContext } from "./CartProvider";
 
 export default function Cart() {
     const [error, setError] = React.useState(undefined)
-    const {setCartState, setCartItems, cartItems, cartState, getTotalPrice, isLoadingCartData} = React.useContext(CartContext)
+    const {setCartState, setCartItems, cartItems, cartState, getTotalPriceWithDiscount, isLoadingCartData} = React.useContext(CartContext)
 
     const onSubmit = (email) => {
         setError(undefined)
@@ -22,7 +22,7 @@ export default function Cart() {
                     title: item.title,
                     price: item.price,
                 })),
-                total: getTotalPrice()
+                total: getTotalPriceWithDiscount()
             }),
         })
             .then(function (response) {
@@ -72,7 +72,7 @@ export default function Cart() {
                                     disabled={cartState === "orderSent"}
                                 />
                             ))}
-                            <li className="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">Total: ${getTotalPrice()}</li>
+                            <li className="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">Total: ${getTotalPriceWithDiscount()}</li>
                         </ul>
                         {cartState === "checkoutForm" || cartState === "isLoading" ? (
                             <Checkout

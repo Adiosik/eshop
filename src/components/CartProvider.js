@@ -1,4 +1,5 @@
 import React from "react";
+import { calculateDiscountedPrice } from '../utilities';
 
 export const CartContext = React.createContext();
 
@@ -7,9 +8,9 @@ export const CartContextProvider = ({children}) => {
     const [cartState, setCartState] = React.useState(undefined);
     const [isLoadingCartData, setIsLoadingCartData] = React.useState(true)
 
-    const getTotalPrice = () => {
-        return cartItems.reduce((total, item) => total + item.price, 0)
-    }
+    const getTotalPriceWithDiscount = () => {
+        return cartItems.reduce((total, item) => total + calculateDiscountedPrice(item.price, item.discountPercentage), 0);
+    };
     
     React.useEffect(() => {
         fetch('https://dummyjson.com/carts/1')
@@ -63,7 +64,7 @@ export const CartContextProvider = ({children}) => {
         setCartItems,
         cartItems,
         cartState,
-        getTotalPrice,
+        getTotalPriceWithDiscount,
         isLoadingCartData,
         handleRemoveFromCart,
         handleAddToCart,
