@@ -9,7 +9,7 @@ export const CartContextProvider = ({children}) => {
     const [isLoadingCartData, setIsLoadingCartData] = React.useState(true)
 
     const getTotalPriceWithDiscount = () => {
-        return cartItems.reduce((total, item) => total + calculateDiscountedPrice(item.price, item.discountPercentage), 0);
+        return cartItems.reduce((total, item) => total + calculateDiscountedPrice(item.price, item.discountPercentage) * item.quantity, 0);
     };
     
     React.useEffect(() => {
@@ -49,8 +49,17 @@ export const CartContextProvider = ({children}) => {
     };
     
     const handleAddToCart = (item) => {
-        setCartItems(cartItems.concat(item));
-        updateCart(item, 1);
+        const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
+        if (existingItem) {
+            const updatedCart = cartItems.map(cartItem =>
+                cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+            );
+            setCartItems(updatedCart);
+            updateCart(item, existingItem.quantity + 1);
+        } else {
+            setCartItems([...cartItems, { ...item, quantity: 1 }]);
+            updateCart(item, 1);
+        }
     };
     
     const handleRemoveFromCart = (item) => {

@@ -7,8 +7,11 @@ export default function CartItem({ item }) {
 
     return (
         <li className="list-group-item d-flex align-items-center gap-3 justify-content-between">
-            <span>{item.title} €{calculateDiscountedPrice(item.price, item.discountPercentage)}</span>
+            <div className="d-flex align-items-center">
+                <span>{item.title} €{calculateDiscountedPrice(item.price, item.discountPercentage)}</span>
+            </div>
             <div className="col-auto">
+                <span>{item.quantity}x</span>
                 <button onClick={() => handleRemoveFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart</button>
             </div>
         </li>
