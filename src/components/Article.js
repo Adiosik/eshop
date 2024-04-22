@@ -18,6 +18,7 @@ export default function Article({ item }) {
                 />
             </div>
             <div className="card-body">
+                <span className="card-text">{item.rating}</span>
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-text">{item.description}</p>
             </div>
