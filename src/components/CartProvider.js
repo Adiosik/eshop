@@ -48,14 +48,18 @@ export const CartContextProvider = ({children}) => {
         })
     };
     
+    const updateCartItemQuantity = (item, newQuantity) => {
+        const updatedCart = cartItems.map(cartItem =>
+            cartItem.id === item.id ? { ...cartItem, quantity: newQuantity } : cartItem
+        );
+        setCartItems(updatedCart);
+        updateCart(item, newQuantity);
+    };
+    
     const handleAddToCart = (item) => {
         const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
         if (existingItem) {
-            const updatedCart = cartItems.map(cartItem =>
-                cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-            );
-            setCartItems(updatedCart);
-            updateCart(item, existingItem.quantity + 1);
+            updateCartItemQuantity(item, existingItem.quantity + 1);
         } else {
             setCartItems([...cartItems, { ...item, quantity: 1 }]);
             updateCart(item, 1);
@@ -63,7 +67,18 @@ export const CartContextProvider = ({children}) => {
     };
     
     const handleRemoveFromCart = (item) => {
-        const updatedCart = cartItems.filter(i => i !== item);
+        const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
+        if (existingItem && existingItem.quantity > 1) {
+            updateCartItemQuantity(item, existingItem.quantity - 1);
+        } else {
+            const updatedCart = cartItems.filter(i => i !== item);
+            setCartItems(updatedCart);
+            updateCart(item, 0);
+        }
+    };
+
+    const handleRemoveAllFromCart = (item) => {
+        const updatedCart = cartItems.filter(cartItem => cartItem.id !== item.id);
         setCartItems(updatedCart);
         updateCart(item, 0);
     };
@@ -77,6 +92,7 @@ export const CartContextProvider = ({children}) => {
         isLoadingCartData,
         handleRemoveFromCart,
         handleAddToCart,
+        handleRemoveAllFromCart,
     };
 
     return (
