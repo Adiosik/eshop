@@ -93,6 +93,7 @@ export const CartContextProvider = ({children}) => {
         handleRemoveFromCart,
         handleAddToCart,
         handleRemoveAllFromCart,
+        updateCartItemQuantity,
     };
 
     return (

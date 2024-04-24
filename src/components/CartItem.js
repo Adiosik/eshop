@@ -3,7 +3,7 @@ import { CartContext } from "./CartProvider";
 import { calculateDiscountedPrice } from '../utilities';
 
 export default function CartItem({ item }) {
-    const {handleRemoveFromCart, handleAddToCart, handleRemoveAllFromCart} = React.useContext(CartContext)
+    const {handleRemoveFromCart, handleAddToCart, handleRemoveAllFromCart, updateCartItemQuantity} = React.useContext(CartContext)
 
     const totalPriceForItem = calculateDiscountedPrice(item.price, item.discountPercentage) * item.quantity;
 
@@ -24,7 +24,7 @@ export default function CartItem({ item }) {
                         type="number"
                         className="form-control text-center"
                         value={item.quantity}
-                        readOnly
+                        onChange={(e) => updateCartItemQuantity(item, parseInt(e.target.value))}
                     />
                     <button
                         className="btn btn-outline-secondary"
