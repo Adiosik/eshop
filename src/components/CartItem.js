@@ -15,6 +15,7 @@ export default function CartItem({ item }) {
             <div className="d-flex gap-2">
                 <div className="input-group input-group-sm">
                     <button
+                        type="button"
                         className="btn btn-outline-secondary"
                         onClick={() => handleRemoveFromCart(item)}
                     >
@@ -27,6 +28,7 @@ export default function CartItem({ item }) {
                         onChange={(e) => updateCartItemQuantity(item, parseInt(e.target.value))}
                     />
                     <button
+                        type="button"
                         className="btn btn-outline-secondary"
                         onClick={() => handleAddToCart(item)}
                     >
