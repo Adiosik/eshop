@@ -1,6 +1,7 @@
 import React from "react";
 import { CartContext } from "./CartProvider";
 import { calculateDiscountedPrice } from '../utilities';
+import StarRating from './StarRating';
 
 export default function Article({ item }) {
     const { handleAddToCart, cartItems, cartState } = React.useContext(CartContext)
@@ -18,7 +19,10 @@ export default function Article({ item }) {
                 />
             </div>
             <div className="card-body">
-                <span className="card-text">{item.rating}</span>
+                <div className="d-flex align-items-center gap-2">
+                    <StarRating rating={item.rating} />
+                    <span className="card-text">{item.rating}</span>
+                </div>
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-text">{item.description}</p>
             </div>
