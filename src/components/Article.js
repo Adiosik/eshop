@@ -19,10 +19,10 @@ export default function Article({ item }) {
                 />
             </div>
             <div className="card-body">
-                <div className="d-flex align-items-center gap-2">
+                <div className="d-flex align-items-center justify-content-between gap-2">
                     <StarRating rating={item.rating} />
                     <span className="card-text fw-bold">{item.rating}</span>
-                    <p></p>
+                    <p className="card-text badge text-bg-secondary">{item.discountPercentage}%</p>
                 </div>
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-text">{item.description}</p>
