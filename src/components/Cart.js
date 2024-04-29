@@ -6,7 +6,7 @@ import { calculateDiscountedPrice } from '../utilities';
 
 export default function Cart() {
     const [error, setError] = React.useState(undefined)
-    const {setCartState, setCartItems, cartItems, cartState, getTotalPriceWithDiscount, isLoadingCartData} = React.useContext(CartContext)
+    const {setCartState, setCartItems, cartItems, cartState, getTotalPriceWithDiscount, getTotalRegularPrice, getTotalSavings, isLoadingCartData} = React.useContext(CartContext)
 
     const onSubmit = (email) => {
         setError(undefined)
@@ -77,7 +77,11 @@ export default function Cart() {
                                     disabled={cartState === "orderSent"}
                                 />
                             ))}
-                            <li className="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">Total: €{getTotalPriceWithDiscount()}</li>
+                            <li className="list-group-item list-group-item-secondary d-flex flex-column align-items-end">
+                                <span>Regular price: €{getTotalRegularPrice()}</span>
+                                <span>Discount: €{getTotalSavings()}</span>
+                                <span className="fw-bold">Total after discount: €{getTotalPriceWithDiscount()}</span>
+                            </li>
                         </ul>
                         {cartState === "checkoutForm" || cartState === "isLoading" ? (
                             <Checkout

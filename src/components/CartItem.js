@@ -5,37 +5,43 @@ import { calculateDiscountedPrice } from '../utilities';
 export default function CartItem({ item }) {
     const {handleRemoveFromCart, handleAddToCart, handleRemoveAllFromCart, updateCartItemQuantity} = React.useContext(CartContext)
 
-    const totalPriceForItem = calculateDiscountedPrice(item.price, item.discountPercentage) * item.quantity;
+    const totalPriceForItem = item.price * item.quantity;
 
     return (
         <li className="list-group-item d-flex align-items-center gap-3 justify-content-between">
-            <div className="d-flex align-items-center">
-                <span>{item.title} €{totalPriceForItem}</span>
+            <div className="flex-grow-1">
+                <div>
+                    {item.title}
+                </div>
             </div>
-            <div className="d-flex gap-2">
-                <div className="input-group input-group-sm">
+            <div className="d-flex justify-content-end align-items-center gap-2">
+                <div className="input-group input-group-sm w-25">
                     <button
                         type="button"
                         className="btn btn-outline-secondary"
                         onClick={() => handleRemoveFromCart(item)}
-                    >
+                        >
                         -
                     </button>
                     <input
-                        type="number"
+                        type="text"
                         className="form-control text-center"
                         value={item.quantity}
-                        onChange={(e) => updateCartItemQuantity(item, parseInt(e.target.value))}
-                    />
+                        onChange={(e) => updateCartItemQuantity(item, parseInt(e.target.value) || 1)}
+                        />
                     <button
                         type="button"
                         className="btn btn-outline-secondary"
                         onClick={() => handleAddToCart(item)}
-                    >
+                        >
                         +
                     </button>
                 </div>
-                <button onClick={() => handleRemoveAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart</button>
+                <button 
+                    onClick={() => handleRemoveAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
+                </button>
+                <span>€{totalPriceForItem}</span>
+                <span>€{calculateDiscountedPrice(totalPriceForItem, item.discountPercentage)}</span>
             </div>
         </li>
     )

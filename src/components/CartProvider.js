@@ -7,22 +7,18 @@ export const CartContextProvider = ({children}) => {
     const [cartItems, setCartItems] = React.useState([]);
     const [cartState, setCartState] = React.useState(undefined);
     const [isLoadingCartData, setIsLoadingCartData] = React.useState(true)
-
-    const getTotalPriceWithDiscount = () => {
-        return cartItems.reduce((total, item) => total + calculateDiscountedPrice(item.price, item.discountPercentage) * item.quantity, 0);
-    };
     
     React.useEffect(() => {
         fetch('https://dummyjson.com/carts/1')
-            .then(res => res.json())
-            .then(cartData => {
-                setCartItems(cartData.products);
-                setIsLoadingCartData(false);
-            })
-            .catch(error => {
-                //setError('Failed to fetch cart data: ' + error);
-                setIsLoadingCartData(false);
-            });
+        .then(res => res.json())
+        .then(cartData => {
+            setCartItems(cartData.products);
+            setIsLoadingCartData(false);
+        })
+        .catch(error => {
+            //setError('Failed to fetch cart data: ' + error);
+            setIsLoadingCartData(false);
+        });
     }, []);
     
     React.useEffect(() => {
@@ -31,6 +27,18 @@ export const CartContextProvider = ({children}) => {
             setCartState(undefined);
         }
     }, [cartItems, setCartState]);
+
+    const getTotalPriceWithDiscount = () => {
+        return cartItems.reduce((total, item) => total + calculateDiscountedPrice(item.price, item.discountPercentage) * item.quantity, 0);
+    };
+
+    const getTotalRegularPrice = () => {
+        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    };
+
+    const getTotalSavings = () => {
+        return getTotalRegularPrice() - getTotalPriceWithDiscount();
+    };
     
     const updateCart = (item, quantity) => {
         fetch('https://dummyjson.com/carts/1', {
@@ -89,6 +97,8 @@ export const CartContextProvider = ({children}) => {
         cartItems,
         cartState,
         getTotalPriceWithDiscount,
+        getTotalRegularPrice,
+        getTotalSavings,
         isLoadingCartData,
         handleRemoveFromCart,
         handleAddToCart,
