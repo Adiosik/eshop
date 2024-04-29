@@ -7,7 +7,8 @@ export default function Article({ item }) {
     const { handleAddToCart, cartItems, cartState } = React.useContext(CartContext)
 
     const isCheckoutLoading = cartState === "isLoading"
-    const remainingStock = item.stock - cartItems.filter((cartItem) => cartItem.id === item.id).length;
+    const itemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
+    const remainingStock = itemInCart ? item.stock - itemInCart.quantity : item.stock;    
 
     return (
         <article className="card h-100 d-flex flex-column">
