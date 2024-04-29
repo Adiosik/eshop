@@ -42,8 +42,8 @@ export default function CartItem({ item }) {
                 <button 
                     onClick={() => handleRemoveAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
                 </button>
-                <span>€{totalPriceForItem}</span>
-                <span>€{calculateDiscountedPrice(totalPriceForItem, item.discountPercentage)}</span>
+                <span className="text-decoration-line-through">€{totalPriceForItem}</span>
+                <span className="fw-bold">€{calculateDiscountedPrice(totalPriceForItem, item.discountPercentage)}</span>
             </div>
         </li>
     )
