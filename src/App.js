@@ -68,7 +68,9 @@ export default function App() {
             <header>
                 <nav className="navbar bg-secondary-subtle">
                     <div className="container-md">
-                        <h1 className="navbar-brand mb-0">E-shop</h1>
+                        <h1 className="navbar-brand mb-0">
+                            <a href="#" className="text-decoration-none text-reset">E-shop</a>
+                        </h1>
                         <Search
                             searchTerm={searchTerm}
                             handleSearch={handleSearch}
