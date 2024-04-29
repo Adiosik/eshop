@@ -6,6 +6,7 @@ export default function CartItem({ item }) {
     const {handleRemoveFromCart, handleAddToCart, handleRemoveAllFromCart, updateCartItemQuantity} = React.useContext(CartContext)
 
     const totalPriceForItem = item.price * item.quantity;
+    const remainingStock = item.stock - item.quantity;
 
     return (
         <li className="list-group-item d-flex align-items-center gap-3 justify-content-between">
@@ -33,6 +34,7 @@ export default function CartItem({ item }) {
                         type="button"
                         className="btn btn-outline-secondary"
                         onClick={() => handleAddToCart(item)}
+                        disabled={remainingStock <= 0}
                         >
                         +
                     </button>
