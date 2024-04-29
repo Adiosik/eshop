@@ -78,7 +78,12 @@ export default function Cart() {
                                     disabled={cartState === "orderSent"}
                                 />
                             ))}
-                            <li className="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center gap-3">
+                            <li className="list-group-item list-group-item-secondary d-flex flex-row-reverse justify-content-between align-items-center flex-wrap gap-3">
+                                <div className="d-flex flex-column align-items-end">
+                                    <span>Regular price: €{getTotalRegularPrice()}</span>
+                                    <span className="fw-semibold">Discount: €{getTotalSavings()}</span>
+                                    <span className="fw-bold fs-5">Total after discount: €{getTotalPriceWithDiscount()}</span>
+                                </div>
                                 {cartState === "checkoutForm" || cartState === "isLoading" ? (
                                     <Checkout
                                         onSubmit={onSubmit}
@@ -87,11 +92,6 @@ export default function Cart() {
                                 ) : (
                                     <button onClick={() => setCartState("checkoutForm")} className="btn btn-primary btn-lg">Checkout</button>
                                 )}
-                                <div className="d-flex flex-column align-items-end">
-                                    <span>Regular price: €{getTotalRegularPrice()}</span>
-                                    <span className="fw-semibold">Discount: €{getTotalSavings()}</span>
-                                    <span className="fw-bold fs-5">Total after discount: €{getTotalPriceWithDiscount()}</span>
-                                </div>
                             </li>
                         </ul>
                     </section>
