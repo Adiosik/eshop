@@ -21,6 +21,7 @@ export default function Cart() {
                 email: email,
                 items: cartItems.map(item => ({
                     id: item.id,
+                    stock: item.stock,
                     title: item.title,
                     quantity: item.quantity,
                     price: item.price,
@@ -77,20 +78,22 @@ export default function Cart() {
                                     disabled={cartState === "orderSent"}
                                 />
                             ))}
-                            <li className="list-group-item list-group-item-secondary d-flex flex-column align-items-end">
-                                <span>Regular price: €{getTotalRegularPrice()}</span>
-                                <span>Discount: €{getTotalSavings()}</span>
-                                <span className="fw-bold">Total after discount: €{getTotalPriceWithDiscount()}</span>
+                            <li className="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
+                                {cartState === "checkoutForm" || cartState === "isLoading" ? (
+                                    <Checkout
+                                        onSubmit={onSubmit}
+                                        disabled={cartState === "isLoading"}
+                                    />
+                                ) : (
+                                    <button onClick={() => setCartState("checkoutForm")} className="btn btn-primary btn-lg">Checkout</button>
+                                )}
+                                <div className="d-flex flex-column align-items-end">
+                                    <span>Regular price: €{getTotalRegularPrice()}</span>
+                                    <span>Discount: €{getTotalSavings()}</span>
+                                    <span className="fw-bold">Total after discount: €{getTotalPriceWithDiscount()}</span>
+                                </div>
                             </li>
                         </ul>
-                        {cartState === "checkoutForm" || cartState === "isLoading" ? (
-                            <Checkout
-                                onSubmit={onSubmit}
-                                disabled={cartState === "isLoading"}
-                            />
-                        ) : (
-                            <button onClick={() => setCartState("checkoutForm")} className="btn btn-primary btn-lg mt-3">Checkout</button>
-                        )}
                     </section>
                 )}
             </div>
