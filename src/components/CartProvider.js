@@ -78,6 +78,7 @@ export const CartContextProvider = ({children}) => {
         const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
         if (existingItem && existingItem.quantity > 1) {
             updateCartItemQuantity(item, existingItem.quantity - 1);
+        } else if (existingItem && existingItem.quantity === 1) {
         } else {
             const updatedCart = cartItems.filter(i => i !== item);
             setCartItems(updatedCart);
