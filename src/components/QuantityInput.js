@@ -12,7 +12,6 @@ export default function QuantityInput({ item }) {
     const handleInputChange = (e) => {
         let value = e.target.value
         value = value.replace(/[^\d]/g, '');
-        value = Math.abs(parseInt(value)) || '';
     
         setInputValue(value);
         updateCartItemQuantity(item, value)
@@ -27,7 +26,7 @@ export default function QuantityInput({ item }) {
                 className="btn btn-outline-secondary"
                 onClick={() => handleRemoveFromCart(item)}
             >
-                -
+                −
             </button>
             <input
                 type="text"
