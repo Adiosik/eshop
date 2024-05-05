@@ -1,6 +1,6 @@
 # E-shop
 
-This basic e-shop using React and Bootstrap. Users can easily browse and buy products fetched from an API. It's a great example of React's flexibility in creating interactive websites.  
+Frontend of a fictional e-shop built from scratch in pure React. I'm focusing mainly on functionality and React, appearance only Bootstrap without modifications. E-shop uses DummyJSON API. I'm still gradually adding new features. 
 
 ## Features
 
@@ -10,6 +10,11 @@ This basic e-shop using React and Bootstrap. Users can easily browse and buy pro
 - **Search for specific products.**
 - **Filter products by category.**
 - **Load more products to explore further.**
+- **Limiting the maximum quantity added to the cart based on stock availability.**
+- **Dynamic updating of the cart quantity input based on available stock.**
+- **Real-time calculation of total price, discounts, and savings in the cart.**
+- **Checkout form validation for email address.**
+- **Sending order data to a server and handling success/error states.**
 
 ## Technologies Used
 
