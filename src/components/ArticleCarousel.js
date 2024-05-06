@@ -9,7 +9,7 @@ export default function ArticleCarousel({ images }) {
     }
 
     return (
-        <Carousel className="carousel-dark" activeIndex={index} onSelect={handleSelect}>
+        <Carousel interval={null} className="carousel-dark" activeIndex={index} onSelect={handleSelect}>
             {images.map((image, idx) => (
                 <Carousel.Item className="ratio ratio-4x3" key={idx}>
                     <img
