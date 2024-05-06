@@ -20,8 +20,10 @@ export default function Search({ handleSearch }) {
     setInputValue(term);
     if (term.length >= 3) {
         handleSearchDebounced(term);
+    } else {
+        handleSearchDebounced("");
     }
-  };
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
