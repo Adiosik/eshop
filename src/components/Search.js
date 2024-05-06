@@ -18,12 +18,10 @@ export default function Search({ handleSearch }) {
   const handleChange = (event) => {
     const term = event.target.value;
     setInputValue(term);
-    if (term.length >= 3) {
-        handleSearchDebounced(term);
-    } else {
-        handleSearchDebounced("");
-    }
-  }
+    const searchValue = term.length >= 3 ? term : "";
+    handleSearchDebounced(searchValue);
+  };
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
