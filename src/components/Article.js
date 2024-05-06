@@ -2,6 +2,7 @@ import React from "react";
 import { CartContext } from "./CartProvider";
 import { calculateDiscountedPrice } from '../utilities';
 import StarRating from './StarRating';
+import ArticleCarousel from './ArticleCarousel';
 
 export default function Article({ item }) {
     const { handleAddToCart, cartItems, cartState } = React.useContext(CartContext)
@@ -12,13 +13,7 @@ export default function Article({ item }) {
 
     return (
         <article className="card h-100 d-flex flex-column">
-            <div className="ratio ratio-4x3">
-                <img
-                    src={item.thumbnail}
-                    className="card-img-top d-block object-fit-cover"
-                    alt=""
-                />
-            </div>
+            <ArticleCarousel images={item.images} />
             <div className="card-body">
                 <div className="d-flex align-items-center justify-content-between gap-2">
                     <StarRating rating={item.rating} />
