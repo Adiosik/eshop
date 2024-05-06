@@ -6,7 +6,7 @@ export default function ArticleList({ products, handleLoadMore, isLoadingData, i
         <div className="col mb-5">
             {selectedCategory && (
                 <div className="mb-3">
-                    <h3>{selectedCategory}</h3>
+                    <h2 className="h1">{selectedCategory}</h2>
                 </div>
             )}
             {isProductsFound ? (
