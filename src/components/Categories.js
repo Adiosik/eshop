@@ -28,7 +28,7 @@ export default function Categories({ handleCategorySelect, selectedCategory, sea
     if (!searchTerm) {
         return (
             <div className="col-12 col-md-auto">
-                <h2>Categories</h2>
+                <h2 className="visually-hidden">Categories</h2>
                 <div className="list-group list-group-flush flex-row flex-md-column flex-wrap">
                     {showAllArticlesVisible && (
                         <ShowAllArticles
