@@ -10,7 +10,7 @@ export default function CartItem({ item }) {
 
     return (
         <li className="list-group-item d-flex align-items-center gap-3 justify-content-between flex-wrap flex-sm-nowrap">
-            <div className="ratio ratio-4x3 w-25">
+            <div className="ratio ratio-4x3 w-25 flex-grow-1">
                 <img
                     src={item.thumbnail}
                     className="d-block object-fit-cover img-thumbnail"
