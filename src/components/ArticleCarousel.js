@@ -9,18 +9,16 @@ export default function ArticleCarousel({ images }) {
     }
 
     return (
-        <div className="ratio ratio-4x3">
-            <Carousel className="carousel-dark" activeIndex={index} onSelect={handleSelect}>
-                {images.map((image, idx) => (
-                    <Carousel.Item key={idx}>
-                        <img
-                            className="card-img-top d-block object-fit-cover"
-                            src={image}
-                            alt=""
-                        />
-                    </Carousel.Item>
-                ))}
-            </Carousel>
-        </div>
+        <Carousel className="carousel-dark" activeIndex={index} onSelect={handleSelect}>
+            {images.map((image, idx) => (
+                <Carousel.Item className="ratio ratio-4x3" key={idx}>
+                    <img
+                        className="card-img-top d-block object-fit-cover"
+                        src={image}
+                        alt=""
+                    />
+                </Carousel.Item>
+            ))}
+        </Carousel>
     )
 }
