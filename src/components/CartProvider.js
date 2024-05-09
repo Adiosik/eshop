@@ -7,6 +7,7 @@ export const CartContextProvider = ({children}) => {
     const [cartItems, setCartItems] = React.useState([]);
     const [cartState, setCartState] = React.useState(undefined);
     const [isLoadingCartData, setIsLoadingCartData] = React.useState(true)
+    const [cartItemCount, setCartItemCount] = React.useState(0);
     
     React.useEffect(() => {
         fetch('https://dummyjson.com/carts/1')
@@ -27,6 +28,15 @@ export const CartContextProvider = ({children}) => {
             setCartState(undefined);
         }
     }, [cartItems, setCartState]);
+
+    React.useEffect(() => {
+        const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+        setCartItemCount(count);
+    }, [cartItems]);
+
+    const updateCartItemCount = () => {
+        const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    };
 
     const getTotalPriceWithDiscount = () => {
         return cartItems.reduce((total, item) => total + calculateDiscountedPrice(item.price, item.discountPercentage) * item.quantity, 0);
@@ -62,6 +72,7 @@ export const CartContextProvider = ({children}) => {
         );
         setCartItems(updatedCart);
         updateCart(item, newQuantity);
+        updateCartItemCount();
     };
     
     const handleAddToCart = (item) => {
@@ -71,6 +82,7 @@ export const CartContextProvider = ({children}) => {
         } else {
             setCartItems([...cartItems, { ...item, quantity: 1 }]);
             updateCart(item, 1);
+            updateCartItemCount();
         }
     };
     
@@ -83,6 +95,7 @@ export const CartContextProvider = ({children}) => {
             const updatedCart = cartItems.filter(i => i !== item);
             setCartItems(updatedCart);
             updateCart(item, 0);
+            updateCartItemCount();
         }
     };
 
@@ -90,6 +103,7 @@ export const CartContextProvider = ({children}) => {
         const updatedCart = cartItems.filter(cartItem => cartItem.id !== item.id);
         setCartItems(updatedCart);
         updateCart(item, 0);
+        updateCartItemCount();
     };
 
     const value={
@@ -105,6 +119,7 @@ export const CartContextProvider = ({children}) => {
         handleAddToCart,
         handleRemoveAllFromCart,
         updateCartItemQuantity,
+        cartItemCount,
     };
 
     return (

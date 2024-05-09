@@ -4,6 +4,8 @@ import ArticleList from "./components/ArticleList";
 import Categories from "./components/Categories";
 import Search from "./components/Search";
 import { CartContextProvider } from "./components/CartProvider";
+import OffcanvasMenu from "./components/OffCanvasMenu";
+import CartButton from "./components/CartButton";
 
 export default function App() {
     const [products, setProducts] = React.useState([]);
@@ -76,6 +78,7 @@ export default function App() {
                             handleSearch={handleSearch}
                             isLoadingData={isLoadingData}
                         />
+                        <OffcanvasMenu />
                     </div>
                 </nav>
             </header>
@@ -84,7 +87,6 @@ export default function App() {
                     <div className="alert alert-info">Please wait while we load data...</div>
                 ) : (
                     <>
-                        <Cart />
                         <div className="row">
                             <Categories
                                 handleCategorySelect={handleCategorySelect}
