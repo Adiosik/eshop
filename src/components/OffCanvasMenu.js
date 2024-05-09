@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Cart from "./Cart";
 import CartButton from "./CartButton";
