@@ -22,7 +22,7 @@ export default function App() {
         setIsLoadingData(true);
         const url = `https://dummyjson.com/products${selectedCategory ? `/category/${selectedCategory}` : ""
             }${throttledSearchTerm ? `/search?q=${throttledSearchTerm}&` : "?"
-            }limit=4&skip=${nextSkip}`
+            }limit=8&skip=${nextSkip}`
         fetch(url)
             .then((res) => res.json())
             .then((fetchedData) => {
