@@ -8,7 +8,7 @@ export default function ButtonExample({ onClick }) {
 
     return (
       <Button variant="primary" onClick={onClick} >
-        Cart <Badge bg="danger">{cartItemCount}</Badge>
+        Cart {cartItemCount > 0 && <Badge bg="danger">{cartItemCount}</Badge>}
       </Button>
     )
   }
