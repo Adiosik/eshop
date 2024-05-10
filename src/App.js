@@ -1,11 +1,9 @@
 import React from "react";
-import Cart from "./components/Cart";
 import ArticleList from "./components/ArticleList";
 import Categories from "./components/Categories";
 import Search from "./components/Search";
 import { CartContextProvider } from "./components/CartProvider";
 import OffcanvasMenu from "./components/OffCanvasMenu";
-import CartButton from "./components/CartButton";
 
 export default function App() {
     const [products, setProducts] = React.useState([]);
