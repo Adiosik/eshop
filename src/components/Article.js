@@ -13,7 +13,9 @@ export default function Article({ item }) {
 
     return (
         <article className="card h-100 d-flex flex-column">
-            <ArticleCarousel images={item.images} />
+            <div className="ratio ratio-4x3">
+                <ArticleCarousel images={item.images} />    
+            </div>
             <div className="card-body">
                 <div className="d-flex align-items-center justify-content-between gap-2">
                     <StarRating rating={item.rating} />
