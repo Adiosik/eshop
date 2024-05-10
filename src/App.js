@@ -69,7 +69,7 @@ export default function App() {
                 <nav className="navbar bg-secondary-subtle">
                     <div className="container-md">
                         <h1 className="navbar-brand mb-0">
-                            <a href="#" className="text-decoration-none text-reset">E-shop</a>
+                            <a href="/" className="text-decoration-none text-reset">E-shop</a>
                         </h1>
                         <Search
                             searchTerm={searchTerm}
