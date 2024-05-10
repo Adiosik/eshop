@@ -7,7 +7,7 @@ export default function Checkout({ onSubmit, disabled }) {
     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email); // Regular expression for e-mail validity (@, ., .cz)
 
     React.useEffect(() => {
-        if(isValid) {
+        if (isValid) {
             setIsValidationShown(true)
         }
     }, [isValid]);
@@ -28,8 +28,8 @@ export default function Checkout({ onSubmit, disabled }) {
             <form onSubmit={onSubmitHandler} noValidate> {/* noValidate = Prevents default form behavior */}
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
-                    <input 
-                        type="email" 
+                    <input
+                        type="email"
                         id="email"
                         className={`form-control ${isValidationShown && !isValid ? 'is-invalid' : isValid && isValidationShown ? 'is-valid' : ''}`}
                         placeholder="example@example.com"
@@ -41,9 +41,9 @@ export default function Checkout({ onSubmit, disabled }) {
                     {isValidationShown && !isValid && <div className="invalid-feedback">Please enter a valid email address.</div>}
                     {isValidationShown && isValid && <div className="valid-feedback">Email address looks good.</div>}
                 </div>
-                <button 
-                    type="submit"  
-                    id="submitBtn" 
+                <button
+                    type="submit"
+                    id="submitBtn"
                     className="btn btn-primary btn-lg"
                     disabled={disabled}
                 >

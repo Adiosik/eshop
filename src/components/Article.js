@@ -9,12 +9,12 @@ export default function Article({ item }) {
 
     const isCheckoutLoading = cartState === "isLoading"
     const itemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
-    const remainingStock = itemInCart ? item.stock - itemInCart.quantity : item.stock;    
+    const remainingStock = itemInCart ? item.stock - itemInCart.quantity : item.stock;
 
     return (
         <article className="card h-100 d-flex flex-column">
             <div className="ratio ratio-4x3">
-                <ArticleCarousel images={item.images} />    
+                <ArticleCarousel images={item.images} />
             </div>
             <div className="card-body">
                 <div className="d-flex align-items-center justify-content-between gap-2">
@@ -37,9 +37,9 @@ export default function Article({ item }) {
                 </div>
                 {remainingStock > 0 ? (
                     <button
-                    onClick={() => handleAddToCart(item)}
-                    className={`btn btn-outline-primary`}
-                    disabled={isCheckoutLoading}
+                        onClick={() => handleAddToCart(item)}
+                        className={`btn btn-outline-primary`}
+                        disabled={isCheckoutLoading}
                     >
                         Add to cart
                     </button>

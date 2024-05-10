@@ -6,7 +6,7 @@ import { calculateDiscountedPrice } from '../utilities';
 
 export default function Cart() {
     const [error, setError] = React.useState(undefined)
-    const {setCartState, setCartItems, cartItems, cartState, getTotalPriceWithDiscount, getTotalRegularPrice, getTotalSavings, isLoadingCartData} = React.useContext(CartContext)
+    const { setCartState, setCartItems, cartItems, cartState, getTotalPriceWithDiscount, getTotalRegularPrice, getTotalSavings, isLoadingCartData } = React.useContext(CartContext)
 
     const onSubmit = (email) => {
         setError(undefined)

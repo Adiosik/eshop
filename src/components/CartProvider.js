@@ -3,25 +3,25 @@ import { calculateDiscountedPrice } from '../utilities';
 
 export const CartContext = React.createContext();
 
-export const CartContextProvider = ({children}) => {
+export const CartContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = React.useState([]);
     const [cartState, setCartState] = React.useState(undefined);
     const [isLoadingCartData, setIsLoadingCartData] = React.useState(true)
     const [cartItemCount, setCartItemCount] = React.useState(0);
-    
+
     React.useEffect(() => {
         fetch('https://dummyjson.com/carts/1')
-        .then(res => res.json())
-        .then(cartData => {
-            setCartItems(cartData.products);
-            setIsLoadingCartData(false);
-        })
-        .catch(error => {
-            //setError('Failed to fetch cart data: ' + error);
-            setIsLoadingCartData(false);
-        });
+            .then(res => res.json())
+            .then(cartData => {
+                setCartItems(cartData.products);
+                setIsLoadingCartData(false);
+            })
+            .catch(error => {
+                //setError('Failed to fetch cart data: ' + error);
+                setIsLoadingCartData(false);
+            });
     }, []);
-    
+
     React.useEffect(() => {
         const cartNotEmpty = cartItems.length
         if (cartNotEmpty) {
@@ -49,7 +49,7 @@ export const CartContextProvider = ({children}) => {
     const getTotalSavings = () => {
         return getTotalRegularPrice() - getTotalPriceWithDiscount();
     };
-    
+
     const updateCart = (item, quantity) => {
         fetch('https://dummyjson.com/carts/1', {
             method: 'PUT',
@@ -65,7 +65,7 @@ export const CartContextProvider = ({children}) => {
             }),
         })
     };
-    
+
     const updateCartItemQuantity = (item, newQuantity) => {
         const updatedCart = cartItems.map(cartItem =>
             cartItem.id === item.id ? { ...cartItem, quantity: newQuantity } : cartItem
@@ -74,7 +74,7 @@ export const CartContextProvider = ({children}) => {
         updateCart(item, newQuantity);
         updateCartItemCount();
     };
-    
+
     const handleAddToCart = (item) => {
         const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
         if (existingItem) {
@@ -85,7 +85,7 @@ export const CartContextProvider = ({children}) => {
             updateCartItemCount();
         }
     };
-    
+
     const handleRemoveFromCart = (item) => {
         const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
         if (existingItem && existingItem.quantity > 1) {
@@ -106,7 +106,7 @@ export const CartContextProvider = ({children}) => {
         updateCartItemCount();
     };
 
-    const value={
+    const value = {
         setCartState,
         setCartItems,
         cartItems,
@@ -126,7 +126,7 @@ export const CartContextProvider = ({children}) => {
         <CartContext.Provider
             value={value}
         >
-        {children}
+            {children}
         </CartContext.Provider>
     )
 }

@@ -12,7 +12,7 @@ export default function QuantityInput({ item }) {
     const handleInputChange = (e) => {
         let value = e.target.value
         value = value.replace(/[^\d]/g, '');
-    
+
         setInputValue(value);
         updateCartItemQuantity(item, value)
     }
