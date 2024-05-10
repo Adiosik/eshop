@@ -2,8 +2,6 @@ import React from 'react';
 import { Carousel } from 'react-bootstrap';
 
 export default function ArticleCarousel({ images }) {
-    const [index, setIndex] = React.useState(0)
-
     return (
         images.length > 1 ? (
             <Carousel interval={null} className="carousel-dark">
