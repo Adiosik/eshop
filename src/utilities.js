@@ -10,7 +10,7 @@ export const findProductInCart = (cartItems, productId) => {
     return cartItems.find((cartItem) => cartItem.id === productId);
 }
 
-export const calculateTotalPriceForItem = (price, quantity) => {
+export const calculateTotalPriceForProduct = (price, quantity) => {
     return price * quantity;
 }
 
