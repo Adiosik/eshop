@@ -38,11 +38,11 @@ export default function App() {
             .catch(() => setIsLoadingData(false));
     };
 
-    const handleLoadMore = () => {
+    const onLoadMore = () => {
         fetchData()
     };
 
-    const handleCategorySelect = (category) => {
+    const onCategorySelect = (category) => {
         setSelectedCategory(category);
         setSearchTerm("");
         setThrottledSearchTerm("")
@@ -50,7 +50,7 @@ export default function App() {
         setIsMaxProductsLoaded(false)
     };
 
-    const handleSearch = (term) => {
+    const onSearch = (term) => {
         setSearchTerm(term);
         setSelectedCategory(null);
         setProducts([]);
@@ -73,7 +73,7 @@ export default function App() {
                         </h1>
                         <Search
                             searchTerm={searchTerm}
-                            handleSearch={handleSearch}
+                            handleSearch={onSearch}
                             isLoadingData={isLoadingData}
                         />
                         <OffcanvasMenu />
@@ -87,12 +87,12 @@ export default function App() {
                     <>
                         <div className="row">
                             <Categories
-                                handleCategorySelect={handleCategorySelect}
+                                handleCategorySelect={onCategorySelect}
                                 selectedCategory={selectedCategory}
                             />
                             <ArticleList
                                 products={products}
-                                handleLoadMore={handleLoadMore}
+                                handleLoadMore={onLoadMore}
                                 isLoadingData={isLoadingData}
                                 isMaxProductsLoaded={isMaxProductsLoaded}
                                 throttledSearchTerm={throttledSearchTerm}
