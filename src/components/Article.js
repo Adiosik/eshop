@@ -1,15 +1,15 @@
 import React from "react";
 import { CartContext } from "./CartProvider";
-import { calculateDiscountedPrice } from '../utilities';
+import { isCheckoutLoading, findItemInCart, calculateDiscountedPrice } from '../utilities';
 import StarRating from './StarRating';
 import ArticleCarousel from './ArticleCarousel';
 
 export default function Article({ item }) {
     const { handleAddToCart, cartItems, cartState } = React.useContext(CartContext)
 
-    const isCheckoutLoading = cartState === "isLoading"
-    const itemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
-    const remainingStock = itemInCart ? item.stock - itemInCart.quantity : item.stock;
+    const isCartLoading = isCheckoutLoading(cartState);
+    const foundItemInCart = findItemInCart(cartItems, item.id);
+    const remainingStock = foundItemInCart ? item.stock - foundItemInCart.quantity : item.stock;
 
     return (
         <article className="card h-100 d-flex flex-column">
@@ -39,7 +39,7 @@ export default function Article({ item }) {
                     <button
                         onClick={() => handleAddToCart(item)}
                         className={`btn btn-outline-primary`}
-                        disabled={isCheckoutLoading}
+                        disabled={isCartLoading}
                     >
                         Add to cart
                     </button>

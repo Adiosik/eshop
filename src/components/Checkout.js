@@ -1,10 +1,11 @@
 import React from "react";
+import { isValidEmail } from "../utilities";
 
 export default function Checkout({ onSubmit, disabled }) {
     const [isValidationShown, setIsValidationShown] = React.useState(false)
     const [email, setEmail] = React.useState("")
 
-    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email); // Regular expression for e-mail validity (@, ., .cz)
+    const isValid = isValidEmail(email);
 
     React.useEffect(() => {
         if (isValid) {

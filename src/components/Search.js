@@ -1,14 +1,5 @@
 import React from "react";
-
-const debounce = (callback, wait) => {
-  let timeoutId = null;
-  return (...args) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      callback(...args);
-    }, wait);
-  };
-};
+import { debounce } from "../utilities";
 
 export default function Search({ handleSearch }) {
   const [inputValue, setInputValue] = React.useState("");
@@ -21,7 +12,6 @@ export default function Search({ handleSearch }) {
     const searchValue = term.length >= 3 ? term : "";
     handleSearchDebounced(searchValue);
   };
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
