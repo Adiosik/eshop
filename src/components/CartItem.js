@@ -4,7 +4,7 @@ import QuantityInput from "./QuantityInput";
 import { calculateDiscountedPrice, calculateTotalPriceForProduct } from '../utilities';
 
 export default function CartItem({ item }) {
-    const { handleRemoveFromCart, handleAddToCart, handleRemoveAllFromCart, updateCartItemQuantity } = React.useContext(CartContext)
+    const { onRemoveFromCart, onAddToCart, onRemoveAllFromCart, onUpdateCartItemQuantity } = React.useContext(CartContext)
 
     const totalItemPrice = calculateTotalPriceForProduct(item.price, item.quantity);
 
@@ -23,12 +23,12 @@ export default function CartItem({ item }) {
             <div className="d-flex justify-content-end align-items-center gap-2 w-100">
                 <QuantityInput
                     item={item}
-                    handleRemoveFromCart={handleRemoveFromCart}
-                    handleAddToCart={handleAddToCart}
-                    updateCartItemQuantity={updateCartItemQuantity}
+                    onRemoveFromCart={onRemoveFromCart}
+                    onAddToCart={onAddToCart}
+                    updateCartItemQuantity={onUpdateCartItemQuantity}
                 />
                 <button
-                    onClick={() => handleRemoveAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
+                    onClick={() => onRemoveAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
                 </button>
                 <div className="d-flex flex-column align-items-end w-25">
                     <span className="text-decoration-line-through">€{totalItemPrice}</span>

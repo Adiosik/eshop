@@ -73,7 +73,7 @@ export default function App() {
                         </h1>
                         <Search
                             searchTerm={searchTerm}
-                            handleSearch={onSearch}
+                            onSearch={onSearch}
                             isLoadingData={isLoadingData}
                         />
                         <OffcanvasMenu />
@@ -87,12 +87,12 @@ export default function App() {
                     <>
                         <div className="row">
                             <Categories
-                                handleCategorySelect={onCategorySelect}
+                                onCategorySelect={onCategorySelect}
                                 selectedCategory={selectedCategory}
                             />
                             <ArticleList
                                 products={products}
-                                handleLoadMore={onLoadMore}
+                                onLoadMore={onLoadMore}
                                 isLoadingData={isLoadingData}
                                 isMaxProductsLoaded={isMaxProductsLoaded}
                                 throttledSearchTerm={throttledSearchTerm}

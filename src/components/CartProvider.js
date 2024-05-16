@@ -66,7 +66,7 @@ export const CartContextProvider = ({ children }) => {
         })
     };
 
-    const updateCartItemQuantity = (item, newQuantity) => {
+    const onUpdateCartProductQuantity = (item, newQuantity) => {
         const updatedCart = cartItems.map(cartItem =>
             cartItem.id === item.id ? { ...cartItem, quantity: newQuantity } : cartItem
         );
@@ -75,10 +75,10 @@ export const CartContextProvider = ({ children }) => {
         updateCartItemCount();
     };
 
-    const handleAddToCart = (item) => {
+    const onAddToCart = (item) => {
         const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
         if (existingItem) {
-            updateCartItemQuantity(item, existingItem.quantity + 1);
+            onUpdateCartProductQuantity(item, existingItem.quantity + 1);
         } else {
             setCartItems([...cartItems, { ...item, quantity: 1 }]);
             updateCart(item, 1);
@@ -86,10 +86,10 @@ export const CartContextProvider = ({ children }) => {
         }
     };
 
-    const handleRemoveFromCart = (item) => {
+    const onRemoveFromCart = (item) => {
         const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
         if (existingItem && existingItem.quantity > 1) {
-            updateCartItemQuantity(item, existingItem.quantity - 1);
+            onUpdateCartProductQuantity(item, existingItem.quantity - 1);
         } else if (existingItem && existingItem.quantity === 1) {
         } else {
             const updatedCart = cartItems.filter(i => i !== item);
@@ -99,7 +99,7 @@ export const CartContextProvider = ({ children }) => {
         }
     };
 
-    const handleRemoveAllFromCart = (item) => {
+    const onRemoveAllFromCart = (item) => {
         const updatedCart = cartItems.filter(cartItem => cartItem.id !== item.id);
         setCartItems(updatedCart);
         updateCart(item, 0);
@@ -115,10 +115,10 @@ export const CartContextProvider = ({ children }) => {
         getTotalRegularPrice,
         getTotalSavings,
         isLoadingCartData,
-        handleRemoveFromCart,
-        handleAddToCart,
-        handleRemoveAllFromCart,
-        updateCartItemQuantity,
+        onRemoveFromCart,
+        onAddToCart,
+        onRemoveAllFromCart,
+        onUpdateCartProductQuantity,
         cartItemCount,
     };
 
