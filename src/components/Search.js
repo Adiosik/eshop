@@ -1,30 +1,30 @@
 import React from "react";
 import { debounceCallback } from "../utilities";
 
-export default function Search({ handleSearch }) {
+export default function Search({ onSearch }) {
   const [inputValue, setInputValue] = React.useState("");
 
-  const handleSearchDebounced = React.useMemo(() => debounceCallback(handleSearch, 300), [handleSearch]);
+  const onSearchDebounced = React.useMemo(() => debounceCallback(onSearch, 300), [onSearch]);
 
-  const handleChange = (event) => {
+  const onChange = (event) => {
     const term = event.target.value;
     setInputValue(term);
     const searchValue = term.length >= 3 ? term : "";
-    handleSearchDebounced(searchValue);
+    onSearchDebounced(searchValue);
   };
 
-  const handleSubmit = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <input
         className="form-control"
         type="search"
         placeholder="Search products"
         value={inputValue}
-        onChange={handleChange}
+        onChange={onChange}
       />
     </form>
   );
