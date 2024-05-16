@@ -1,12 +1,12 @@
 import React from "react";
 import { CartContext } from "./CartProvider";
 import QuantityInput from "./QuantityInput";
-import { calculateDiscountedPrice, totalPriceForItem  } from '../utilities';
+import { calculateDiscountedPrice, calculateTotalPriceForItem } from '../utilities';
 
 export default function CartItem({ item }) {
     const { handleRemoveFromCart, handleAddToCart, handleRemoveAllFromCart, updateCartItemQuantity } = React.useContext(CartContext)
 
-    const totalItemPrice = totalPriceForItem(item.price, item.quantity);
+    const totalItemPrice = calculateTotalPriceForItem(item.price, item.quantity);
 
     return (
         <li className="list-group-item d-flex align-items-center gap-3 justify-content-between flex-wrap flex-sm-nowrap">
