@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Cart from "./Cart";
 import CartButton from "./CartButton";
+import './OffCanvasMenu.css';
 
 function OffCanvasMenu({ name, ...props }) {
   const [show, setShow] = useState(false)
@@ -14,7 +15,7 @@ function OffCanvasMenu({ name, ...props }) {
       <CartButton onClick={handleShow} className="me-2">
         {name}
       </CartButton>
-      <Offcanvas show={show} onHide={handleClose} {...props}>
+      <Offcanvas show={show} onHide={handleClose} {...props} className="custom-offcanvas">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Your Cart</Offcanvas.Title>
         </Offcanvas.Header>

@@ -63,7 +63,6 @@ export default function Cart() {
                         <p className="alert alert-success">Your order was sent. Thank you.<br />You can buy more if you want now.</p>
                     </section>
                 )}
-                <h2>Cart</h2>
                 {cartItems.length === 0 ? (
                     <section>
                         <p>Add something to your cart, make it from your heart.</p>
