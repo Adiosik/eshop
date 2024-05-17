@@ -13,7 +13,7 @@ export default function Checkout({ onSubmit, disabled }) {
         }
     }, [isValid]);
 
-    const onSubmitHandler = (e) => {
+    const handleSubmitHandler = (e) => {
         e.preventDefault(); // Prevents default form behavior
 
         if (isValid) {
@@ -26,7 +26,7 @@ export default function Checkout({ onSubmit, disabled }) {
 
     return (
         <section className="my-4">
-            <form onSubmit={onSubmitHandler} noValidate> {/* noValidate = Prevents default form behavior */}
+            <form onSubmit={handleSubmitHandler} noValidate> {/* noValidate = Prevents default form behavior */}
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input

@@ -2,19 +2,19 @@ import React from "react";
 import { CartContext } from "./CartProvider";
 
 export default function QuantityInput({ item }) {
-    const { onRemoveFromCart, onAddToCart, onUpdateCartProductQuantity } = React.useContext(CartContext);
+    const { handleRemoveFromCart, handleAddToCart, handleUpdateCartProductQuantity } = React.useContext(CartContext);
     const [inputValue, setInputValue] = React.useState(item.quantity);
 
     React.useEffect(() => {
         setInputValue(item.quantity);
     }, [item.quantity])
 
-    const onInputChange = (e) => {
+    const handleInputChange = (e) => {
         let value = e.target.value
         value = value.replace(/[^\d]/g, '');
 
         setInputValue(value);
-        onUpdateCartProductQuantity(item, value)
+        handleUpdateCartProductQuantity(item, value)
     }
 
     const remainingStock = item.stock - item.quantity
@@ -24,7 +24,7 @@ export default function QuantityInput({ item }) {
             <button
                 type="button"
                 className="btn btn-outline-secondary"
-                onClick={() => onRemoveFromCart(item)}
+                onClick={() => handleRemoveFromCart(item)}
             >
                 −
             </button>
@@ -32,12 +32,12 @@ export default function QuantityInput({ item }) {
                 type="text"
                 className="form-control text-center w-auto"
                 value={inputValue}
-                onChange={onInputChange}
+                onChange={handleInputChange}
             />
             <button
                 type="button"
                 className="btn btn-outline-secondary"
-                onClick={() => onAddToCart(item)}
+                onClick={() => handleAddToCart(item)}
                 disabled={remainingStock <= 0}
             >
                 +

@@ -1,7 +1,7 @@
 import React from "react";
 import ShowAllArticles from "./ShowAllArticles";
 
-export default function Categories({ onCategorySelect, selectedCategory, searchTerm }) {
+export default function Categories({ handleCategorySelect, selectedCategory, searchTerm }) {
     const [categories, setCategories] = React.useState([]);
     const [showAllArticlesVisible, setShowAllArticlesVisible] = React.useState(false);
 
@@ -32,7 +32,7 @@ export default function Categories({ onCategorySelect, selectedCategory, searchT
                 <div className="list-group list-group-flush flex-row flex-md-column flex-wrap">
                     {showAllArticlesVisible && (
                         <ShowAllArticles
-                            onClick={() => onCategorySelect(null)}
+                            onClick={() => handleCategorySelect(null)}
                             selectedCategory={selectedCategory}
                         />
                     )}
@@ -41,7 +41,7 @@ export default function Categories({ onCategorySelect, selectedCategory, searchT
                             key={index}
                             type="button"
                             className={`list-group-item list-group-item-action w-auto ${selectedCategory === category ? 'active' : ''}`}
-                            onClick={() => onCategorySelect(category)}
+                            onClick={() => handleCategorySelect(category)}
                         >
                             {category}
                         </button>

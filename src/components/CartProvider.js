@@ -66,7 +66,7 @@ export const CartContextProvider = ({ children }) => {
         })
     };
 
-    const onUpdateCartProductQuantity = (item, newQuantity) => {
+    const handleUpdateCartProductQuantity = (item, newQuantity) => {
         const updatedCart = cartItems.map(cartItem =>
             cartItem.id === item.id ? { ...cartItem, quantity: newQuantity } : cartItem
         );
@@ -75,10 +75,10 @@ export const CartContextProvider = ({ children }) => {
         updateCartItemCount();
     };
 
-    const onAddToCart = (item) => {
+    const handleAddToCart = (item) => {
         const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
         if (existingItem) {
-            onUpdateCartProductQuantity(item, existingItem.quantity + 1);
+            handleUpdateCartProductQuantity(item, existingItem.quantity + 1);
         } else {
             setCartItems([...cartItems, { ...item, quantity: 1 }]);
             updateCart(item, 1);
@@ -86,10 +86,10 @@ export const CartContextProvider = ({ children }) => {
         }
     };
 
-    const onRemoveFromCart = (item) => {
+    const handleRemoveFromCart = (item) => {
         const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
         if (existingItem && existingItem.quantity > 1) {
-            onUpdateCartProductQuantity(item, existingItem.quantity - 1);
+            handleUpdateCartProductQuantity(item, existingItem.quantity - 1);
         } else if (existingItem && existingItem.quantity === 1) {
         } else {
             const updatedCart = cartItems.filter(i => i !== item);
@@ -99,7 +99,7 @@ export const CartContextProvider = ({ children }) => {
         }
     };
 
-    const onRemoveAllFromCart = (item) => {
+    const handleRemoveAllFromCart = (item) => {
         const updatedCart = cartItems.filter(cartItem => cartItem.id !== item.id);
         setCartItems(updatedCart);
         updateCart(item, 0);
@@ -115,10 +115,10 @@ export const CartContextProvider = ({ children }) => {
         getTotalRegularPrice,
         getTotalSavings,
         isLoadingCartData,
-        onRemoveFromCart,
-        onAddToCart,
-        onRemoveAllFromCart,
-        onUpdateCartProductQuantity,
+        handleRemoveFromCart,
+        handleAddToCart,
+        handleRemoveAllFromCart,
+        handleUpdateCartProductQuantity,
         cartItemCount,
     };
 
