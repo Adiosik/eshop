@@ -1,16 +1,30 @@
+// CartItem.js
 import React from "react";
 import { CartContext } from "./CartProvider";
 import QuantityInput from "./QuantityInput";
 import { calculateDiscountedPrice } from '../utilities';
 
 export default function CartItem({ item }) {
-    const { handleRemoveFromCart, handleAddToCart, handleRemoveAllFromCart, handleUpdateCartItemQuantity } = React.useContext(CartContext);
+    const { handleRemoveFromCart, handleAddToCart, handleRemoveAllFromCart, handleUpdateCartProductQuantity } = React.useContext(CartContext);
+    const [inputValue, setInputValue] = React.useState(item.quantity);
 
-    const calculateTotalPriceForProduct = (item) => {
+    React.useEffect(() => {
+        setInputValue(item.quantity);
+    }, [item.quantity])
+
+    const handleInputChange = (e) => {
+        let value = e.target.value.replace(/[^\d]/g, '');
+        setInputValue(value);
+        handleUpdateCartProductQuantity(item, value);
+    }
+
+    const remainingStock = item.stock - item.quantity;
+
+    const calculateTotalPriceForProduct = () => {
         return item.price * item.quantity;
     }
 
-    const totalItemPrice = calculateTotalPriceForProduct(item)
+    const totalItemPrice = calculateTotalPriceForProduct();
 
     return (
         <li className="list-group-item d-flex align-items-center gap-3 justify-content-between flex-wrap flex-sm-nowrap">
@@ -27,9 +41,11 @@ export default function CartItem({ item }) {
             <div className="d-flex justify-content-end align-items-center gap-2 w-100">
                 <QuantityInput
                     item={item}
-                    onRemoveFromCart={handleRemoveFromCart}
-                    onAddToCart={handleAddToCart}
-                    updateCartItemQuantity={handleUpdateCartItemQuantity}
+                    inputValue={inputValue}
+                    handleInputChange={handleInputChange}
+                    handleRemoveFromCart={() => handleRemoveFromCart(item)}
+                    handleAddToCart={() => handleAddToCart(item)}
+                    remainingStock={remainingStock}
                 />
                 <button
                     onClick={() => handleRemoveAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
