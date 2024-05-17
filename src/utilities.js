@@ -10,10 +10,6 @@ export const findProductInCart = (cartItems, productId) => {
     return cartItems.find((cartItem) => cartItem.id === productId);
 }
 
-export const calculateTotalPriceForProduct = (price, quantity) => {
-    return price * quantity;
-}
-
 export const debounceCallback = (callback, wait) => {
     let timeoutId = null;
     return (...args) => {
