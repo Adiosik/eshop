@@ -4,6 +4,7 @@ import Categories from "./components/Categories";
 import Search from "./components/Search";
 import { CartContextProvider } from "./components/CartProvider";
 import OffcanvasMenu from "./components/OffCanvasMenu";
+import { debounceCallback } from "./utilities";
 
 export default function App() {
     const [products, setProducts] = React.useState([]);
@@ -12,7 +13,6 @@ export default function App() {
     const [selectedCategory, setSelectedCategory] = React.useState(null);
     const [searchTerm, setSearchTerm] = React.useState("");
     const [throttledSearchTerm, setThrottledSearchTerm] = React.useState("")
-    const [timeoutId, setTimeoutId] = React.useState(null);
     const [isProductsFound, setIsProductsFound] = React.useState(true);
 
     const fetchData = () => {
@@ -44,20 +44,18 @@ export default function App() {
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
-        setSearchTerm("");
+        //search
         setThrottledSearchTerm("")
         setProducts([])
         setIsMaxProductsLoaded(false)
     };
 
-    const handleSearch = (term) => {
-        setSearchTerm(term);
+    const handleSearch = debounceCallback((term) => {
         setSelectedCategory(null);
         setProducts([]);
         setIsMaxProductsLoaded(false);
-        clearTimeout(timeoutId)
-        setThrottledSearchTerm(term)
-    };
+        setThrottledSearchTerm(term);
+    });
 
     React.useEffect(() => {
         fetchData();
@@ -72,37 +70,34 @@ export default function App() {
                             <a href="/" className="text-decoration-none text-reset">E-shop</a>
                         </h1>
                         <Search
-                            searchTerm={searchTerm}
                             onSearch={handleSearch}
-                            isLoadingData={isLoadingData}
                         />
                         <OffcanvasMenu />
                     </div>
                 </nav>
             </header>
             <main className="container-md">
-                {products === undefined ? (
-                    <div className="alert alert-info">Please wait while we load data...</div>
-                ) : (
-                    <>
-                        <div className="row">
-                            <Categories
-                                onCategorySelect={handleCategorySelect}
-                                selectedCategory={selectedCategory}
-                            />
-                            <ArticleList
-                                products={products}
-                                onLoadMore={handleLoadMore}
-                                isLoadingData={isLoadingData}
-                                isMaxProductsLoaded={isMaxProductsLoaded}
-                                throttledSearchTerm={throttledSearchTerm}
-                                timeoutId={timeoutId}
-                                isProductsFound={isProductsFound}
-                                selectedCategory={selectedCategory}
-                            />
+                <div className="row">
+                    <Categories
+                        handleCategorySelect={handleCategorySelect}
+                        selectedCategory={selectedCategory}
+                    />
+                    {isLoadingData ? (
+                        <div className="col mb-5 mt-4">
+                            <div className="alert alert-info">Please wait while we load data...</div>
                         </div>
-                    </>
-                )}
+                    ) : (
+                        <ArticleList
+                            products={products}
+                            onLoadMore={handleLoadMore}
+                            isLoadingData={isLoadingData}
+                            isMaxProductsLoaded={isMaxProductsLoaded}
+                            throttledSearchTerm={throttledSearchTerm}
+                            isProductsFound={isProductsFound}
+                            selectedCategory={selectedCategory}
+                        />
+                    )}
+                </div>
             </main>
         </CartContextProvider>
     );

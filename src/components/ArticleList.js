@@ -1,7 +1,7 @@
 import React from "react";
 import Article from "./Article";
 
-export default function ArticleList({ products, handleLoadMore, isLoadingData, isMaxProductsLoaded, timeoutId, isProductsFound, selectedCategory }) {
+export default function ArticleList({ products, handleLoadMore, isLoadingData, isMaxProductsLoaded, isProductsFound, selectedCategory }) {
     return (
         <div className="col mb-5 mt-4">
             {selectedCategory && (
@@ -31,7 +31,7 @@ export default function ArticleList({ products, handleLoadMore, isLoadingData, i
                                 <button
                                     className="btn btn-outline-primary btn-lg"
                                     onClick={handleLoadMore}
-                                    disabled={isLoadingData || timeoutId !== null}
+                                    disabled={isLoadingData}
                                 >
                                     Load more
                                 </button>
