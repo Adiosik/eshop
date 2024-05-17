@@ -72,7 +72,7 @@ export default function Cart() {
                         <ul className="list-group">
                             {cartItems.map((item, index) => (
                                 <CartItem
-                                    key={index}
+                                    key={item.id}
                                     item={item}
                                     disabled={cartState === "orderSent"}
                                 />
