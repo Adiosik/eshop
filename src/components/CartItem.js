@@ -40,7 +40,6 @@ export default function CartItem({ item }) {
             </div>
             <div className="d-flex justify-content-end align-items-center gap-2 w-100">
                 <QuantityInput
-                    item={item}
                     inputValue={inputValue}
                     handleInputChange={handleInputChange}
                     handleRemoveFromCart={() => handleRemoveFromCart(item)}
