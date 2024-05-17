@@ -5,7 +5,7 @@ import StarRating from './StarRating';
 import ArticleCarousel from './ArticleCarousel';
 
 export default function Article({ item }) {
-    const { onAddToCart, cartItems, cartState } = React.useContext(CartContext)
+    const { handleAddToCart, cartItems, cartState } = React.useContext(CartContext)
 
     const isCartLoading = isCheckoutLoading(cartState);
     const findCartItem = findProductInCart(cartItems, item.id);
@@ -37,7 +37,7 @@ export default function Article({ item }) {
                 </div>
                 {availableStock > 0 ? (
                     <button
-                        onClick={() => onAddToCart(item)}
+                        onClick={() => handleAddToCart(item)}
                         className={`btn btn-outline-primary`}
                         disabled={isCartLoading}
                     >
