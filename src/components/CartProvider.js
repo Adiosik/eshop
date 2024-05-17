@@ -106,20 +106,30 @@ export const CartContextProvider = ({ children }) => {
         updateCartItemCount();
     };
 
+    const isCheckoutLoading = (cartState) => {
+        return cartState === "isLoading";
+    };
+
+    const findProductInCart = (cartItems, productId) => {
+        return cartItems.find((cartItem) => cartItem.id === productId);
+    };
+
     const value = {
         setCartState,
         setCartItems,
         cartItems,
         cartState,
+        cartItemCount,
         getTotalPriceWithDiscount,
         getTotalRegularPrice,
         getTotalSavings,
         isLoadingCartData,
+        isCheckoutLoading,
+        findProductInCart,
         handleRemoveFromCart,
         handleAddToCart,
         handleRemoveAllFromCart,
         handleUpdateCartProductQuantity,
-        cartItemCount,
     };
 
     return (
