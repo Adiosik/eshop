@@ -24,8 +24,6 @@ export default function CartItem({ item }) {
         return item.price * item.quantity;
     }
 
-    const totalItemPrice = calculateTotalPriceForProduct();
-
     return (
         <li className="list-group-item d-flex align-items-center gap-3 justify-content-between flex-wrap flex-sm-nowrap">
             <div className="ratio ratio-4x3 w-25 flex-grow-1">
@@ -50,8 +48,8 @@ export default function CartItem({ item }) {
                     onClick={() => handleRemoveAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
                 </button>
                 <div className="d-flex flex-column align-items-end w-25">
-                    <span className="text-decoration-line-through">€{totalItemPrice}</span>
-                    <span className="fs-5 fw-bold">€{calculateDiscountedPrice(totalItemPrice, item.discountPercentage)}</span>
+                    <span className="text-decoration-line-through">€{calculateTotalPriceForProduct()}</span>
+                    <span className="fs-5 fw-bold">€{calculateDiscountedPrice(calculateTotalPriceForProduct(), item.discountPercentage)}</span>
                 </div>
             </div>
         </li>
