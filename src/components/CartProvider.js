@@ -50,28 +50,33 @@ export const CartContextProvider = ({ children }) => {
         return getTotalRegularPrice() - getTotalPriceWithDiscount();
     };
 
-    const updateCart = (item, quantity) => {
+    React.useEffect(() => {
         fetch('https://dummyjson.com/carts/1', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                merge: true, // this will include existing products in the cart
-                products: [
-                    {
-                        id: item.id,
-                        quantity: quantity,
-                    },
-                ],
+                merge: false,
+                products: cartItems.map(item => ({
+                    id: item.id,
+                    quantity: item.quantity,
+                })),
             }),
-        })
-    };
+        });
+    }, [cartItems])
+    
+    const clearCartState = () => {
+        setCartState(undefined);
+    }
+
+    const resetCartItems = () => {
+        setCartItems([]);
+    }
 
     const handleUpdateCartProductQuantity = (item, newQuantity) => {
         const updatedCart = cartItems.map(cartItem =>
             cartItem.id === item.id ? { ...cartItem, quantity: newQuantity } : cartItem
         );
         setCartItems(updatedCart);
-        updateCart(item, newQuantity);
         updateCartItemCount();
     };
 
@@ -81,7 +86,6 @@ export const CartContextProvider = ({ children }) => {
             handleUpdateCartProductQuantity(item, existingItem.quantity + 1);
         } else {
             setCartItems([...cartItems, { ...item, quantity: 1 }]);
-            updateCart(item, 1);
             updateCartItemCount();
         }
     };
@@ -94,7 +98,6 @@ export const CartContextProvider = ({ children }) => {
         } else {
             const updatedCart = cartItems.filter(i => i !== item);
             setCartItems(updatedCart);
-            updateCart(item, 0);
             updateCartItemCount();
         }
     };
@@ -102,7 +105,6 @@ export const CartContextProvider = ({ children }) => {
     const handleRemoveAllFromCart = (item) => {
         const updatedCart = cartItems.filter(cartItem => cartItem.id !== item.id);
         setCartItems(updatedCart);
-        updateCart(item, 0);
         updateCartItemCount();
     };
 
@@ -115,6 +117,8 @@ export const CartContextProvider = ({ children }) => {
     };
 
     const value = {
+        clearCartState,
+        resetCartItems,
         setCartState,
         setCartItems,
         cartItems,
