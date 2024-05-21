@@ -6,6 +6,8 @@ export default function Checkout({ onSubmit, disabled }) {
     const [email, setEmail] = React.useState("")
 
     const isValid = isValidEmail(email);
+    const isInvalid = isValidationShown && !isValid;
+    const isValidFeedback = isValidationShown && isValid;
 
     React.useEffect(() => {
         if (isValid) {
@@ -32,15 +34,15 @@ export default function Checkout({ onSubmit, disabled }) {
                     <input
                         type="email"
                         id="email"
-                        className={`form-control ${isValidationShown && !isValid ? 'is-invalid' : isValid && isValidationShown ? 'is-valid' : ''}`}
+                        className={`form-control ${isInvalid ? 'is-invalid' : isValidFeedback ? 'is-valid' : ''}`}
                         placeholder="example@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={disabled}
                     />
                     {!email && <div className="form-text">Please enter your email address.</div>}
-                    {isValidationShown && !isValid && <div className="invalid-feedback">Please enter a valid email address.</div>}
-                    {isValidationShown && isValid && <div className="valid-feedback">Email address looks good.</div>}
+                    {isInvalid && <div className="invalid-feedback">Please enter a valid email address.</div>}
+                    {isValidFeedback && <div className="valid-feedback">Email address looks good.</div>}
                 </div>
                 <button
                     type="submit"
