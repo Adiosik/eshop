@@ -11,7 +11,6 @@ export default function App() {
     const [isLoadingData, setIsLoadingData] = React.useState(true);
     const [isMaxProductsLoaded, setIsMaxProductsLoaded] = React.useState(false);
     const [selectedCategory, setSelectedCategory] = React.useState(null);
-    const [searchTerm, setSearchTerm] = React.useState("");
     const [throttledSearchTerm, setThrottledSearchTerm] = React.useState("")
     const [isProductsFound, setIsProductsFound] = React.useState(true);
 

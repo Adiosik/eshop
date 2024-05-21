@@ -1,7 +1,7 @@
 import React from "react";
 import ShowAllArticles from "./ShowAllArticles";
 
-export default function Categories({ handleCategorySelect, selectedCategory, searchTerm }) {
+export default function Categories({ handleCategorySelect, selectedCategory }) {
     const [categories, setCategories] = React.useState([]);
     const [showAllArticlesVisible, setShowAllArticlesVisible] = React.useState(false);
 
@@ -25,31 +25,27 @@ export default function Categories({ handleCategorySelect, selectedCategory, sea
         }
     }, [selectedCategory]);
 
-    if (!searchTerm) {
-        return (
-            <div className="col-12 col-md-auto mt-4">
-                <h2 className="visually-hidden">Categories</h2>
-                <div className="list-group list-group-flush flex-row flex-md-column flex-wrap">
-                    {showAllArticlesVisible && (
-                        <ShowAllArticles
-                            onClick={() => handleCategorySelect(null)}
-                            selectedCategory={selectedCategory}
-                        />
-                    )}
-                    {categories.map((category, index) => (
-                        <button
-                            key={index}
-                            type="button"
-                            className={`list-group-item list-group-item-action w-auto ${selectedCategory === category ? 'active' : ''}`}
-                            onClick={() => handleCategorySelect(category)}
-                        >
-                            {category}
-                        </button>
-                    ))}
-                </div>
+    return (
+        <div className="col-12 col-md-auto mt-4">
+            <h2 className="visually-hidden">Categories</h2>
+            <div className="list-group list-group-flush flex-row flex-md-column flex-wrap">
+                {showAllArticlesVisible && (
+                    <ShowAllArticles
+                        onClick={() => handleCategorySelect(null)}
+                        selectedCategory={selectedCategory}
+                    />
+                )}
+                {categories.map((category, index) => (
+                    <button
+                        key={index}
+                        type="button"
+                        className={`list-group-item list-group-item-action w-auto ${selectedCategory === category ? 'active' : ''}`}
+                        onClick={() => handleCategorySelect(category)}
+                    >
+                        {category}
+                    </button>
+                ))}
             </div>
-        );
-    } else {
-        return null;
-    }
+        </div>
+    )
 }
