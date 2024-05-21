@@ -72,7 +72,7 @@ export const CartContextProvider = ({ children }) => {
         setCartItems([]);
     }
 
-    const handleUpdateCartProductQuantity = (item, newQuantity) => {
+    const updateCartProductQuantity = (item, newQuantity) => {
         const updatedCart = cartItems.map(cartItem =>
             cartItem.id === item.id ? { ...cartItem, quantity: newQuantity } : cartItem
         );
@@ -80,20 +80,20 @@ export const CartContextProvider = ({ children }) => {
         updateCartItemCount();
     };
 
-    const handleAddToCart = (item) => {
+    const addToCart = (item) => {
         const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
         if (existingItem) {
-            handleUpdateCartProductQuantity(item, existingItem.quantity + 1);
+            updateCartProductQuantity(item, existingItem.quantity + 1);
         } else {
             setCartItems([...cartItems, { ...item, quantity: 1 }]);
             updateCartItemCount();
         }
     };
 
-    const handleRemoveFromCart = (item) => {
+    const removeFromCart = (item) => {
         const existingItem = cartItems.find(existingItem => existingItem.id === item.id);
         if (existingItem && existingItem.quantity > 1) {
-            handleUpdateCartProductQuantity(item, existingItem.quantity - 1);
+            updateCartProductQuantity(item, existingItem.quantity - 1);
         } else if (existingItem && existingItem.quantity === 1) {
         } else {
             const updatedCart = cartItems.filter(i => i !== item);
@@ -102,7 +102,7 @@ export const CartContextProvider = ({ children }) => {
         }
     };
 
-    const handleRemoveAllFromCart = (item) => {
+    const removeAllFromCart = (item) => {
         const updatedCart = cartItems.filter(cartItem => cartItem.id !== item.id);
         setCartItems(updatedCart);
         updateCartItemCount();
@@ -130,10 +130,10 @@ export const CartContextProvider = ({ children }) => {
         isLoadingCartData,
         isCheckoutLoading,
         findProductInCart,
-        handleRemoveFromCart,
-        handleAddToCart,
-        handleRemoveAllFromCart,
-        handleUpdateCartProductQuantity,
+        removeFromCart,
+        addToCart,
+        removeAllFromCart,
+        updateCartProductQuantity,
     };
 
     return (

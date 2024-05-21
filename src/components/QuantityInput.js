@@ -1,12 +1,12 @@
 import React from "react";
 
-export default function QuantityInput({ inputValue, handleInputChange, handleRemoveFromCart, handleAddToCart, remainingStock }) {
+export default function QuantityInput({ inputValue, handleInputChange, removeFromCart, addToCart, remainingStock }) {
     return (
         <div className="input-group input-group-sm w-25 flex-nowrap">
             <button
                 type="button"
                 className="btn btn-outline-secondary"
-                onClick={handleRemoveFromCart}
+                onClick={removeFromCart}
             >
                 −
             </button>
@@ -19,7 +19,7 @@ export default function QuantityInput({ inputValue, handleInputChange, handleRem
             <button
                 type="button"
                 className="btn btn-outline-secondary"
-                onClick={handleAddToCart}
+                onClick={addToCart}
                 disabled={remainingStock <= 0}
             >
                 +

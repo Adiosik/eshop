@@ -5,7 +5,7 @@ import QuantityInput from "./QuantityInput";
 import { calculateDiscountedPrice } from '../utilities';
 
 export default function CartItem({ item }) {
-    const { handleRemoveFromCart, handleAddToCart, handleRemoveAllFromCart, handleUpdateCartProductQuantity } = React.useContext(CartContext);
+    const { removeFromCart, addToCart, removeAllFromCart, updateCartProductQuantity } = React.useContext(CartContext);
     const [inputValue, setInputValue] = React.useState(item.quantity);
 
     React.useEffect(() => {
@@ -15,7 +15,7 @@ export default function CartItem({ item }) {
     const handleInputChange = (e) => {
         let value = e.target.value.replace(/[^\d]/g, '');
         setInputValue(value);
-        handleUpdateCartProductQuantity(item, value);
+        updateCartProductQuantity(item, value);
     }
 
     const remainingStock = item.stock - item.quantity;
@@ -40,12 +40,12 @@ export default function CartItem({ item }) {
                 <QuantityInput
                     inputValue={inputValue}
                     handleInputChange={handleInputChange}
-                    handleRemoveFromCart={() => handleRemoveFromCart(item)}
-                    handleAddToCart={() => handleAddToCart(item)}
+                    handleRemoveFromCart={() => removeFromCart(item)}
+                    handleAddToCart={() => addToCart(item)}
                     remainingStock={remainingStock}
                 />
                 <button
-                    onClick={() => handleRemoveAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
+                    onClick={() => removeAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
                 </button>
                 <div className="d-flex flex-column align-items-end w-25">
                     <span className="text-decoration-line-through">€{calculateTotalPriceForProduct()}</span>
