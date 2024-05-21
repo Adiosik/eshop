@@ -40,8 +40,8 @@ export default function CartItem({ item }) {
                 <QuantityInput
                     inputValue={inputValue}
                     handleInputChange={handleInputChange}
-                    handleRemoveFromCart={() => removeFromCart(item)}
-                    handleAddToCart={() => addToCart(item)}
+                    removeFromCart={() => removeFromCart(item)}
+                    addToCart={() => addToCart(item)}
                     remainingStock={remainingStock}
                 />
                 <button

@@ -7,6 +7,7 @@ export default function QuantityInput({ inputValue, handleInputChange, removeFro
                 type="button"
                 className="btn btn-outline-secondary"
                 onClick={removeFromCart}
+                disabled={inputValue <= 1}
             >
                 −
             </button>
