@@ -1,5 +1,5 @@
 import React from "react";
-import { CartContext } from "./CartProvider";
+import { CartContext } from "./CartContext";
 import { calculateDiscountedPrice } from '../utilities';
 import StarRating from './StarRating';
 import ArticleCarousel from './ArticleCarousel';

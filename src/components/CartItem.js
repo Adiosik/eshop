@@ -1,6 +1,6 @@
 // CartItem.js
 import React from "react";
-import { CartContext } from "./CartProvider";
+import { CartContext } from "./CartContext";
 import QuantityInput from "./QuantityInput";
 import { calculateDiscountedPrice } from '../utilities';
 

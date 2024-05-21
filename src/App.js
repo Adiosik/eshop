@@ -2,7 +2,7 @@ import React from "react";
 import ArticleList from "./components/ArticleList";
 import Categories from "./components/Categories";
 import Search from "./components/Search";
-import { CartContextProvider } from "./components/CartProvider";
+import { CartContextProvider } from "./components/CartContext";
 import OffcanvasMenu from "./components/OffCanvasMenu";
 import { debounceCallback } from "./utilities";
 

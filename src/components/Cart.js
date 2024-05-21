@@ -1,7 +1,7 @@
 import React from "react";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
-import { CartContext } from "./CartProvider";
+import { CartContext } from "./CartContext";
 import { calculateDiscountedPrice } from '../utilities';
 
 export default function Cart() {
