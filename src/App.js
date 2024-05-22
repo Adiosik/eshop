@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ArticleList from "./components/ArticleList";
 import Categories from "./components/Categories";
 import Search from "./components/Search";
@@ -13,6 +13,7 @@ export default function App() {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [throttledSearchTerm, setThrottledSearchTerm] = useState("")
     const [isProductsFound, setIsProductsFound] = useState(true);
+    const searchRef = useRef(null);
 
     const fetchData = () => {
         const nextSkip = products.length;
@@ -43,10 +44,10 @@ export default function App() {
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
-        //search
         setThrottledSearchTerm("")
         setProducts([])
         setIsMaxProductsLoaded(false)
+        searchRef.current.resetInput()
     };
 
     const handleSearch = debounceCallback((term) => {
@@ -69,6 +70,7 @@ export default function App() {
                             <a href="/" className="text-decoration-none text-reset">E-shop</a>
                         </h1>
                         <Search
+                            ref={searchRef}
                             onSearch={handleSearch}
                         />
                         <OffcanvasMenu />
