@@ -7,7 +7,7 @@ export default forwardRef(function Search({ onSearch }, ref) {
 
     const onSearchDebounced = useMemo(() => debounceCallback(onSearch, 300), [onSearch]);
 
-    const handleChange = (event) => {
+    const handleSearchChange = (event) => {
         const term = event.target.value;
         setInputValue(term);
         const searchValue = term.length >= 3 ? term : "";
@@ -32,7 +32,7 @@ export default forwardRef(function Search({ onSearch }, ref) {
                 type="search"
                 placeholder="Search products"
                 value={inputValue}
-                onChange={handleChange}
+                onChange={handleSearchChange}
             />
         </form>
     );

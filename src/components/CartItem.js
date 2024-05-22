@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import QuantityInput from "./QuantityInput";
-import { calculateDiscountedPrice } from '../utilities';
+import { getDiscountedPrice } from '../utilities';
 
 export default function CartItem({ item }) {
     const { removeAllFromCart, updateCartProductQuantity } = useContext(CartContext);
@@ -11,24 +11,24 @@ export default function CartItem({ item }) {
         setInputValue(item.quantity);
     }, [item.quantity]);
 
-    const handleInputChange = (newValue) => {
+    const handleQuantityChange = (newValue) => {
         setInputValue(newValue);
         updateCartProductQuantity(item, newValue);
     };
 
     const handleIncrement = () => {
-        handleInputChange(inputValue + 1);
+        handleQuantityChange(inputValue + 1);
     };
 
     const handleDecrement = () => {
         if (inputValue > 1) {
-            handleInputChange(inputValue - 1);
+            handleQuantityChange(inputValue - 1);
         }
     };
 
     const remainingStock = item.stock - item.quantity;
 
-    const calculateTotalPriceForProduct = () => {
+    const getTotalPriceForProduct = () => {
         return item.price * item.quantity;
     };
 
@@ -47,7 +47,7 @@ export default function CartItem({ item }) {
             <div className="d-flex justify-content-end align-items-center gap-2 w-100">
                 <QuantityInput
                     inputValue={inputValue}
-                    handleInputChange={handleInputChange}
+                    handleQuantityChange={handleQuantityChange}
                     remainingStock={remainingStock}
                     onIncrement={handleIncrement}
                     onDecrement={handleDecrement}
@@ -56,8 +56,8 @@ export default function CartItem({ item }) {
                     onClick={() => removeAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
                 </button>
                 <div className="d-flex flex-column align-items-end w-25">
-                    <span className="text-decoration-line-through">€{calculateTotalPriceForProduct()}</span>
-                    <span className="fs-5 fw-bold">€{calculateDiscountedPrice(calculateTotalPriceForProduct(), item.discountPercentage)}</span>
+                    <span className="text-decoration-line-through">€{getTotalPriceForProduct()}</span>
+                    <span className="fs-5 fw-bold">€{getDiscountedPrice(getTotalPriceForProduct(), item.discountPercentage)}</span>
                 </div>
             </div>
         </li>

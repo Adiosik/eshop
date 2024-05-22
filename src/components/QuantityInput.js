@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function QuantityInput({ inputValue, handleInputChange, onIncrement, onDecrement, remainingStock }) {
+export default function QuantityInput({ inputValue, handleQuantityChange, onIncrement, onDecrement, remainingStock }) {
     return (
         <div className="input-group input-group-sm w-25 flex-nowrap">
             <button
@@ -15,7 +15,7 @@ export default function QuantityInput({ inputValue, handleInputChange, onIncreme
                 type="text"
                 className="form-control text-center w-auto"
                 value={inputValue}
-                onChange={(e) => handleInputChange(parseInt(e.target.value) || '')}
+                onChange={(e) => handleQuantityChange(parseInt(e.target.value) || '')}
             />
             <button
                 type="button"

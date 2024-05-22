@@ -2,7 +2,7 @@ import React from "react";
 import Product from "./Product";
 import { formatCategoryName } from "../utilities";
 
-export default function ProductList({ products, handleLoadMore, isLoadingData, isMaxProductsLoaded, isProductsFound, selectedCategory }) {
+export default function ProductList({ products, loadMore, isLoadingData, isMaxProductsLoaded, isProductsFound, selectedCategory }) {
     return (
         <div className="col mb-5 mt-4">
             {selectedCategory && (
@@ -31,7 +31,7 @@ export default function ProductList({ products, handleLoadMore, isLoadingData, i
                             ) : (
                                 <button
                                     className="btn btn-outline-primary btn-lg"
-                                    onClick={handleLoadMore}
+                                    onClick={loadMore}
                                     disabled={isLoadingData}
                                 >
                                     Load more

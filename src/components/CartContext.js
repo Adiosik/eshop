@@ -1,5 +1,5 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import { calculateDiscountedPrice } from '../utilities';
+import { createContext, useState, useEffect } from "react";
+import { getDiscountedPrice } from '../utilities';
 
 export const CartContext = createContext();
 
@@ -35,11 +35,12 @@ export const CartContextProvider = ({ children }) => {
     }, [cartItems]);
 
     const updateCartItemCount = () => {
-        const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+        const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+        setCartItemCount(count);
     };
 
     const getTotalPriceWithDiscount = () => {
-        return cartItems.reduce((total, item) => total + calculateDiscountedPrice(item.price, item.discountPercentage) * item.quantity, 0);
+        return cartItems.reduce((total, item) => total + getDiscountedPrice(item.price, item.discountPercentage) * item.quantity, 0);
     };
 
     const getTotalRegularPrice = () => {

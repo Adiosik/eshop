@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
-import { calculateDiscountedPrice } from '../utilities';
+import { getDiscountedPrice } from '../utilities';
 import StarRating from './StarRating';
 import ProductCarousel from './ProductCarousel';
 
@@ -8,8 +8,8 @@ export default function Product({ item }) {
     const { addToCart, cartItems, cartState, isCheckoutLoading, findProductInCart } = useContext(CartContext)
 
     const isCartLoading = isCheckoutLoading(cartState);
-    const findCartItem = findProductInCart(cartItems, item.id);
-    const availableStock = findCartItem ? item.stock - findCartItem.quantity : item.stock;
+    const findCartProduct = findProductInCart(cartItems, item.id);
+    const availableStock = findCartProduct ? item.stock - findCartProduct.quantity : item.stock;
 
     return (
         <article className="card h-100 d-flex flex-column">
@@ -33,7 +33,7 @@ export default function Product({ item }) {
                 <div className="d-flex flex-column">
                     <p className="card-text">Stock: {availableStock}</p>
                     <p className="mb-0 text-decoration-line-through">€{item.price}</p>
-                    <p className="mb-0 text-primary fs-3 fw-bold">€{calculateDiscountedPrice(item.price, item.discountPercentage)}</p>
+                    <p className="mb-0 text-primary fs-3 fw-bold">€{getDiscountedPrice(item.price, item.discountPercentage)}</p>
                 </div>
                 {availableStock > 0 ? (
                     <button

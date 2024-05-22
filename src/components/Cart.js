@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 import { CartContext } from "./CartContext";
-import { calculateDiscountedPrice } from '../utilities';
+import { getDiscountedPrice } from '../utilities';
 
 export default function Cart() {
     const [error, setError] = useState(undefined)
@@ -26,7 +26,7 @@ export default function Cart() {
                     quantity: item.quantity,
                     price: item.price,
                     discount: item.discountPercentage,
-                    discountedPrice: calculateDiscountedPrice(item.price, item.discountPercentage),
+                    discountedPrice: getDiscountedPrice(item.price, item.discountPercentage),
                 })),
                 total: getTotalPriceWithDiscount()
             }),
