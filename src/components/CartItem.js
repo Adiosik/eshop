@@ -1,4 +1,3 @@
-// CartItem.js
 import React from "react";
 import { CartContext } from "./CartContext";
 import QuantityInput from "./QuantityInput";
@@ -10,19 +9,28 @@ export default function CartItem({ item }) {
 
     React.useEffect(() => {
         setInputValue(item.quantity);
-    }, [item.quantity])
+    }, [item.quantity]);
 
-    const handleInputChange = (e) => {
-        let value = e.target.value.replace(/[^\d]/g, '');
-        setInputValue(value);
-        updateCartProductQuantity(item, value);
-    }
+    const handleInputChange = (newValue) => {
+        setInputValue(newValue);
+        updateCartProductQuantity(item, newValue);
+    };
+
+    const handleIncrement = () => {
+        handleInputChange(inputValue + 1);
+    };
+
+    const handleDecrement = () => {
+        if (inputValue > 1) {
+            handleInputChange(inputValue - 1);
+        }
+    };
 
     const remainingStock = item.stock - item.quantity;
 
     const calculateTotalPriceForProduct = () => {
         return item.price * item.quantity;
-    }
+    };
 
     return (
         <li className="list-group-item d-flex align-items-center gap-3 justify-content-between flex-wrap flex-sm-nowrap">
@@ -40,9 +48,9 @@ export default function CartItem({ item }) {
                 <QuantityInput
                     inputValue={inputValue}
                     handleInputChange={handleInputChange}
-                    removeFromCart={() => removeFromCart(item)}
-                    addToCart={() => addToCart(item)}
                     remainingStock={remainingStock}
+                    onIncrement={handleIncrement}
+                    onDecrement={handleDecrement}
                 />
                 <button
                     onClick={() => removeAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
@@ -53,5 +61,5 @@ export default function CartItem({ item }) {
                 </div>
             </div>
         </li>
-    )
+    );
 }
