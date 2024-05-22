@@ -1,12 +1,13 @@
 import React from "react";
 import Article from "./Article";
+import { formatCategoryName } from "../utilities";
 
 export default function ArticleList({ products, handleLoadMore, isLoadingData, isMaxProductsLoaded, isProductsFound, selectedCategory }) {
     return (
         <div className="col mb-5 mt-4">
             {selectedCategory && (
                 <div className="mb-3">
-                    <h2 className="h1">{selectedCategory}</h2>
+                    <h2 className="h1">{formatCategoryName(selectedCategory)}</h2>
                 </div>
             )}
             {isProductsFound ? (

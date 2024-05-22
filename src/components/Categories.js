@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ShowAllArticles from "./ShowAllArticles";
+import { formatCategoryName } from "../utilities";
 
-export default function Categories({ handleCategorySelect, selectedCategory }) {
+export default function Categories({ handleCategorySelect}) {
     const [categories, setCategories] = useState([]);
     const [showAllArticlesVisible, setShowAllArticlesVisible] = useState(false);
 
@@ -9,8 +10,7 @@ export default function Categories({ handleCategorySelect, selectedCategory }) {
         fetch('https://dummyjson.com/products/categories')
             .then(res => res.json())
             .then(fetchedData => {
-                const formattedCategories = fetchedData.map(category => (category.charAt(0).toUpperCase() + category.slice(1)).replaceAll("-", " "));
-                setCategories(formattedCategories);
+                setCategories(fetchedData);
             })
             .catch(error => {
                 console.error('Error fetching categories:', error);
@@ -18,12 +18,12 @@ export default function Categories({ handleCategorySelect, selectedCategory }) {
     }, []);
 
     useEffect(() => {
-        if (selectedCategory) {
+        if (handleCategorySelect) {
             setShowAllArticlesVisible(true);
         } else {
             setShowAllArticlesVisible(false);
         }
-    }, [selectedCategory]);
+    }, [handleCategorySelect]);
 
     return (
         <div className="col-12 col-md-auto mt-4">
@@ -32,20 +32,20 @@ export default function Categories({ handleCategorySelect, selectedCategory }) {
                 {showAllArticlesVisible && (
                     <ShowAllArticles
                         onClick={() => handleCategorySelect(null)}
-                        selectedCategory={selectedCategory}
+                        selectedCategory={handleCategorySelect}
                     />
                 )}
                 {categories.map((category, index) => (
                     <button
                         key={index}
                         type="button"
-                        className={`list-group-item list-group-item-action w-auto ${selectedCategory === category ? 'active' : ''}`}
+                        className={`list-group-item list-group-item-action w-auto ${handleCategorySelect === category ? 'active' : ''}`}
                         onClick={() => handleCategorySelect(category)}
                     >
-                        {category}
+                        {formatCategoryName(category)}
                     </button>
                 ))}
             </div>
         </div>
-    )
+    );
 }

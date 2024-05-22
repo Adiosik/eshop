@@ -15,3 +15,10 @@ export const debounceCallback = (callback, wait) => {
 export const isValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
 };
+
+export const formatCategoryName = (name) => {
+  return name
+    .replace("mens", "men’s")
+    .replace("-", " ")
+    .replace(/^\w/, (c) => c.toUpperCase());
+};
