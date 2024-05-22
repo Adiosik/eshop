@@ -1,10 +1,10 @@
-import React from "react";
+import { useState, useMemo } from "react";
 import { debounceCallback } from "../utilities";
 
 export default function Search({ onSearch }) {
-  const [inputValue, setInputValue] = React.useState("");
+  const [inputValue, setInputValue] = useState("");
 
-  const onSearchDebounced = React.useMemo(() => debounceCallback(onSearch, 300), [onSearch]);
+  const onSearchDebounced = useMemo(() => debounceCallback(onSearch, 300), [onSearch]);
 
   const handleChange = (event) => {
     const term = event.target.value;

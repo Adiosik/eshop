@@ -1,13 +1,13 @@
-import React from "react";
+import { useContext, useState, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import QuantityInput from "./QuantityInput";
 import { calculateDiscountedPrice } from '../utilities';
 
 export default function CartItem({ item }) {
-    const { removeFromCart, addToCart, removeAllFromCart, updateCartProductQuantity } = React.useContext(CartContext);
-    const [inputValue, setInputValue] = React.useState(item.quantity);
+    const { removeAllFromCart, updateCartProductQuantity } = useContext(CartContext);
+    const [inputValue, setInputValue] = useState(item.quantity);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setInputValue(item.quantity);
     }, [item.quantity]);
 

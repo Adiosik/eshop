@@ -1,12 +1,12 @@
-import React from "react";
+import { useState, useContext } from "react";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 import { CartContext } from "./CartContext";
 import { calculateDiscountedPrice } from '../utilities';
 
 export default function Cart() {
-    const [error, setError] = React.useState(undefined)
-    const { setCartState, setCartItems, cartItems, cartState, getTotalPriceWithDiscount, getTotalRegularPrice, getTotalSavings, isLoadingCartData } = React.useContext(CartContext)
+    const [error, setError] = useState(undefined)
+    const { setCartState, setCartItems, cartItems, cartState, getTotalPriceWithDiscount, getTotalRegularPrice, getTotalSavings, isLoadingCartData } = useContext(CartContext)
 
     const onSubmit = (email) => {
         setError(undefined)

@@ -1,11 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import { CartContext } from "./CartContext";
 import { calculateDiscountedPrice } from '../utilities';
 import StarRating from './StarRating';
 import ArticleCarousel from './ArticleCarousel';
 
 export default function Article({ item }) {
-    const { addToCart, cartItems, cartState, isCheckoutLoading, findProductInCart } = React.useContext(CartContext)
+    const { addToCart, cartItems, cartState, isCheckoutLoading, findProductInCart } = useContext(CartContext)
 
     const isCartLoading = isCheckoutLoading(cartState);
     const findCartItem = findProductInCart(cartItems, item.id);

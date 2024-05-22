@@ -1,11 +1,11 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import ShowAllArticles from "./ShowAllArticles";
 
 export default function Categories({ handleCategorySelect, selectedCategory }) {
-    const [categories, setCategories] = React.useState([]);
-    const [showAllArticlesVisible, setShowAllArticlesVisible] = React.useState(false);
+    const [categories, setCategories] = useState([]);
+    const [showAllArticlesVisible, setShowAllArticlesVisible] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         fetch('https://dummyjson.com/products/categories')
             .then(res => res.json())
             .then(fetchedData => {
@@ -17,7 +17,7 @@ export default function Categories({ handleCategorySelect, selectedCategory }) {
             });
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (selectedCategory) {
             setShowAllArticlesVisible(true);
         } else {

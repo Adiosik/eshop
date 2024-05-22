@@ -1,15 +1,15 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { isValidEmail } from "../utilities";
 
 export default function Checkout({ onSubmit, disabled }) {
-    const [isValidationShown, setIsValidationShown] = React.useState(false)
-    const [email, setEmail] = React.useState("")
+    const [isValidationShown, setIsValidationShown] = useState(false)
+    const [email, setEmail] = useState("")
 
     const isValid = isValidEmail(email);
     const isInvalid = isValidationShown && !isValid;
     const isValidFeedback = isValidationShown && isValid;
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (isValid) {
             setIsValidationShown(true)
         }

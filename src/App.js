@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import ArticleList from "./components/ArticleList";
 import Categories from "./components/Categories";
 import Search from "./components/Search";
@@ -7,12 +7,12 @@ import OffcanvasMenu from "./components/OffCanvasMenu";
 import { debounceCallback } from "./utilities";
 
 export default function App() {
-    const [products, setProducts] = React.useState([]);
-    const [isLoadingData, setIsLoadingData] = React.useState(true);
-    const [isMaxProductsLoaded, setIsMaxProductsLoaded] = React.useState(false);
-    const [selectedCategory, setSelectedCategory] = React.useState(null);
-    const [throttledSearchTerm, setThrottledSearchTerm] = React.useState("")
-    const [isProductsFound, setIsProductsFound] = React.useState(true);
+    const [products, setProducts] = useState([]);
+    const [isLoadingData, setIsLoadingData] = useState(true);
+    const [isMaxProductsLoaded, setIsMaxProductsLoaded] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [throttledSearchTerm, setThrottledSearchTerm] = useState("")
+    const [isProductsFound, setIsProductsFound] = useState(true);
 
     const fetchData = () => {
         const nextSkip = products.length;
@@ -56,7 +56,7 @@ export default function App() {
         setThrottledSearchTerm(term);
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         fetchData();
     }, [selectedCategory, throttledSearchTerm])
 

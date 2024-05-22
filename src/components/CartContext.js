@@ -1,15 +1,15 @@
-import React from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { calculateDiscountedPrice } from '../utilities';
 
-export const CartContext = React.createContext();
+export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
-    const [cartItems, setCartItems] = React.useState([]);
-    const [cartState, setCartState] = React.useState(undefined);
-    const [isLoadingCartData, setIsLoadingCartData] = React.useState(true)
-    const [cartItemCount, setCartItemCount] = React.useState(0);
+    const [cartItems, setCartItems] = useState([]);
+    const [cartState, setCartState] = useState(undefined);
+    const [isLoadingCartData, setIsLoadingCartData] = useState(true)
+    const [cartItemCount, setCartItemCount] = useState(0);
 
-    React.useEffect(() => {
+    useEffect(() => {
         fetch('https://dummyjson.com/carts/1')
             .then(res => res.json())
             .then(cartData => {
@@ -22,14 +22,14 @@ export const CartContextProvider = ({ children }) => {
             });
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const cartNotEmpty = cartItems.length
         if (cartNotEmpty) {
             setCartState(undefined);
         }
     }, [cartItems, setCartState]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const count = cartItems.reduce((total, item) => total + item.quantity, 0);
         setCartItemCount(count);
     }, [cartItems]);
@@ -50,7 +50,7 @@ export const CartContextProvider = ({ children }) => {
         return getTotalRegularPrice() - getTotalPriceWithDiscount();
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         fetch('https://dummyjson.com/carts/1', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
