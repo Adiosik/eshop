@@ -1,7 +1,7 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
 
-export default function ArticleCarousel({ images }) {
+export default function ProductCarousel({ images }) {
     return (
         images.length > 1 ? (
             <Carousel interval={null} className="carousel-dark">

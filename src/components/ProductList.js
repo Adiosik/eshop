@@ -1,8 +1,8 @@
 import React from "react";
-import Article from "./Article";
+import Product from "./Product";
 import { formatCategoryName } from "../utilities";
 
-export default function ArticleList({ products, handleLoadMore, isLoadingData, isMaxProductsLoaded, isProductsFound, selectedCategory }) {
+export default function ProductList({ products, handleLoadMore, isLoadingData, isMaxProductsLoaded, isProductsFound, selectedCategory }) {
     return (
         <div className="col mb-5 mt-4">
             {selectedCategory && (
@@ -16,7 +16,7 @@ export default function ArticleList({ products, handleLoadMore, isLoadingData, i
                     <div className="row row-gap-4 align-content-stretch">
                         {products.map((item) => (
                             <div key={item.id} className="col-12 col-sm-6 col-lg-4 col-xxl-3">
-                                <Article
+                                <Product
                                     item={item}
                                 />
                             </div>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ShowAllArticles from "./ShowAllArticles";
+import ShowAllProducts from "./ShowAllProducts";
 import { formatCategoryName } from "../utilities";
 
 export default function Categories({ handleCategorySelect}) {
     const [categories, setCategories] = useState([]);
-    const [showAllArticlesVisible, setShowAllArticlesVisible] = useState(false);
+    const [showAllProductsVisible, setShowAllProductsVisible] = useState(false);
 
     useEffect(() => {
         fetch('https://dummyjson.com/products/categories')
@@ -19,9 +19,9 @@ export default function Categories({ handleCategorySelect}) {
 
     useEffect(() => {
         if (handleCategorySelect) {
-            setShowAllArticlesVisible(true);
+            setShowAllProductsVisible(true);
         } else {
-            setShowAllArticlesVisible(false);
+            setShowAllProductsVisible(false);
         }
     }, [handleCategorySelect]);
 
@@ -29,8 +29,8 @@ export default function Categories({ handleCategorySelect}) {
         <div className="col-12 col-md-auto mt-4">
             <h2 className="visually-hidden">Categories</h2>
             <div className="list-group list-group-flush flex-row flex-md-column flex-wrap">
-                {showAllArticlesVisible && (
-                    <ShowAllArticles
+                {showAllProductsVisible && (
+                    <ShowAllProducts
                         onClick={() => handleCategorySelect(null)}
                         selectedCategory={handleCategorySelect}
                     />

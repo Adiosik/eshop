@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { CartContext } from "./CartContext";
 import { calculateDiscountedPrice } from '../utilities';
 import StarRating from './StarRating';
-import ArticleCarousel from './ArticleCarousel';
+import ProductCarousel from './ProductCarousel';
 
-export default function Article({ item }) {
+export default function Product({ item }) {
     const { addToCart, cartItems, cartState, isCheckoutLoading, findProductInCart } = useContext(CartContext)
 
     const isCartLoading = isCheckoutLoading(cartState);
@@ -14,7 +14,7 @@ export default function Article({ item }) {
     return (
         <article className="card h-100 d-flex flex-column">
             <div className="ratio ratio-4x3">
-                <ArticleCarousel images={item.images} />
+                <ProductCarousel images={item.images} />
             </div>
             <div className="card-body">
                 <div className="d-flex align-items-center justify-content-between gap-2">

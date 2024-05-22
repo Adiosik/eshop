@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import ArticleList from "./components/ArticleList";
+import ProductList from "./components/ProductList";
 import Categories from "./components/Categories";
 import Search from "./components/Search";
 import { CartContextProvider } from "./components/CartContext";
@@ -88,7 +88,7 @@ export default function App() {
                             <div className="alert alert-info">Please wait while we load data...</div>
                         </div>
                     ) : (
-                        <ArticleList
+                        <ProductList
                             products={products}
                             onLoadMore={handleLoadMore}
                             isLoadingData={isLoadingData}
