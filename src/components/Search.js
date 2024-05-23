@@ -1,8 +1,7 @@
-import { useState, forwardRef, useMemo, useRef, useImperativeHandle } from "react";
+import { forwardRef, useMemo, useRef, useImperativeHandle } from "react";
 import { debounceCallback } from "../utilities";
 
-export default forwardRef(function Search({ onSearch }, ref) {
-    const [inputValue, setInputValue] = useState("");
+export default forwardRef(function Search({ onSearch, inputValue, setInputValue }, ref) {
     const inputRef = useRef(null);
 
     const onSearchDebounced = useMemo(() => debounceCallback(onSearch, 300), [onSearch]);

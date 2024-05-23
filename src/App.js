@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ProductList from "./components/ProductList";
 import Categories from "./components/Categories";
 import Search from "./components/Search";
@@ -13,6 +13,7 @@ export default function App() {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [throttledSearchTerm, setThrottledSearchTerm] = useState("")
     const [isProductsFound, setIsProductsFound] = useState(true);
+    const [inputValue, setInputValue] = useState("");
     const searchRef = useRef(null);
 
     const fetchData = () => {
@@ -72,6 +73,8 @@ export default function App() {
                         <Search
                             ref={searchRef}
                             onSearch={onSearch}
+                            inputValue={inputValue}
+                            setInputValue={setInputValue}
                         />
                         <OffcanvasMenu />
                     </div>
@@ -93,9 +96,9 @@ export default function App() {
                             loadMore={loadMore}
                             isLoadingData={isLoadingData}
                             isMaxProductsLoaded={isMaxProductsLoaded}
-                            throttledSearchTerm={throttledSearchTerm}
                             isProductsFound={isProductsFound}
                             selectedCategory={selectedCategory}
+                            inputValue={inputValue}
                         />
                     )}
                 </div>
