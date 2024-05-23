@@ -44,7 +44,7 @@ export default function Product({ item }) {
                         Add to cart
                     </button>
                 ) : (
-                    <p className="text-danger">Out of stock</p>
+                    <p className="text-danger mb-2">Out of stock</p>
                 )}
             </div>
         </article>
