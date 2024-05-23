@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ShowAllProducts from "./ShowAllProducts";
 import { formatCategoryName } from "../utilities";
 
-export default function Categories({ handleCategorySelect}) {
+export default function Categories({ handleCategorySelect, selectedCategory }) {
     const [categories, setCategories] = useState([]);
     const [showAllProductsVisible, setShowAllProductsVisible] = useState(false);
 
@@ -18,12 +18,12 @@ export default function Categories({ handleCategorySelect}) {
     }, []);
 
     useEffect(() => {
-        if (handleCategorySelect) {
+        if (selectedCategory !== null) {
             setShowAllProductsVisible(true);
         } else {
             setShowAllProductsVisible(false);
         }
-    }, [handleCategorySelect]);
+    }, [selectedCategory]);
 
     return (
         <div className="col-12 col-md-auto mt-4">
@@ -32,15 +32,16 @@ export default function Categories({ handleCategorySelect}) {
                 {showAllProductsVisible && (
                     <ShowAllProducts
                         onClick={() => handleCategorySelect(null)}
-                        selectedCategory={handleCategorySelect}
+                        selectedCategory={selectedCategory}
                     />
                 )}
                 {categories.map((category, index) => (
                     <button
                         key={index}
                         type="button"
-                        className={`list-group-item list-group-item-action w-auto ${handleCategorySelect === category ? 'active' : ''}`}
+                        className={`list-group-item list-group-item-action  w-auto ${selectedCategory === category ? 'active' : ''}`}
                         onClick={() => handleCategorySelect(category)}
+                        disabled={selectedCategory === category}
                     >
                         {formatCategoryName(category)}
                     </button>
