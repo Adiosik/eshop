@@ -12,21 +12,34 @@ export default function CartItem({ item }) {
     }, [item.quantity]);
 
     const handleQuantityChange = (newValue) => {
-        setInputValue(newValue);
-        updateCartProductQuantity(item, newValue);
-    };
-
-    const handleIncrement = () => {
-        handleQuantityChange(inputValue + 1);
-    };
-
-    const handleDecrement = () => {
-        if (inputValue > 1) {
-            handleQuantityChange(inputValue - 1);
+        if (newValue === '' || (Number.isInteger(Number(newValue)) && newValue > 0)) {
+            setInputValue(newValue);
         }
     };
 
-    const remainingStock = item.stock - item.quantity;
+    const handleIncrement = () => {
+        updateCartProductQuantity(item, inputValue + 1);
+    };
+
+    const handleDecrement = () => {
+        updateCartProductQuantity(item, inputValue - 1);
+    };
+
+    const handleBlur = () => {
+        const intValue = parseInt(inputValue, 10);
+        if (isNaN(intValue) || intValue < 1) {
+            setInputValue(1);
+            updateCartProductQuantity(item, 1);
+        } else if (intValue > item.stock) {
+            setInputValue(item.stock);
+            updateCartProductQuantity(item, item.stock);
+        } else {
+            setInputValue(intValue);
+            updateCartProductQuantity(item, intValue);
+        }
+    };
+
+    const remainingStock = item.stock;
 
     const getTotalPriceForProduct = () => {
         return item.price * item.quantity;
@@ -51,6 +64,7 @@ export default function CartItem({ item }) {
                     remainingStock={remainingStock}
                     onIncrement={handleIncrement}
                     onDecrement={handleDecrement}
+                    onBlur={handleBlur}
                 />
                 <button
                     onClick={() => removeAllFromCart(item)} className="btn btn-outline-primary btn-sm">Remove from cart
